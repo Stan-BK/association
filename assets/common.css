@@ -3,7 +3,7 @@ html,body {
   height: 100%;
   margin: 0;
   font-family: "Hiragino Sans GB", "Microsoft Yahei", arial, \5b8b\4f53, "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
-  background-color: rgb(240, 240, 240);
+  background: linear-gradient(#ace5fc, #7beaea 50%, #3db8f1 90%);
 }
 h1,
 h2,

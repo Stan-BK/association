@@ -6,6 +6,7 @@
 <script>
 export default {
   name: 'Subarea',
-  layout: 'base'
+  layout: 'base',
+  
 }
 </script>

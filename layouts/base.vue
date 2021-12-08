@@ -6,7 +6,9 @@
       <user-status></user-status>
     </header>
     <main> 
-      <aside>侧边栏</aside>
+      <aside>
+        <side-bar></side-bar>
+      </aside>
       <article>
         <nuxt />
       </article>
@@ -14,10 +16,7 @@
   </div>
 </template>
 <script>
-import Route from '@/components/header/Route.vue'
-import Logo from '@/components/header/Logo.vue'
-import UserStatus from '@/components/header/UserStatus.vue'
-import '@/assets/common.css'
+import { Route, Logo, UserStatus } from '@/components/header'
 export default {
   components: {
     Route,
@@ -36,24 +35,33 @@ header {
   width: 100%;
   height: 60px;
   background-color: #fff;
-  box-shadow: 0px 2px 2px rgb(233, 233, 233);
+  box-shadow: 0px 2px 10px #7bccf1;
   z-index: 99;
 }
 main {
+  position: relative;
   width: 100%;
   height: 100vh;
   padding: 30px;
   padding-top: 90px;
   box-sizing: border-box;
+  overflow: auto;
 }
 aside {
+  position: sticky;
+  top: 0px;
   width: 200px;
   height: 100%;
-  float: left;
-  border: 1px solid grey;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #fff;
 }
 article {
-  margin-left: 200px;
-  padding: 30px;
+  position: absolute;
+  width: calc(100% - 260px);
+  top: 90px;
+  left: 230px;
+  padding-left: 30px;
+  box-sizing: border-box;             
 }
 </style>

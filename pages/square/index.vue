@@ -5,6 +5,7 @@
 </template>
 <script>
 export default {
-  layout: 'base'
+  layout: 'base',
+  
 }
 </script>
