@@ -7,7 +7,7 @@
 .user-status {
   width: 100px;
   height: 100%;
-  background-color: thistle;
+  background-color: pink;
   float: right;
 }
 </style>

@@ -44,7 +44,6 @@ main {
   height: 100vh;
   padding: 30px;
   padding-top: 90px;
-  box-sizing: border-box;
   overflow: auto;
 }
 aside {
@@ -53,15 +52,15 @@ aside {
   width: 200px;
   height: 100%;
   padding: 10px;
-  box-sizing: border-box;
   background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 2px 2px 10px rgb(86, 204, 238);
 }
 article {
   position: absolute;
   width: calc(100% - 260px);
   top: 90px;
   left: 230px;
-  padding-left: 30px;
-  box-sizing: border-box;             
+  padding-left: 30px;       
 }
 </style>

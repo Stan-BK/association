@@ -57,18 +57,22 @@
 .sub-route {
   position: absolute;
   background-color: #fff;
-  width: 200px;
+  width: 240px;
   top: 120%;
   border-radius: 4px;
   display: none;
+  transition: opacity 5s;
+  opacity: 0;
 }
 .has-sub-route:hover+.sub-route {
   display: flex;
   justify-content: left;
   flex-wrap: wrap;
+  opacity: 1;
 }
 .sub-route:hover {
   display: flex;
+  opacity: 1;
   justify-content: left;
   flex-wrap: wrap;
 }
@@ -85,7 +89,7 @@
   position: absolute;
   content: "";
   display: block;
-  width: 200px;
+  width: 240px;
   height: 12px;
   top: -12px;
   left: 0;
@@ -93,7 +97,7 @@
 }
 .sub-route a {
   display: inline-block;
-  width: 100px;
+  width: 120px;
   height: 60px;
   text-decoration: none;
   line-height: 60px;

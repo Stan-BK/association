@@ -10,10 +10,10 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.3/css/all.min.css'},
+      // { rel: 'stylesheet', href: 'https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.3/css/all.min.css'},
     ],
     script: [
-      // { src: 'https://kit.fontawesome.com/ed4395f916.js' }
+      { src: 'https://kit.fontawesome.com/ed4395f916.js' }
     ]
   },
 
@@ -60,5 +60,10 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+
+  router: {
+  },
+
+  loading: '~/components/Loading.vue',
 }

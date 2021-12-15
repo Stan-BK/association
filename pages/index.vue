@@ -1,20 +1,22 @@
 <template>
   <div class="wrap">
-    <nuxt-link class="path" to="/square">to square</nuxt-link>
+    <nuxt-link to="" class="path" data-link="/square" @click.native.prevent="toNextPath($event)">社团广场</nuxt-link>
     <div 
       v-for="(item, index) of associationArr" 
       :key="item"
       :style="{
         left: Math.random() * 10 + (index % 10) * 10 + '%',
         top: Math.random() * 9 + Math.random() * 70 + '%'
-      }" 
+      }"
       class="a-wrap"
       >
       <nuxt-link 
         to=""
         class="bubble-item"
+        data-link="/subarea"
+        @click.native.prevent="toNextPath($event)"
       >
-        {{item}}
+        {{item.name}}
       </nuxt-link>
     </div>
   </div>
@@ -24,7 +26,28 @@
 export default {
   data() {
     return {
-      associationArr: ['象棋社', '心理协会', '计算机协会', '社团联合会', '舞狮队', '舞蹈社', '电竞社', '女子协会', '粤语协会']
+      num: 0,
+      isLink: false,
+      associationArr: this.$store.state.routes[1].child
+    }
+  },
+  methods: {
+    toNextPath(e) {
+      // 添加过渡动画
+      e.target.className += ' link'
+      this.toNextPath = function() {}
+      setTimeout(() => {
+        this.$nextTick(() => {
+          // 跳转到相应路由，传入完成loading组件的回调函数
+          this.$router.push({
+            path: e.target.dataset.link,
+          }, () => {
+            this.$store.commit('SET_FROMHOME')
+            this.$nuxt.$loading.start()
+            this.$nuxt.$loading.finish()
+          })
+        })
+      }, 800)
     }
   }
 }
@@ -46,7 +69,7 @@ export default {
   text-align: center;
   line-height: 200px;
   border: 1px solid /*#059be0*/ #b3d7f8;
-  animation: move 3s infinite linear;
+  animation: move 4s infinite linear;
   text-decoration: none;
   box-shadow: inset 1px 1px 10px #afc3fada;
   color: #eeeeee;
@@ -61,7 +84,6 @@ export default {
 }
 .path:hover {
   color: #fff;
-  font-size: 1.1em;
   transform: scale(1.2, 1.2);
 }
 .path:active {
@@ -132,6 +154,7 @@ export default {
   transition: all .4s;
   transform: scale(1, 1);
   user-select: none;
+  z-index: 9;
 }
 .a-wrap:nth-child(odd) {
   animation: item-move 3s infinite linear;
@@ -176,13 +199,13 @@ export default {
     transform: translateY(0);
   }
   25% {
-    transform: translateY(3px);
+    transform: translateY(4px);
   }
   50% {
     transform: translateY(0);
   }
   75% {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
   }
   100% {
     transform: translateY(0);
@@ -190,19 +213,19 @@ export default {
 }
 @keyframes item-move2 {
   0% {
-    transform: translateY(3px);
+    transform: translateY(4px);
   }
   25% {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
   }
   75% {
     transform: translateY(0);
   }
   100% {
-    transform: translateY(3px);
+    transform: translateY(4px);
   }
 }
 @keyframes scale {
@@ -211,6 +234,22 @@ export default {
   }
   to {
     transform: scale(1.1, 1.1);
+  }
+}
+
+.link {
+    font-size: 0em;
+  animation: bubble 1s;
+}
+@keyframes bubble {
+  10% {
+    transform: scale(1, 1);
+    font-size: 0em;
+    opacity: 1;
+  }
+  100% {
+    transform: scale(10, 10);
+    opacity: .2 ;
   }
 }
 </style>

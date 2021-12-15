@@ -13,7 +13,7 @@ export default {
   data() {
     return {
       bar_item: ['特别关注', '消息', '收藏', '设置'],
-      carousel_item: ['red', 'green', 'yellow'],
+      carousel_item: ['red', 'green', 'yellow', 'pink'],
       activeItem: 0,
       t: undefined
     }
@@ -58,7 +58,6 @@ export default {
   padding: 10px;
   padding-left: 25px;
   line-height: 10px;
-  box-sizing: border-box;
   margin-bottom: 2px;
   transition: font-size .2s;
   cursor: pointer;
@@ -83,7 +82,6 @@ export default {
   padding: 10px;
   height: calc(100% - 147px);
   margin-top: 20px;
-  box-sizing: border-box;
 }
 .carousel-item {
   position: absolute;
