@@ -59,7 +59,7 @@ export default {
   padding-left: 25px;
   line-height: 10px;
   margin-bottom: 2px;
-  transition: font-size .2s;
+  transition: all .2s;
   cursor: pointer;
 }
 .bar-list li:hover {
@@ -92,6 +92,7 @@ export default {
   left: 0;
   text-align: center;
   cursor: pointer;
+  border-radius: 2px;
 }
 .active-class {
   display: block;

@@ -1,6 +1,15 @@
 <template>
   <div>
-    This is child 'subarea'
+    <Announcement :info="{
+        follow: true
+      }">
+      <template #title>
+        ...
+      </template>
+      <template #info>
+        用户
+      </template>
+    </Announcement>
   </div>
 </template>
 <script>

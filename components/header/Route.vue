@@ -22,7 +22,6 @@
   position: relative;
   width: 60px;
   height: 100%;
-  padding-left: 5px;
   float: left;
 }
 .route-list li>a {
@@ -63,6 +62,7 @@
   display: none;
   transition: opacity 5s;
   opacity: 0;
+  box-shadow: 1px 1px 10px #7bccf120, -1px 1px 10px #7bccf120;
 }
 .has-sub-route:hover+.sub-route {
   display: flex;

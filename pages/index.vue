@@ -62,12 +62,12 @@ export default {
 .path {
   position: absolute;
   display: block;
-  width: 200px;
-  height: 200px;
+  width: 225px;
+  height: 225px;
   border-radius: 50%;
   background: transparent;
   text-align: center;
-  line-height: 200px;
+  line-height: 225px;
   border: 1px solid /*#059be0*/ #b3d7f8;
   animation: move 4s infinite linear;
   text-decoration: none;
@@ -79,7 +79,6 @@ export default {
   right: 0;
   bottom: 0;
   margin: auto;
-  z-index: 99;
   user-select: none;
 }
 .path:hover {
@@ -95,8 +94,8 @@ export default {
   display: block;
   width: 0px;
   height: 0px;
-  top: 25px;
-  left: 25px;
+  top: 30px;
+  left: 30px;
   border-top: 30px #ffffff80 solid;
   border-left: 25px #ffffff80 solid;
   border-right: 25px #ffffff80 solid;
@@ -109,8 +108,8 @@ export default {
   display: block;
   width: 0px;
   height: 0px;
-  right: 30px;
-  bottom: 30px;
+  right: 35px;
+  bottom: 35px;
   border-top: 20px #ffffff4d solid;
   border-left: 5px #ffffff4d solid;
   border-right: 5px #ffffff4d solid;

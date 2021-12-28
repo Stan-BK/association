@@ -1,14 +1,14 @@
 <template>
   <div class="article">
     <div class="article-header">
-      <slot name="title"><h1>This is Title</h1></slot>
+      <h1 class="title"><slot name="title">This is Title</slot></h1>
     </div>
     <div class="article-content">
       <slot><p>This is content</p></slot>
     </div>
     <div class="article-footer">
       <div class="input-wrap">
-        <my-input></my-input>
+        <my-input placeholder="请输入内容" btn="'has'"></my-input>
       </div>
       <div class="utils-wrap">      
         <i class="fa fa-thumbs-up" aria-hidden="true" @click="thumb($event)"></i>
@@ -48,19 +48,48 @@ export default {
 </script>
 <style scoped>
 .article {
+  position: relative;
   width: 100%;
   min-width: 500px;
-  background-color: #fff;
+  background-color: rgb(236, 250, 253);
   padding: 30px;
   margin-bottom: 20px;
   border-radius: 2px;
   box-shadow: 2px 2px 10px rgb(86, 204, 238);
+  overflow: hidden;
+}
+.article::before {
+  position: absolute;
+  display: block;
+  content: "";
+  width: 100%;
+  height: 90px;
+  left: 0;
+  top: 0;
+  background-color: #fff;
+  border-bottom-left-radius: 50px;
+}
+.article::after {
+  position: absolute;
+  display: block;
+  content: "";
+  width: 20%;
+  border-bottom: 20px dotted black;
+  left: 0;
+  top: -10px;
 }
 
 .article-header {
+  position: relative;
   width: 100%;
   padding: 20px;
   margin-bottom: 20px;
+}
+
+.title {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .article-content {

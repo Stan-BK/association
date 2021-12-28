@@ -34,7 +34,7 @@ header {
   position: fixed;
   width: 100%;
   height: 60px;
-  background-color: #fff;
+  background-color: rgb(236, 250, 253);
   box-shadow: 0px 2px 10px #7bccf1;
   z-index: 99;
 }
@@ -52,7 +52,7 @@ aside {
   width: 200px;
   height: 100%;
   padding: 10px;
-  background-color: #fff;
+  background-color: rgb(236, 250, 253);
   border-radius: 2px;
   box-shadow: 2px 2px 10px rgb(86, 204, 238);
 }
@@ -61,6 +61,7 @@ article {
   width: calc(100% - 260px);
   top: 90px;
   left: 230px;
-  padding-left: 30px;       
+  padding-right: 30px;    
+  padding-left: 60px;       
 }
 </style>
