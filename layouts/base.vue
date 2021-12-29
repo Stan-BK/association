@@ -51,6 +51,7 @@ aside {
   top: 0px;
   width: 200px;
   height: 100%;
+  max-height: 600px;
   padding: 10px;
   background-color: rgb(236, 250, 253);
   border-radius: 2px;

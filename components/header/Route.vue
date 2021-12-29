@@ -59,22 +59,33 @@
   width: 240px;
   top: 120%;
   border-radius: 4px;
-  display: none;
-  transition: opacity 5s;
+  display: flex;
+  justify-content: left;
+  flex-wrap: wrap;
+  transition: opacity .5s;
   opacity: 0;
   box-shadow: 1px 1px 10px #7bccf120, -1px 1px 10px #7bccf120;
+  pointer-events: none;
 }
 .has-sub-route:hover+.sub-route {
-  display: flex;
-  justify-content: left;
-  flex-wrap: wrap;
+  pointer-events: auto;
   opacity: 1;
 }
+.has-sub-route:hover+.sub-route div {
+  height: 60px;
+}
+.has-sub-route:hover+.sub-route a {
+  height: 60px;
+}
 .sub-route:hover {
-  display: flex;
+  pointer-events: auto;
   opacity: 1;
-  justify-content: left;
-  flex-wrap: wrap;
+}
+.sub-route:hover div {
+  height: 60px;
+}
+.sub-route:hover a {
+  height: 60px;
 }
 .sub-route::before {
   position: absolute;
@@ -95,14 +106,19 @@
   left: 0;
   background-color: transparent;
 }
+.sub-route div {
+  height: 0px;
+  transition: all .5s;
+}
 .sub-route a {
   display: inline-block;
   width: 120px;
-  height: 60px;
+  height: 0px;
   text-decoration: none;
   line-height: 60px;
   color: #424242;
-  transition: color .2s;
+  transition: all .2s;
+  overflow: hidden;
   text-align: center;
 }
 .sub-route a:hover {

@@ -61,6 +61,7 @@ export default {
   margin-bottom: 2px;
   transition: all .2s;
   cursor: pointer;
+  color: #666;
 }
 .bar-list li:hover {
   font-size: 1.1em;

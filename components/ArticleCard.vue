@@ -2,8 +2,8 @@
   <div class="article-card">
     <div class="photo">
       <div class="shadow"></div>
-      <div v-if="!article.photo" class="no-photo">No photo</div>
-      <img v-else :src="article.photo" />
+      <div v-if="!imgLoad" class="no-photo">No photo</div>
+      <img v-else :src="article.photo" @error="imgLoadError" />
     </div>
     <div class="article-info">
       <div class="title"><span>{{article.title}}</span></div>
@@ -34,13 +34,17 @@ export default {
   },
   data() {
     return {
-      articles: {
-          title: '文章标题',
-          content: '文章内容',
-          comment: '评论'
-        }
+      imgLoad: false
     }
   },
+  created() {
+    this.imgLoad = !!this.article.photo
+  },
+  methods: {
+    imgLoadError() {
+      this.imgLoad = false
+    }
+  }
 }
 </script>
 <style scoped>
@@ -86,6 +90,7 @@ export default {
 }
 .article-card:hover .photo {
   transform: scale(1.1, 1.1);
+  filter: blur(1px);
 }
 
 .no-photo {
@@ -178,6 +183,6 @@ export default {
   align-items: center;
   justify-content: center;
   font-size: .2em;
-  color: #424242;
+  color: #666;
 }
 </style>
