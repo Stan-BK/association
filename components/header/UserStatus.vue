@@ -30,14 +30,17 @@ export default {
   float: right;
 }
 .avatar {
+  display: flex;
   float: left;
   width: 60px;
   height: 100%;
   padding: 2px;
+  align-items: center;
+  justify-content: center;
 }
 .avatar img {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   border-radius: 20%;
 }
 .no-avatar {

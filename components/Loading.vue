@@ -15,7 +15,7 @@
       },
       finish() {
         if (this.$store.state.fromHome) {
-          this.$store.commit('SET_FROMHOME')
+          this.$store.commit('SET_FROMHOME') // 改变首次进入变量标识
           this.isOut = true
           setTimeout(() => {
             this.$nextTick(() => {

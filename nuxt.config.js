@@ -63,6 +63,7 @@ export default {
   },
 
   router: {
+    middleware: 'route'
   },
 
   loading: '~/components/Loading.vue',

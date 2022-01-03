@@ -1,15 +1,6 @@
 <template>
   <div>
-    <Announcement :info="{
-        follow: true
-      }">
-      <template #title>
-        ...
-      </template>
-      <template #info>
-        用户
-      </template>
-    </Announcement>
+    <announcement-card></announcement-card>
   </div>
 </template>
 <script>

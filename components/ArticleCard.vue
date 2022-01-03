@@ -55,7 +55,7 @@ export default {
   height: 300px;
   min-width: 200px;
   max-width: 225px;
-  margin: 10px 10px;
+  margin: 0 10px 10px;
   cursor: pointer;
   box-shadow: 2px 2px 10px rgb(86, 204, 238);
   border-radius: 3px;

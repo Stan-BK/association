@@ -1,17 +1,17 @@
 <template>
-  <div class="notice-card">
+  <div class="announcement-card">
     <div class="photo">
       <i class="fa fa-bell-o fa-5x bell" aria-hidden="true"></i>
     </div>
-    <div class="notice-info">
-      <div class="title"><span>{{notice.title}}</span></div>
-      <div ref="content" class="content">{{notice.content}}</div>
+    <div class="announcement-info">
+      <div class="title"><span>{{announcement.title}}</span></div>
+      <div ref="content" class="content">{{announcement.content}}</div>
       <div class="author">
         <div class="avatar">
-          <div v-if="!notice.avatar" class="no-avatar"><i class="fa fa-user-o" aria-hidden="true"></i></div>
-          <img :src="notice.avatar">
+          <div v-if="!announcement.avatar" class="no-avatar"><i class="fa fa-user-o" aria-hidden="true"></i></div>
+          <img :src="announcement.avatar">
         </div>
-          {{notice.author}}
+          {{announcement.author}}
         </div>
     </div>
   </div>
@@ -19,7 +19,7 @@
 <script>
 export default {
   props: {
-    notice: {
+    announcement: {
       type: Object,
       default: () => {
         return {
@@ -33,7 +33,7 @@ export default {
 }
 </script>
 <style scoped>
-.notice-card {
+.announcement-card {
   position: relative;
   display: inline-block;
   width: 30%;
@@ -48,7 +48,7 @@ export default {
   overflow: hidden;
   color: #666;
 }
-.notice-card::after {
+.announcement-card::after {
   position: absolute;
   display: block;
   content: "公告";
@@ -61,13 +61,13 @@ export default {
   background-color: rgb(61, 184, 240);
   transform: rotate(-45deg);
 }
-.notice-card:hover {
+.announcement-card:hover {
   box-shadow: 2px 2px 10px rgb(38, 201, 247), -2px 2px 10px rgb(38, 201, 247);
 }
-.notice-card:hover .photo {
+.announcement-card:hover .photo {
   animation: rotate ease-in-out .6s .3s 1 ;
 }
-.notice-card:hover .bell {
+.announcement-card:hover .bell {
   color: #fff;
 }
 @keyframes rotate {
@@ -104,7 +104,7 @@ export default {
   transition: all .5s;
 }
 
-.notice-info {
+.announcement-info {
   position: absolute;
   width: 100%;
   height: 100px;
