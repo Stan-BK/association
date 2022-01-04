@@ -53,9 +53,11 @@ export default {
         } else {
           setTimeout(() => {
             this.$store.dispatch('article/getArticles').then(() => {
+              setTimeout(() => {
                 if (this.$store.state.isBottom) { // 如果当前内容为填充满视口，则继续请求内容
                   loadContent()
                 }
+              }, 500)
             })
           }, 500)
         }
