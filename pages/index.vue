@@ -42,7 +42,7 @@ export default {
           this.$router.push({
             path: e.target.dataset.link,
           }, () => {
-            this.$store.commit('SET_FROMHOME')
+            this.$store.commit('SET_fromHome')
             this.$nuxt.$loading.start()
             this.$nuxt.$loading.finish()
           })

@@ -12,7 +12,7 @@
       <article>
         <nuxt />
         <div ref="bottom" v-show="isNeedIntersection">
-          <div class="load" v-if="!noMoreInfo">
+          <div class="load" v-if="!$store.state.article.noArticle">
             <i class="fa fa-circle-o-notch fa-spin fa-3x" aria-hidden="true"></i>
           </div>
           <div class="end" v-else>
@@ -24,7 +24,7 @@
   </div>
 </template>
 <script>
-import observerBottom from '../utils/Intersection'
+import { observeElement, unobserveElement } from '../utils/Intersection'
 import { Route, Logo, UserStatus } from '@/components/header'
 
 export default {
@@ -35,7 +35,6 @@ export default {
   },
   data() {
     return {
-      noMoreInfo: false
     }
   },
   computed: {
@@ -44,24 +43,27 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit('SET_FIRSTIN_FALSE') // 用户刷新页面时，重置底部加载功能
-    observerBottom(() => {
-      if (this.$route.name === 'square' || this.$route.name === 'subarea') {
-        if (this.$store.state.firstIn && !this.noMoreInfo) { // 从其他页面跳转入多文章页面取消首次底部加载
-          this.$store.commit('SET_FIRSTIN_FALSE')
+    this.$store.commit('SET_firstIn_false') // 用户刷新页面时，重置底部加载功能
+    const loadContent = () => {
+      if (this.$store.state.article.noArticle === true) {
+        unobserveElement(this.$refs.bottom) // 没有更多文章时取消Intersection Observer
+      } else if (this.$route.name === 'square' || this.$route.name === 'subarea') {
+        if (this.$store.state.firstIn) { // 从其他页面跳转入多文章页面避免底部加载
+          this.$store.commit('SET_firstIn_false')
         } else {
           setTimeout(() => {
-            this.$store.commit('article/SET_ARTICLES')
-          }, 1000)
-          // this.noMoreInfo = true
+            this.$store.dispatch('article/getArticles').then(() => {
+                if (this.$store.state.isBottom) { // 如果当前内容为填充满视口，则继续请求内容
+                  loadContent()
+                }
+            })
+          }, 500)
         }
       }
-    }, this.$refs.bottom, null)
+    }
+    observeElement(loadContent, this.$refs.bottom, null, this.$store)
   },
   methods: {
-    showroute() {
-      console.log(this.$route)
-    }
   }
 }
 </script>
@@ -114,5 +116,6 @@ article {
   color: #6666;
   padding: 30px 0;
   text-align: center;
+  user-select: none;
 }
 </style>
