@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <nuxt-link to="" class="path" data-link="/square" @click.native.prevent="toNextPath($event)">社团广场</nuxt-link>
+    <nuxt-link to="" class="path" data-link="/square/article" @click.native.prevent="toNextPath($event)">社团广场</nuxt-link>
     <div 
       v-for="(item, index) of associationArr" 
       :key="item"

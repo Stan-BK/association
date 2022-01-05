@@ -13,7 +13,7 @@ h5,
 h6 { 
   margin: 0;
 }
-ul {
+ul, p {
   padding: 0;
   margin: 0;
 }
@@ -27,4 +27,22 @@ li {
   content: "";
   display: block;
   clear: both;
+}
+
+/* 组件过渡样式 */
+.test-enter-active,
+.test-leave-active {
+  transition: opacity 0.5s;
+}
+.test-enter,
+.test-leave-active {
+  opacity: 0;
+}
+@keyframes slide-in {
+  0% {
+    transform: translate(100%,0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
 }
