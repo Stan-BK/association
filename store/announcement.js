@@ -6,7 +6,11 @@ const state = () => {
       author: '作者',
       title: '公告',
       content: '公告内容'
-    }]
+    },{
+      author: '作者',
+      title: '公告',
+      content: '公告内容'
+    } ]
   }
 }
 
@@ -19,13 +23,23 @@ const mutations = {
 }
 
 const actions = {
-  getAnnouncements({ commit }) {
+  getAnnouncements({ state, commit }) {
     return new Promise((resolve, reject) => {
       this.$axios.$get('https://www.baidu.com/').then(() => {
         commit('SET_announcements')
+        if (!state.announcements_data.length) {
+          commit('SET_noMore_true', undefined, {
+            root: true
+          })
+        }
         resolve()
       }).catch(() => {
         commit('SET_announcements')
+        if (!state.announcements_data.length) {
+          commit('SET_noMore_true', undefined, {
+            root: true
+          })
+        }
         resolve()
       })
     })

@@ -209,7 +209,8 @@ const state = () => {
 }
 
 const mutations = {
-  SET_articles: (state) => {
+  SET_articles: (...args) => {
+    const [ state ] = args
     state.articles.push(...state.articles_data.splice(0, 5))
     if (!state.articles_data.length)
       state.noArticle = true
@@ -217,13 +218,23 @@ const mutations = {
 }
 
 const actions = {
-  getArticles({ commit }) {
+  getArticles({ state, commit }) {
     return new Promise((resolve, reject) => {
       this.$axios.$get('https://www.baidu.com/').then(() => {
         commit('SET_articles')
+        if (!state.articles_data.length) {
+          commit('SET_noMore_true', undefined, {
+            root: true
+          })
+        }
         resolve()
       }).catch(() => {
         commit('SET_articles')
+        if (!state.articles_data.length) {
+          commit('SET_noMore_true', undefined, {
+            root: true
+          })
+        }
         resolve()
       })
     })
