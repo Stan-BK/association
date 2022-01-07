@@ -11,36 +11,29 @@
       </aside>
       <article>
         <nuxt />
-        <div v-show="isNeedIntersection" ref="bottom">
-          <div v-if="!$store.state.article.noArticle" class="load">
-            <i class="fa fa-circle-o-notch fa-spin fa-3x" aria-hidden="true"></i>
-          </div>
-          <div v-else class="end">
-            已经到底了~
-          </div>
-        </div>
+        <intersection :is-need-intersection="isNeedIntersection"></intersection>
       </article>
       <nav v-if="isNeedIntersection">
-        <p class="bell">
-          <i class="fa fa-bell-o bell" aria-hidden="true"></i>
-        </p>
-        <p class="bell-tag">公告</p>
+        <nuxt-link class="bell" to="/square/announcement">
+          <svg t="1641441435209" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4886" width="32" height="32"><path d="M342 391.1h24.7v180.4H342z" fill="#3DB8F0" p-id="4887"></path><path d="M404.6 711.5c-0.4 3.7-0.6 7.5-0.6 11.2v70c0 59.7 48.4 108 108 108 59.7 0 108-48.4 108-108v-70c0-3.8-0.2-7.5-0.6-11.2H404.6z m0 0" fill="#3DB8F0" p-id="4888"></path><path d="M512 923.9c-72.3 0-131.1-58.8-131.1-131.1v-70c0-4.5 0.2-9.1 0.7-13.6 1.2-11.8 11.1-20.7 23-20.7h214.9c11.8 0 21.8 8.9 23 20.7 0.5 4.5 0.7 9.1 0.7 13.6v70c-0.1 72.3-58.9 131.1-131.2 131.1z m-84.9-189.3v58.1c0 46.8 38.1 84.9 84.9 84.9 46.8 0 84.9-38.1 84.9-84.9v-58.1H427.1z m148-477.2c-0.8 0-1.6 0-2.4-0.1-12.7-1.3-21.9-12.7-20.6-25.4 0.1-1.4 0.2-2.8 0.2-4.2v-41.1c0-22.2-18.1-40.3-40.3-40.3-22.2 0-40.3 18.1-40.3 40.3v41.1c0 1.4 0.1 2.8 0.2 4.2 1.3 12.7-7.9 24.1-20.6 25.4-12.7 1.3-24.1-7.9-25.4-20.6-0.3-3-0.5-6-0.5-9v-41.1c0-47.7 38.8-86.5 86.5-86.5s86.5 38.8 86.5 86.5v41.1c0 3-0.2 6-0.5 9-1.1 11.9-11.1 20.7-22.8 20.7z m0 0" fill="#3DB8F0" p-id="4889"></path><path d="M756.7 616.9c-12.8 0-23.1-10.3-23.1-23.1V481.3c0-122.2-99.4-221.6-221.6-221.6-122.2 0-221.6 99.4-221.6 221.6v112.5c0 12.8-10.3 23.1-23.1 23.1s-23.1-10.3-23.1-23.1V481.3c0-147.7 120.2-267.8 267.8-267.8 147.7 0 267.9 120.2 267.9 267.8v112.5c0 12.8-10.4 23.1-23.2 23.1z m0 0" fill="#3DB8F0" p-id="4890"></path><path d="M168.3 677h687.5v113.6H168.3z" fill="#3DB8F0" p-id="4891"></path><path d="M855.7 813.7H168.3c-12.8 0-23.1-10.3-23.1-23.1V677c0-12.8 10.3-23.1 23.1-23.1h687.5c12.8 0 23.1 10.4 23.1 23.1v113.6c0 12.8-10.4 23.1-23.2 23.1z m-664.3-46.2h641.3v-67.4H191.4v67.4z m0 0" fill="#3DB8F0" p-id="4892"></path></svg>
+        </nuxt-link>
         <div :class="['to-top', isToTop ? 'to-top-animation': '']" :style="{ 'display': hasScroll ? 'flex': 'none' }" title="回到顶部" @click="toTop">
-          <i class="fa fa-rocket" style="color: rgb(99, 215, 237)" aria-hidden="true"></i>
+          <i class="fa fa-rocket" style="color: rgb(61, 184, 240); transform: scale(1.4, 1.4);" aria-hidden="true"></i>
         </div>
       </nav>
     </main>
   </div>
 </template>
 <script>
-import { observeElement, unobserveElement } from '../utils/Intersection'
 import { Route, Logo, UserStatus } from '@/components/header'
+import Intersection from '~/components/Intersection.vue'
 
 export default {
   components: {
     Route,
     Logo,
-    UserStatus
+    UserStatus,
+    Intersection
   },
   data() {
     return {
@@ -52,30 +45,12 @@ export default {
   computed: {
     isNeedIntersection() { // 仅多文章页面需要触底加载功能
       return this.$route.name.slice(0, 6) === 'square' || this.$route.name === 'subarea'
+    },
+    routeName() {
+      let route = this.$route.name.split('-')[1]
+      route = route ? route[0].toUpperCase() + route.slice(1) : ''
+      return route
     }
-  },
-  mounted() {
-    this.$store.commit('SET_firstIn_false') // 用户刷新页面时，重置底部加载功能
-    const loadContent = () => {
-      if (this.$store.state.article.noArticle === true) {
-        unobserveElement(this.$refs.bottom) // 没有更多文章时取消Intersection Observer
-      } else if (this.$route.name.slice(0, 6) === 'square' || this.$route.name === 'subarea') {
-        if (this.$store.state.firstIn) { // 从其他页面跳转入多文章页面避免底部加载
-          this.$store.commit('SET_firstIn_false')
-        } else {
-          setTimeout(() => {
-            this.$store.dispatch('article/getArticles').then(() => {
-              setTimeout(() => { // 延时等待视图更新
-                if (this.$store.state.isBottom) { // 如果当前内容为填充满视口，则递归继续请求内容
-                  loadContent()
-                }
-              }, 500)
-            })
-          }, 500)
-        }
-      }
-    }
-    observeElement(loadContent, this.$refs.bottom, null, this.$store) // 启用Intersection Observer
   },
   methods: {
     toTop() {
@@ -142,8 +117,8 @@ article {
 nav {
   position: fixed;
   width: 50px;
-  height: 200px;
-  top: 50%;
+  height: 150px;
+  top: 60%;
   right: 30px;
   /* overflow: hidden; */
 }
@@ -151,15 +126,17 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 100%;
+  height: 50px;
   overflow: hidden;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: background-color .5s;
+  box-shadow: 1px 1px 5px rgb(159, 221, 244);
+  cursor: pointer;
 }
-.bell-tag {
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  overflow: hidden;
+.bell:hover {
+  background-color: #eee;
 }
 .to-top {
   display: flex;
@@ -168,11 +145,11 @@ nav {
   width: 100%;
   height: 50px;
   transform: rotate(-45deg);
-  border: 1px solid #fff;
   background-color: #fff;
   margin-top: 20px;
   border-radius: 50%;
   transition: background-color .5s;
+  box-shadow: 1px 1px 5px rgb(159, 221, 244);
   overflow: hidden;
   cursor: pointer;
 }
@@ -201,20 +178,5 @@ nav {
   100% {
     transform: translate(0px);
   }
-}
-.load {
-  position: relative;
-  text-align: center;
-  color: #6667;
-}
-.end {
-  position: relative;
-  width: 100%;
-  height: 20px;
-  bottom: 20px;
-  color: #6666;
-  padding: 30px 0;
-  text-align: center;
-  user-select: none;
 }
 </style>

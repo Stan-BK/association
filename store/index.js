@@ -7,7 +7,7 @@ const state = () => {
     isBottom: false, // 记录当前加载内容是否足以填充视口到底部
     routes: [
       {
-      path: '/square',
+      path: '/square/article',
       name: '首页'
       },
       {

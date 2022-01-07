@@ -13,7 +13,7 @@
       <nuxt-link 
         to=""
         class="bubble-item"
-        data-link="/subarea"
+        data-link="/subarea/article"
         @click.native.prevent="toNextPath($event)"
       >
         {{item.name}}
