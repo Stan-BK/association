@@ -16,7 +16,7 @@ const state = () => {
 
 const mutations = {
   SET_announcements: (state) => {
-    state.announcements.push(...state.announcements_data.splice(0, 5))
+    state.announcements.push(...state.announcements_data.splice(0, 6))
     if (!state.announcements_data.length)
       state.noAnnouncement = true
   }

@@ -211,7 +211,7 @@ const state = () => {
 const mutations = {
   SET_articles: (...args) => {
     const [ state ] = args
-    state.articles.push(...state.articles_data.splice(0, 5))
+    state.articles.push(...state.articles_data.splice(0, 8))
     if (!state.articles_data.length)
       state.noArticle = true
   }

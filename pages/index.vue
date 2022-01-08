@@ -1,6 +1,8 @@
 <template>
   <div class="wrap">
-    <nuxt-link to="" class="path" data-link="/square/article" @click.native.prevent="toNextPath($event)">社团广场</nuxt-link>
+    <div class="home-wrap">
+      <nuxt-link to="" class="bubble-home" data-link="/square/article" @click.native.prevent="toNextPath($event)">社团广场</nuxt-link>
+    </div>
     <div 
       v-for="(item, index) of associationArr" 
       :key="item"
@@ -59,36 +61,43 @@ export default {
   height: 100vh;
   overflow: hidden;
 }
-.path {
+.home-wrap {
   position: absolute;
   display: block;
   width: 225px;
   height: 225px;
-  border-radius: 50%;
-  background: transparent;
-  text-align: center;
-  line-height: 225px;
-  border: 1px solid /*#059be0*/ #b3d7f8;
-  animation: move 4s infinite linear;
-  text-decoration: none;
-  box-shadow: inset 1px 1px 10px #afc3fada;
-  color: #eeeeee;
-  transition: all .4s;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
   margin: auto;
+  transition: all .4s;
+  animation: move 4s infinite linear;
+}
+.bubble-home {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: transparent;
+  text-align: center;
+  line-height: 225px;
+  border: 1px solid /*#059be0*/ #b3d7f8;
+  text-decoration: none;
+  box-shadow: inset 1px 1px 10px #afc3fada;
+  color: #eeeeee;
+  transition: all .4s;
   user-select: none;
 }
-.path:hover {
+.bubble-home:hover {
   color: #fff;
   transform: scale(1.2, 1.2);
 }
-.path:active {
+.bubble-home:active {
   color: #ffffff4d;
 }
-.path::before {
+.bubble-home::before {
   position: absolute;
   content: "";
   display: block;
@@ -102,7 +111,7 @@ export default {
   border-radius: 50%;
   transform: rotate(-45deg);
 }
-.path::after {
+.bubble-home::after {
   position: absolute;
   content: "";
   display: block;
@@ -137,13 +146,15 @@ export default {
   position: absolute;
   display: block;
   transition: all 2s;
+  width: 150px;
+  height: 150px;
 }
 .bubble-item {
   position: absolute;
   display: block;
-  width: 150px;
-  height: 150px;
-  color: #eeeeee;
+  width: 100%;
+  height: 100%;
+  color: #eee;
   text-align: center;
   line-height: 150px;
   border: 1px solid #b3d7f83f;
@@ -158,7 +169,7 @@ export default {
 .a-wrap:nth-child(odd) {
   animation: item-move 3s infinite linear;
 }
-.a-wrap::nth-child(even) {
+.a-wrap:nth-child(even) {
   animation: item-move2 3s infinite linear;
 }
 .bubble-item:hover {
@@ -227,15 +238,6 @@ export default {
     transform: translateY(4px);
   }
 }
-@keyframes scale {
-  form {
-    transform: scale(1, 1);
-  }
-  to {
-    transform: scale(1.1, 1.1);
-  }
-}
-
 .link {
     font-size: 0em;
   animation: bubble 1s;
@@ -249,6 +251,18 @@ export default {
   100% {
     transform: scale(10, 10);
     opacity: .2 ;
+  }
+}
+@media screen and (max-width: 767px) {
+  .bubble-home {
+    transform: scale(.8, .8);
+  }
+  .bubble-item {
+    transform: scale(.8, .8) translate(-50px, 0);
+  }
+  .bubble-item:hover {
+    transform: scale(1.1, 1.1) translate(-50px, 0);
+    color: #fff;
   }
 }
 </style>

@@ -25,9 +25,17 @@ export default {
     }
   },
   mounted() {
+    this.$store.commit('SET_firstIn_false')
     const loadContent = () => {
       const route = this.routeName
-      if (route === 'Article' || route === 'Announcement') {
+      if (this.$store.state.firstIn) {
+        this.$store.commit('SET_firstIn_false')
+        setTimeout(() => { // 延时等待视图更新
+          if (this.$store.state.isBottom) { // 如果当前内容未填充满视口，则递归继续请求内容
+            loadContent()
+          }
+        }, 500)
+      } else if (route === 'Article' || route === 'Announcement') {
         this.$store.dispatch(`${route.toLowerCase()}/get${route}s`).then(() => {
           setTimeout(() => { // 延时等待视图更新
             if (this.$store.state.isBottom) { // 如果当前内容未填充满视口，则递归继续请求内容
