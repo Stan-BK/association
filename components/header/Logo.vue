@@ -11,8 +11,14 @@ export default {
 }
 </script>
 <style scoped>
+@media screen and (max-width: 767px) {
+  .logo {
+    display: none;
+  }
+}
 .logo {
   float: left;
+  margin: 0 10px;
 }
 .logo a {
   width: 200px;

@@ -87,10 +87,10 @@ export default {
 .carousel-item {
   position: absolute;
   display: none;
-  width: 100%;
+  width: calc(100% - 20px);
   height: 100%;
   top: 0;
-  left: 0;
+  left: 10px;
   text-align: center;
   cursor: pointer;
   border-radius: 2px;

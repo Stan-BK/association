@@ -56,4 +56,10 @@ export default {
   line-height: 60px;
   padding: 0 20px 0 10px;
 }
+
+@media screen and (max-width: 767px) {
+  .user {
+    display: none;
+  }
+}
 </style>

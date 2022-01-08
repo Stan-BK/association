@@ -50,11 +50,7 @@ const state = () => {
             name: '粤语协会'
           }
         ]
-      },
-      {
-        path: '/square',
-        name: '首页'
-      },
+      }
   ]
   }
 }
