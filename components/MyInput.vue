@@ -27,10 +27,12 @@ export default {
   border-radius: 2px;
   padding-left: 10px;
   padding-right: 10px;
-  transition: border-color .5s;
+  transition: all .5s;
+  box-shadow: 1px 1px 1px transparent;  
 }
 .my-input:focus {
   border-color: rgb(103, 218, 236);
+  box-shadow: 1px 1px 5px rgb(134, 230, 236);
 }
 .has-btn {
   padding-right: 60px;
@@ -42,12 +44,16 @@ export default {
   height: 20px;
   right: 5px;
   top: 5px;
-  transition: background-color .5s;
+  color: #424242;
+  background-color: rgb(236, 250, 253);
+  transition: all .5s;
   cursor: pointer;
   border: none;
-  border-radius: 2px;
+  border-radius: 1px;
+  box-shadow: 1px 1px 1px #aaaaaa;  
 }
 .btn:hover {
   background-color: rgb(134, 230, 236);
+  box-shadow: 1px 1px 5px rgba(134, 230, 236, .8);
 }
 </style>

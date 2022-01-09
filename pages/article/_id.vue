@@ -1,6 +1,6 @@
 <template>
   <div>
-      <Article>
+      <Article :article="article">
         <template #title>
           {{article.title}}
         </template>
