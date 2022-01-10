@@ -14,6 +14,7 @@ export default {
 <style scoped>
 .logo {
   float: left;
+  height: 60px;
   padding: 0 10px;
 }
 .logo a {
