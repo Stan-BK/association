@@ -1,7 +1,7 @@
 <template>
   <div class="my-input-wrap">
     <input type="text" :class="['my-input', btn ? 'has-btn' : '']">
-    <button class="btn" v-if="btn">{{ btn }}</button>
+    <button v-if="btn" class="btn">{{ btn }}</button>
   </div>
 </template>
 <script>
@@ -10,6 +10,10 @@ export default {
     btn: {
       type: String,
       default: ''
+    },
+    btnColor: {
+      type: String,
+      default: 'rgb(236, 250, 253)'
     }
   }
 }
@@ -50,10 +54,11 @@ export default {
   cursor: pointer;
   border: none;
   border-radius: 1px;
-  box-shadow: 1px 1px 1px #aaaaaa;  
+  box-shadow: 1px 1px 2px #eee;  
 }
 .btn:hover {
   background-color: rgb(134, 230, 236);
+  transform: scale(1.1, 1.1);
   box-shadow: 1px 1px 5px rgba(134, 230, 236, .8);
 }
 </style>
