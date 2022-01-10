@@ -17,7 +17,7 @@ export default {
   data() {
     return {
       article: {
-        title: '文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标文章标题文章标题文章标题题',
+        title: '文章标题',
         content: '文章内容',
         comment: '评论'
       }

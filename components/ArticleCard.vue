@@ -9,17 +9,16 @@
       <div class="title"><span>{{article.title}}</span></div>
       <div ref="content" class="content">{{article.content}}</div>
       <div class="author">
-        <div class="avatar">
-          <div v-if="!article.avatar" class="no-avatar"><i class="fa fa-user-o" aria-hidden="true"></i></div>
-          <img :src="article.avatar">
-        </div>
+        <avatar :src="article.avatar" :width="'30px'"></avatar>
         {{article.author}}
       </div>
     </div>
   </div>
 </template>
 <script>
+import Avatar from './Avatar.vue'
 export default {
+  components: { Avatar },
   layout: 'base',
   props: {
     article: {
@@ -161,28 +160,5 @@ export default {
   width: 100%;
   height: 30px;
   margin-top: 10px;
-}
-.avatar {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  overflow: hidden;
-  vertical-align: middle;
-  margin-right: 10px;
-}
-.avatar img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-.no-avatar {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  color: #eee;
-  align-items: center;
-  justify-content: center;
-  font-size: .2em;
-  color: #666;
 }
 </style>
