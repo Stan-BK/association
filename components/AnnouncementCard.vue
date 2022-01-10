@@ -7,10 +7,7 @@
       <div class="title"><span>{{announcement.title}}</span></div>
       <div ref="content" class="content">{{announcement.content}}</div>
       <div class="author">
-        <div class="avatar">
-          <div v-if="!announcement.avatar" class="no-avatar"><i class="fa fa-user-o" aria-hidden="true"></i></div>
-          <img :src="announcement.avatar">
-        </div>
+        <avatar :src="announcement.avatar" :width="'30px'"></avatar>
           {{announcement.author}}
         </div>
     </div>
@@ -142,28 +139,5 @@ export default {
   width: 100%;
   height: 30px;
   margin-top: 10px;
-}
-.avatar {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  overflow: hidden;
-  vertical-align: middle;
-  margin-right: 10px;
-}
-.avatar img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-.no-avatar {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  color: #eee;
-  align-items: center;
-  justify-content: center;
-  font-size: .2em;
-  color: #424242;
 }
 </style>
