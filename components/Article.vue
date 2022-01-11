@@ -75,7 +75,7 @@ export default {
       this.isCollected = !this.isCollected
     },
     returnRoute() {
-      this.$router.go(-1)
+      this.$router.back()
     }
   }
 }
