@@ -157,8 +157,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 58px;
-  height: 58px;
+  width: 72px;
+  height: 72px;
   right: 0px;
   top: 0px;
   cursor: pointer;
