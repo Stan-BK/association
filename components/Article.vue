@@ -128,8 +128,8 @@ export default {
   border-top-right-radius: 80px;
 }
 .article-header:hover::after {
-  width: 58px;
-  height: 58px;
+  width: 72px;
+  height: 72px;
   box-shadow: -1px 1px 5px #eee;
 }
 .title {
@@ -173,8 +173,8 @@ export default {
   border-top-right-radius: 80px;
 }
 .exit:hover + .article-header::after {
-  width: 58px;
-  height: 58px;
+  width: 72px;
+  height: 72px;
   box-shadow: -1px 1px 5px #eee;
 }
 
