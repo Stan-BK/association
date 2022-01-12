@@ -97,6 +97,7 @@ export default {
 .load {
   position: relative;
   text-align: center;
+  height: 70px;
   color: #6667;
 }
 .load .icon {
@@ -109,15 +110,5 @@ export default {
   100% {
     transform: rotate(360deg);
   }
-}
-.end {
-  position: relative;
-  width: 100%;
-  height: 20px;
-  bottom: 20px;
-  color: #6666;
-  padding: 30px 0;
-  text-align: center;
-  user-select: none;
 }
 </style>
