@@ -41,6 +41,7 @@ export default {
       isToTop: false, // 是否开启“回到顶部”按钮的动画
       hasScroll: false, // 是否有滚动距离
       scrollTime: undefined, // “回到顶部”按钮显隐计时器
+      oldRouteName: ''
     }
   },
   computed: {
@@ -60,6 +61,22 @@ export default {
         'announcement': 'article'
       }
       return `/${base}/${routeList[route]}`
+    }
+  },
+  watch: {
+    $route(newRoute, oldRoute) {
+      const scrollTop = sessionStorage.getItem('pageScrollTop') // 获取当前路由上一个路由的滚动距离
+      if (scrollTop != null && newRoute.name === this.oldRouteName) { 
+        setTimeout(() => {
+          this.$refs.main.scrollTo({
+            left: 0,
+            top: Number(scrollTop),
+            behavior: 'smooth'
+          })
+        }, 1000)
+      }
+      this.oldRouteName = oldRoute.name
+      sessionStorage.setItem('pageScrollTop', this.$refs.main.scrollTop)
     }
   },
   methods: {
