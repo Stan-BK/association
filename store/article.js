@@ -176,7 +176,7 @@ const actions = {
             root: true
           })
         }
-        resolve()
+        resolve(state.noArticle)
       }).catch(() => {
         commit('SET_articles')
         if (!state.articles_data.length) {
@@ -184,7 +184,7 @@ const actions = {
             root: true
           })
         }
-        resolve()
+        resolve(state.noArticle)
       })
     })
   }

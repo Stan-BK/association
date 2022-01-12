@@ -32,7 +32,7 @@ const actions = {
             root: true
           })
         }
-        resolve()
+        resolve(state.noAnnouncement)
       }).catch(() => {
         commit('SET_announcements')
         if (!state.announcements_data.length) {
@@ -40,7 +40,7 @@ const actions = {
             root: true
           })
         }
-        resolve()
+        resolve(state.noAnnouncement)
       })
     })
   }
