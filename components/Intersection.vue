@@ -97,7 +97,7 @@ export default {
 .load {
   position: relative;
   text-align: center;
-  height: 70px;
+  height: 80px;
   color: #6667;
 }
 .load .icon {
