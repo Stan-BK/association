@@ -55,7 +55,7 @@ export default {
           if (_self.$store.state.isBottom) { // 如果当前内容未填充满视口，则递归继续请求内容
             _self.loadContent()
           }
-        }, 500)
+        }, 1000)
       } else if (route === 'Article' || route === 'Announcement') {
         _self.$store.dispatch(`${route.toLowerCase()}/get${route}s`).then(data => {
           if (data) {
@@ -65,7 +65,7 @@ export default {
               if (_self.$store.state.isBottom) { // 如果当前内容未填充满视口，则递归继续请求内容
                 _self.loadContent()
               }
-            }, 500)
+            }, 1000)
           }
         })
       }
