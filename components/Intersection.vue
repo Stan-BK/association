@@ -42,8 +42,13 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit('SET_firstIn_false')
-    this.observeElement(this.loadContent, this.$refs.bottom, null, this.$store) // 启用Intersection Observer
+    this.$store.commit('SET_firstIn_false') // 首次进入页面初始化firstIn状态以准备触发Intersection Observer回调
+    if (this.routeName === '') {
+      this.intersectionShow = false
+    } else {
+      this.intersectionShow = true
+      this.observeElement(this.loadContent, this.$refs.bottom, null, this.$store) // 启用Intersection Observer
+    }
   },
   methods: {
     loadContent() {
