@@ -36,6 +36,7 @@ export default {
         this.intersectionShow = false
         this.unobserveElement(this.$refs.bottom)
       } else {
+        this.intersectionShow = true
         this.observeElement(this.loadContent, this.$refs.bottom, null, this.$store)
       }
     }

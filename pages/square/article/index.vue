@@ -1,7 +1,7 @@
 <template>
   <div>
     <template v-for="(item, index) of articles">
-      <nuxt-link :key="index"  :to="'/article/' + item.id">
+      <nuxt-link :key="index"  :to="'article/' + item.id">
         <article-card :article="item"></article-card>
       </nuxt-link>
     </template>

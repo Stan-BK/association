@@ -1,20 +1,11 @@
 <template>
   <div>
-    <template v-for="(item, index) of announcements">
-      <nuxt-link :key="index"  :to="'/announcement/' + item.id">
-        <announcement-card :announcement="item"></announcement-card>
-      </nuxt-link>
-    </template>
+    <nuxt-child></nuxt-child>
   </div>
 </template>
 <script>
 export default {
   layout: 'base',
   transition: 'test',
-  data() {
-    return {
-      announcements: this.$store.state.announcement.announcements
-    }
-  },
 }
 </script>
