@@ -124,4 +124,12 @@
 .sub-route a:hover {
   color:deepskyblue;
 }
+@media screen and (max-width: 767px) {
+  .sub-route {
+    left: -100px;
+  }
+  .sub-route::before {
+    left: 50%;
+  }
+}
 </style>
