@@ -5,6 +5,7 @@
       <route></route>
       <user-status></user-status>
     </header>
+    <message></message>
     <main ref="main" @scroll="ifScroll"> 
       <aside>
         <side-bar></side-bar>
@@ -27,6 +28,7 @@
 import { Route, Logo, UserStatus } from '@/components/header'
 import Intersection from '~/components/Intersection.vue'
 import ToTop from '~/components/ToTop.vue'
+import Message from '~/components/Message.vue'
 
 export default {
   components: {
@@ -34,7 +36,8 @@ export default {
     Logo,
     UserStatus,
     Intersection,
-    ToTop
+    ToTop,
+    Message
   },
   data() {
     return {
