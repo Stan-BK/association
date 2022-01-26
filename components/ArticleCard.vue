@@ -58,7 +58,7 @@ export default {
   cursor: pointer;
   box-shadow: 2px 2px 10px rgb(86, 204, 238);
   border-radius: 3px;
-  transition: all 10s;
+  transition: all .5s;
   overflow: hidden;
   color: #666;
 }
