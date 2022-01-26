@@ -6,7 +6,8 @@
 export default {
   layout: 'base',
   created() {
-    this.$router.push('subarea/article')
+    const params = this.$route.params.name
+    this.$router.push(`./${params}/article`)
   }
 }
 </script>

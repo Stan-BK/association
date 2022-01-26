@@ -15,39 +15,39 @@ const state = () => {
         name: '分区',
         child: [
           {
-            path: '/subarea',
+            path: '/subarea/xiangqi',
             name: '象棋社'
           },
           {
-            path: '/subarea',
+            path: '/subarea/xinli',
             name: '心理协会'
           },
           {
-            path: '/subarea',
+            path: '/subarea/jisuanji',
             name: '计算机协会'
           },
           {
-            path: '/subarea',
+            path: '/subarea/shelian',
             name: '社团联合会'
           },
           {
-            path: '/subarea',
+            path: '/subarea/wushi',
             name: '舞狮队'
           },
           {
-            path: '/subarea',
+            path: '/subarea/wudao',
             name: '舞蹈社'
           },
           {
-            path: '/subarea',
+            path: '/subarea/dianjing',
             name: '电竞社'
           },
           {
-            path: '/subarea',
+            path: '/subarea/nvzi',
             name: '女子协会'
           },
           {
-            path: '/subarea',
+            path: '/subarea/yueyu',
             name: '粤语协会'
           }
         ]
