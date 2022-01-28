@@ -21,10 +21,10 @@ export default {
     }
   },
   created() {
-    Vue.prototype.$message = this
+    Vue.prototype.$message = this.showUp.bind(this)
   },
   methods: {
-    showUp(message, type) {
+    showUp({ type, message}) {
       type = type || 'success'
       this.arr.push({
         message, 
