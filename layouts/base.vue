@@ -82,6 +82,12 @@ export default {
       sessionStorage.setItem('pageScrollTop', this.$refs.main.scrollTop)
     }
   },
+  mounted() {
+    // 当渲染该布局组件时，根据用户token进行用户信息请求
+    if (localStorage.getItem('authorization') && !this.$store.state.user_id) {
+      this.$axios.$get('/api/user/info?name=wbk').then(data => console.log(data))
+    }
+  },
   methods: {
     toTop() {
       this.isToTop = true
