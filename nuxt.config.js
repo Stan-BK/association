@@ -54,7 +54,7 @@ export default {
     '/api/': {
       target: 'http://localhost:3001',
       pathRewrite: {
-        '^/api/': ''
+        '^/api': ''
       }
     }
   },
