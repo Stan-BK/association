@@ -91,7 +91,7 @@
   position: absolute;
   content: "";
   display: block;
-  top: -20px;
+  top: -19px;
   left: 4px;
   border: 10px solid transparent;
   border-bottom-color: #fff;
