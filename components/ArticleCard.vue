@@ -3,14 +3,14 @@
     <div class="photo">
       <div class="shadow"></div>
       <div v-if="!imgLoad" class="no-photo">No photo</div>
-      <img v-else :src="article.photo" @error="imgLoadError" />
+      <img v-else :src="article.avatar" @error="imgLoadError" />
     </div>
     <div class="article-info">
-      <div class="title"><span>{{article.title}}</span></div>
-      <div ref="content" class="content">{{article.content}}</div>
+      <div class="title"><span>{{article.name}}</span></div>
+      <div ref="content" class="content">{{article.abstract}}</div>
       <div class="author">
         <avatar :src="article.avatar" :width="'30px'"></avatar>
-        {{article.author}}
+        {{article.association_id}}
       </div>
     </div>
   </div>
@@ -25,8 +25,8 @@ export default {
       type: Object,
       default: () => {
         return {
-          title: 'title',
-          content: 'content'
+          name: 'title',
+          abstract: 'abstract'
         }
       }
     }
@@ -37,7 +37,7 @@ export default {
     }
   },
   created() {
-    this.imgLoad = !!this.article.photo
+    this.imgLoad = !!this.article.avatar
   },
   methods: {
     imgLoadError() {
