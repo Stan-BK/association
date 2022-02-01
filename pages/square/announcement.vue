@@ -1,11 +1,20 @@
 <template>
   <div>
-    <nuxt-child></nuxt-child>
+    <nuxt-child :announcements="announcements"></nuxt-child>
   </div>
 </template>
 <script>
 export default {
   layout: 'base',
-  transition: 'test',
+  data() {
+    return {
+      announcements: []
+    }
+  },
+  beforeMount() {
+    this.$axios.get('/api/announcement').then(res => {
+      this.announcements = res.data.data
+    })
+  }
 }
 </script>

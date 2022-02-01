@@ -1,7 +1,7 @@
 <template>
   <div>
     <template v-for="(item, index) of announcements">
-      <nuxt-link :key="index"  :to="'announcement/' + item.id">
+      <nuxt-link :key="index"  :to="'announcement/' + item.announcement_id">
         <announcement-card :announcement="item"></announcement-card>
       </nuxt-link>
     </template>
@@ -9,12 +9,13 @@
 </template>
 <script>
 export default {
-  layout: 'base',
-  transition: 'test',
-  data() {
-    return {
-      announcements: this.$store.state.announcement.announcements
+  props: {
+    announcements: {
+      type: Array,
+      default: () => {
+        return []
+      }
     }
-  },
+  }
 }
 </script>
