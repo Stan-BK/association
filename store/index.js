@@ -7,6 +7,8 @@ const state = () => {
     isBottom: false, // 记录当前加载内容是否足以填充视口到底部
     firstIn: false,
     noMore: false,
+    route_catalog: '',
+    route_type: '',
     routes: [
       {
       path: '/square/article',
@@ -78,6 +80,12 @@ const mutations = {
   },
   SET_firstIn_false(state) {
     state.firstIn = false
+  },
+  SET_ROUTE_CATALOG(state, value) {
+    state.route_catalog = value
+  },
+  SET_ROUTE_TYPE(state, value) {
+    state.route_type = value
   }
 }
 
