@@ -53,7 +53,7 @@ export default {
   methods: {
     loadContent() {
       const _self = this
-      const route = this.routeName
+      const route = this.$route.name
       if (_self.$store.state.firstIn) {
         _self.$store.commit('SET_firstIn_false')
         setTimeout(() => { // 延时等待视图更新
@@ -61,9 +61,9 @@ export default {
             _self.loadContent()
           }
         }, 1000)
-      } else if (route === 'Article' || route === 'Announcement') {
-        _self.$store.dispatch(`${route.toLowerCase()}/get${route}s`).then(data => {
-          if (data) {
+      } else if (route === 'square-article' || route === 'square-announcement') {
+        _self.$store.dispatch(`${this.$store.state.route_type.toLowerCase()}/get${this.routeName}s`).then(data => {
+          if (!data) {
             _self.unobserveElement(_self.$refs.bottom)
           } else {
             setTimeout(() => { // 延时等待视图更新

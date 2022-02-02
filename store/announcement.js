@@ -1,46 +1,37 @@
 const state = () => {
   return {
-    announcements: [],
+    count: 0,
     noAnnouncement: false,
-    announcements_data: [{
-      author: '作者',
-      title: '公告',
-      content: '公告内容'
-    },{
-      author: '作者',
-      title: '公告',
-      content: '公告内容'
-    } ]
+    announcements: []
   }
 }
 
 const mutations = {
-  SET_announcements: (state) => {
-    state.announcements.push(...state.announcements_data.splice(0, 6))
-    if (!state.announcements_data.length)
-      state.noAnnouncement = true
+  SET_COUNT: (state, count) => {
+    state.count = count
+  },
+  SET_ANNOUNCEMENTS: (state, content) => {
+    state.announcements = !content.isReset ? state.announcements.concat(content.announcements) : []
   }
 }
 
 const actions = {
   getAnnouncements({ state, commit }) {
     return new Promise((resolve, reject) => {
-      this.$axios.$get('https://www.baidu.com/').then(() => {
-        commit('SET_announcements')
-        if (!state.announcements_data.length) {
+      this.$axios.$get(`/api/announcement?count=${state.count}`).then(res => {
+        const announcements = res.data
+
+        if (!announcements.length) {
           commit('SET_noMore_true', undefined, {
             root: true
           })
+        } else {
+          commit('SET_COUNT', state.count + announcements.length)
+          commit('SET_ANNOUNCEMENTS', { announcements })
         }
-        resolve(state.noAnnouncement)
-      }).catch(() => {
-        commit('SET_announcements')
-        if (!state.announcements_data.length) {
-          commit('SET_noMore_true', undefined, {
-            root: true
-          })
-        }
-        resolve(state.noAnnouncement)
+        resolve(announcements.length)
+      }).catch(error => {
+        reject(error)
       })
     })
   }

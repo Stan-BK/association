@@ -1,20 +1,14 @@
 <template>
   <div>
-    <nuxt-child :articles="articles"></nuxt-child>
+    <nuxt-child :articles="$store.state.article.articles"></nuxt-child>
   </div>
 </template>
 <script>
 export default {
   layout: 'base',
-  data() {
-    return {
-      articles: []
-    }
-  },
   beforeMount() {
-    this.$axios.get('/api/article').then(res => {
-      this.articles = res.data.data
-    })
+    this.$store.commit('article/SET_ARTICLES', { isReset: true })
+    this.$store.commit('article/SET_COUNT', 0)
   }
 }
 </script>
