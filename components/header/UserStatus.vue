@@ -1,30 +1,13 @@
 <template>
   <div class="user-status">
-    <avatar :src="$store.state.user_avatar" :width="'60px'"  :style="{ transform: 'scale(.8, .8)' }"></avatar>
+    <avatar :src="$store.state.user.avatar" :width="'60px'"  :style="{ transform: 'scale(.8, .8)' }"></avatar>
     <div class="sub-item">
-      <div class="user" :title="$store.state.user_name">{{$store.state.user_name}}</div>
+      <div class="user" :title="$store.state.user.nickname">{{$store.state.user.nickname}}</div>
       <nuxt-link to="">设置</nuxt-link>
       <nuxt-link to="">登出</nuxt-link>
     </div>
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      imgLoad: false
-    }
-  },
-  created() {
-    this.imgLoad = !!this.$store.state.user_avatar
-  },
-  methods: {
-    imgLoadError() {
-      this.imgLoad = false
-    }
-  }
-}
-</script>
 <style scoped>
 .user-status {
   height: 100%;

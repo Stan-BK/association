@@ -84,8 +84,8 @@ export default {
   },
   mounted() {
     // 当渲染该布局组件时，根据用户token进行用户信息请求
-    if (localStorage.getItem('authorization') && !this.$store.state.user_id) {
-      this.$axios.$get('/api/user/info?name=wbk').then(data => console.log(data))
+    if (localStorage.getItem('authorization') && !this.$store.state.user.user_id) {
+      this.$store.dispatch('user/getInfo')
     }
   },
   methods: {
