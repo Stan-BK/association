@@ -7,8 +7,8 @@
       <h1 class="title"><span><slot name="title">This is Title</slot></span></h1>
       <div class="article-author">
         <div :class="['collect', isCollected ? 'collected': '' ]" @click="collectArticle">书签</div>
-        <avatar :src="article.avatar" :width="'30px'"></avatar>
-        author
+        <avatar :src="article.association.avatar" :width="'30px'"></avatar>
+        {{article.association.name}}
       </div>
     </div>
     <div class="article-content">

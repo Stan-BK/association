@@ -16,9 +16,14 @@ export default {
   data() {
     return {
       announcement: {
+        avatar: '',
         title: '',
         content: '',
-        comment: ''
+        comment: '',
+        association: {
+          avatar: '',
+          name: ''
+        }
       }
     }
   },

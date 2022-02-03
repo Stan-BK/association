@@ -7,8 +7,8 @@
       <h1 class="title"><span><slot name="title">This is Title</slot></span></h1>
       <div class="announcement-author">
         <div :class="['collect', isCollected ? 'collected': '' ]" @click="collectAnnouncement">书签</div>
-        <avatar :src="announcement.avatar" :width="'30px'"></avatar>
-        author
+        <avatar :src="announcement.association.avatar" :width="'30px'"></avatar>
+        {{announcement.association.name}}
       </div>
     </div>
     <div class="announcement-content">
@@ -51,6 +51,11 @@ export default {
     return {
       isCollected: false
     }
+  },
+  mounted() {
+    setTimeout(() => {
+    console.log(this.announcement)
+    }, 2000)
   },
   methods: {
     thumb(e) {
