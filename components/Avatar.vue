@@ -4,7 +4,7 @@
       height: height
     }">
     <div v-if="!imgSrc" class="no-avatar"><i class="fa fa-user-o" aria-hidden="true"></i></div>
-    <img v-else :src="src" @error="imgLoadError" />
+    <img v-else :src="imgSrc" @error="imgLoadError" />
   </div>  
 </template>
 <script>
@@ -26,6 +26,11 @@ export default {
   data() {
     return {
       imgSrc: this.src
+    }
+  },
+  watch: {
+    src(newValue) {
+      this.imgSrc = newValue
     }
   },
   methods: {
