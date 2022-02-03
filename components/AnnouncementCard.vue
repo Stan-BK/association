@@ -79,6 +79,12 @@ export default {
 .announcement-card:hover .bell {
   color: #fff;
 }
+.announcement-card:hover .title {
+  transform: translate3d(-100%, 0, 0);
+}
+.announcement-card:hover .content {
+  transform: translate3d(0, 0, 0);
+}
 @keyframes rotate {
   0% {
     transform: rotate(0);
@@ -131,6 +137,7 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  transition: all .5s;
 }
 .title span {
   font-size: 1.3em;
@@ -138,11 +145,14 @@ export default {
 }
 
 .content {
+  position: absolute;
   width: 100%;
-  height: 0px;
-  margin-top: 10px;
+  height: 35px;
+  bottom: 55px;
   transition: all .5s;
-  line-height: 25px;
+  left: 0;
+  padding: 0 10px;
+  transform: translate3d(100%, 0, 0);
   overflow: hidden;
   font-size: .8em;
 }
@@ -150,6 +160,6 @@ export default {
 .author {
   width: 100%;
   height: 30px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 </style>
