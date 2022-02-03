@@ -7,4 +7,9 @@ export default function({ $axios }) {
       }
     }
   })
+  $axios.interceptors.response.use((res) => {
+    return Promise.resolve(res.data)
+  }, (error) => {
+    return Promise.reject(error)
+  })
 }

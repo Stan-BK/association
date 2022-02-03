@@ -29,7 +29,7 @@ const actions = {
         commit('SET_ISREQUEST_true') // 当前正处于请求状态
         this.$axios.$get(`/api/article?count=${state.count}`).then(res => {
           commit('SET_ISREQUEST_false') // 请求完毕，现处于未有请求的状态
-          const articles = res.data
+          const articles = res
   
           if (!articles.length) {
             commit('SET_noMore_true', undefined, {
