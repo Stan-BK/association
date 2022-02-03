@@ -4,7 +4,7 @@
       height: height
     }">
     <div v-if="!imgSrc" class="no-avatar"><i class="fa fa-user-o" aria-hidden="true"></i></div>
-    <img v-else :src="$store.state.user_avatar" @error="imgLoadError" />
+    <img v-else :src="src" @error="imgLoadError" />
   </div>  
 </template>
 <script>

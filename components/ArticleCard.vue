@@ -9,17 +9,14 @@
       <div class="title"><span>{{article.name}}</span></div>
       <div ref="content" class="content">{{article.abstract}}</div>
       <div class="author">
-        <avatar :src="article.avatar" :width="'30px'"></avatar>
-        {{article.association_id}}
+        <avatar :src="article.association.avatar" :width="'30px'"></avatar>
+        {{article.association.name}}
       </div>
     </div>
   </div>
 </template>
 <script>
-import Avatar from './Avatar.vue'
 export default {
-  components: { Avatar },
-  layout: 'base',
   props: {
     article: {
       type: Object,

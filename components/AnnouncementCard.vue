@@ -4,11 +4,11 @@
       <i class="fa fa-bell-o fa-5x bell" aria-hidden="true"></i>
     </div>
     <div class="announcement-info">
-      <div class="title"><span>{{announcement.title}}</span></div>
-      <div ref="content" class="content">{{announcement.content}}</div>
+      <div class="title"><span>{{announcement.name}}</span></div>
+      <div ref="content" class="content">{{announcement.abstract}}</div>
       <div class="author">
-        <avatar :src="announcement.avatar" :width="'30px'"></avatar>
-          {{announcement.author}}
+        <avatar :src="announcement.association.avatar" :width="'30px'"></avatar>
+          {{announcement.association.name}}
         </div>
     </div>
   </div>
@@ -20,11 +20,23 @@ export default {
       type: Object,
       default: () => {
         return {
-          author: '作者',
-          title: '公告',
-          content: '公告内容'
+          name: 'title',
+          abstract: 'abstract'
         }
       }
+    }
+  },
+  data() {
+    return {
+      imgLoad: false
+    }
+  },
+  created() {
+    this.imgLoad = !!this.announcement.avatar
+  },
+  methods: {
+    imgLoadError() {
+      this.imgLoad = false
     }
   }
 }
