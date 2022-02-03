@@ -26,7 +26,7 @@ const actions = {
     })
   },
   getInfo({ commit }) {
-    this.$axios.$get('/api/user/ino').then(res => {
+    this.$axios.$get('/api/user/info').then(res => {
       commit('SET_USERSTATUS', res[0])
     }).catch(() => {
       this._vm.$message({
