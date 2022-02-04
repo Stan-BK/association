@@ -1,8 +1,29 @@
 <template>
   <div class="side-bar">
-    <ul class="bar-list">
+    <ul v-if="!!$store.state.user.user_id" class="bar-list">
       <li v-for="item of bar_item" :key="item">{{item}}</li>
     </ul>
+    <div v-else class="login-bar" @mouseenter="toLoginForm" @mouseleave="fromLoginForm">
+      <div class="info" :style="{
+          opacity: isToLogin ? 0 : 1
+        }">
+        <h3>更多功能</h3>
+        <h3>登录体验</h3>
+      </div>
+      <div class="info login" :style="{
+          opacity: isToLogin ? 1 : 0
+        }">
+        <nuxt-link to="/login?role=admin"><h3>管理员登录</h3></nuxt-link>
+        <nuxt-link to="/login?role=normal"><h3>用户登录</h3></nuxt-link>
+      </div>
+      <div class="transition">
+        <p v-for="(item, index) of item" :key="index" :style="{
+            left: (Math.random() * 50) + '%',
+            top: index * 6 + '%'
+          }"></p>
+      </div>
+      
+    </div>
     <div class="carousel" @mouseenter="stopCarousel" @mouseleave="runCarousel">
       <div v-for="(item, index) of carousel_item" :key="item" class="carousel-item" :style="{ backgroundColor: item }" :class="{ 'active-class': activeItem === index }">{{item}}</div>
     </div>
@@ -15,7 +36,9 @@ export default {
       bar_item: ['特别关注', '消息', '收藏', '设置'],
       carousel_item: ['red', 'green', 'yellow', 'pink'],
       activeItem: 0,
-      t: undefined
+      t: undefined,
+      item: Array.from({ length: 15 }),
+      isToLogin: false
     }
   },
   mounted() {
@@ -40,6 +63,13 @@ export default {
         cb()
         _self.run(cb)
       }, 3000)
+    },
+    toLoginForm() {
+      this.isToLogin = true
+      this.item = Array.from({ length: 15 }) // 更新数组以实现随机过渡效果
+    },
+    fromLoginForm() {
+      this.isToLogin = false
     }
   }
 }
@@ -48,6 +78,7 @@ export default {
 .side-bar {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 .bar-list {
   width: 100%;
@@ -77,6 +108,60 @@ export default {
   bottom: -2px;
   background: linear-gradient(to right, #fff, #7bccf1, #fff);
 }
+
+.login-bar {
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  height: 127px;
+}
+.info { 
+  position: absolute;
+  width: 100%;
+  padding-right: 10px;
+  top: 50%;
+  transform: translate3d(0, -50%, 0);
+  transition: all 1s;
+}
+.info h3 {
+  font-style: italic;
+  text-align: center;
+  background: linear-gradient(to right, #b3d7f8, #7beaea 50%, #3db8f1 90%);
+  background-clip: text;
+  color: transparent;
+}
+.login a {
+  text-decoration: none;
+}
+.login h3 {
+  font-style: italic;
+  text-align: center;
+  background: linear-gradient(to right, #b3d7f8, #7beaea 50%, #3db8f1 90%);
+  background-clip: text;
+  color: transparent;
+  transition: all .4s;
+}
+.login h3:hover {
+  transform: scale(1.2, 1.2);
+}
+.transition {
+  position: absolute;
+  top: 0;
+  left: 150%;
+  width: 300%;
+  height: 100%;
+  transition: all 1.2s;
+}
+.transition p {
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(to right, #b3d7f8, #7beaea 50%, #87d4f8 90%);
+}
+.login-bar:hover .transition {
+  left: -500%;
+}
+
 .carousel {
   position: relative;
   width: 100%;
