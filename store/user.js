@@ -28,10 +28,10 @@ const actions = {
   getInfo({ commit }) {
     this.$axios.$get('/api/user/info').then(res => {
       commit('SET_USERSTATUS', res[0])
-    }).catch(() => {
+    }).catch(error => {
       this._vm.$message({
         type: 'error',
-        message: '获取用户信息失败'
+        message: error.data
       })
     })
   }

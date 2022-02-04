@@ -8,7 +8,11 @@ export default function({ $axios, redirect }) {
     }
   })
   $axios.interceptors.response.use((res) => {
-    return Promise.resolve(res.data)
+    if (res.data.code === 200) {
+      return Promise.resolve(res.data)
+    } else {
+      return Promise.reject(res.data)
+    }
   }, (error) => {
     if (error.response.status >= 500) {
       redirect('/sorry')
