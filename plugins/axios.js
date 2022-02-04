@@ -1,4 +1,4 @@
-export default function({ $axios }) {
+export default function({ $axios, redirect }) {
   $axios.onRequest(config => {
     if (process.env.VUE_ENV === 'client') {
       const authorization = localStorage.getItem('authorization')
@@ -10,6 +10,10 @@ export default function({ $axios }) {
   $axios.interceptors.response.use((res) => {
     return Promise.resolve(res.data)
   }, (error) => {
-    return Promise.reject(error)
+    if (error.response.status >= 500) {
+      redirect('/sorry')
+    } else {
+      return Promise.reject(error)
+    }
   })
 }
