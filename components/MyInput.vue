@@ -1,12 +1,16 @@
 <template>
   <div class="my-input-wrap">
-    <input type="text" :class="['my-input', btn ? 'has-btn' : '']">
+    <input :type="type" :class="['my-input', btn ? 'has-btn' : '']">
     <button v-if="btn" class="btn">{{ btn }}</button>
   </div>
 </template>
 <script>
 export default {
   props: {
+    type: {
+      type: String,
+      default: 'text'
+    },
     btn: {
       type: String,
       default: ''
