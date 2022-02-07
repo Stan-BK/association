@@ -1,20 +1,39 @@
 <template>
   <div class="user-status">
-    <avatar :src="$store.state.user.avatar" :width="'60px'"  :style="{ transform: 'scale(.8, .8)' }"></avatar>
-    <div class="sub-item">
-      <div class="user" :title="$store.state.user.nickname">{{$store.state.user.nickname}}</div>
-      <nuxt-link to="">设置</nuxt-link>
-      <nuxt-link to="" @click.native="logOut">登出</nuxt-link>
-    </div>
+    <template v-if="!!$store.state.user.user_id">
+      <avatar :src="$store.state.user.avatar" :width="'60px'"  :style="{ transform: 'scale(.8, .8)' }"></avatar>
+      <div class="sub-item">
+        <div class="user" :title="$store.state.user.nickname">{{$store.state.user.nickname}}</div>
+        <nuxt-link to="">设置</nuxt-link>
+        <nuxt-link to="" @click.native="logOut">登出</nuxt-link>
+      </div>
+    </template>
+    <template v-else>
+        <div class="sign">
+        <nuxt-link :class="['register', isHover ? 'login-hover' : '']" to="/login">注册</nuxt-link>
+        <nuxt-link class="login" to="/login" @mouseenter.native="loginHover" @mouseleave.native="loginBlur">登录</nuxt-link>
+      </div>
+    </template>
   </div>
 </template>
 <script>
 export default {
+  data() {
+    return {
+      isHover: false
+    }
+  },
   methods: {
     logOut() {
       localStorage.removeItem('authorization')
       this.$store.commit('user/LOGOUT')
       this.$router.push('/login')
+    },
+    loginHover() {
+      this.isHover = true
+    },
+    loginBlur() {
+      this.isHover = false
     }
   }
 }
@@ -23,6 +42,72 @@ export default {
 .user-status {
   height: 100%;
   float: right;
+}
+.sign {
+  position: relative;
+  width: 100px;
+  height: 100%;
+  perspective: 200px;
+}
+.register {
+  position: absolute;
+  display: inline-block;
+  height: 50%;
+  width: 90px;
+  top: 0;
+  text-decoration: none;
+  line-height: 30px;
+  text-align: center;
+  color: deepskyblue;
+  transform: rotate3d(1, 0, 0, 30deg);
+  border: 2px solid rgba(69, 190, 240, 0.1);
+  border-top-color: transparent;
+  box-shadow: 1px 1px 3px rgba(142, 227, 238, 0.3), -1px 1px 3px rgba(142, 227, 238, 0.3);
+  border-bottom-color: transparent;
+  transition: all .4s;
+}
+.register:hover {
+  transform: rotate3d(0, 0, 0, 0deg);
+  height: 60px;
+  line-height: 60px;
+  border-width: 5px;
+  box-shadow: none;
+  border: transparent;
+  text-shadow: 1px 1px 3px rgba(0, 191, 255, 0.5);
+}
+.register:hover+.login {
+  transform: rotate3d(1, 0, 0, -90deg);
+  opacity: 0;
+}
+.login {
+  position: absolute;
+  display: inline-block;
+  height: 50%;
+  width: 90px;
+  top: 30px;
+  text-decoration: none;
+  line-height: 30px;
+  text-align: center;
+  color: deepskyblue;
+  transform: rotate3d(1, 0, 0, -30deg);
+  border: 2px solid rgba(69, 190, 240, 0.1);
+  box-shadow: 1px -1px 3px rgba(142, 227, 238, 0.3), -1px -1px 3px rgba(142, 227, 238, 0.3);
+  border-bottom-color: transparent;
+  border-top-color: transparent;
+  transition: all .4s;
+}
+.login:hover {
+  transform: rotate3d(0, 0, 0, 0deg);
+  height: 60px;
+  line-height: 60px;
+  top: 0;
+  box-shadow: none;
+  border: transparent;
+  text-shadow: 1px 1px 3px rgba(0, 191, 255, 0.5);
+}
+.login-hover {
+  transform: rotate3d(1, 0, 0, 90deg);
+  opacity: 0;
 }
 .user {
   position: relative;
