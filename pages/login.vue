@@ -19,7 +19,7 @@
       </form>
       <div class="reset" @click="clearForm">重置</div>
     </div>
-    <nuxt-link class="back-home" to="/square">Way back home</nuxt-link>
+    <nuxt-link class="back-home" to="/">Way back home</nuxt-link>
   </div>
 </template>
 <script>
