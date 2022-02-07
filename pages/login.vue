@@ -85,7 +85,7 @@ export default {
   height: 400px;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate3d(-50%, -50%, 0);
   border-radius: 50%;
   background: transparent;
   border: 1px solid /*#059be0*/ #b3d7f8;
@@ -96,19 +96,19 @@ export default {
 }
 @keyframes bobble {
   0% {
-    top: 48%;
+    transform: translate3d(-50%, -50%, 0);
   }
   25% {
-    top: 49%;
+    transform: translate3d(-50%, -49%, 0);
   }
   50% {
-    top: 50%
+    transform: translate3d(-50%, -50%, 0);
   }
   75% {
-    top: 49%;
+    transform: translate3d(-50%, -51%, 0);
   }
   100% {
-    top: 48%;
+    transform: translate3d(-50%, -50%, 0);
   }
 }
 
@@ -221,7 +221,7 @@ export default {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate3d(-50%, -50%, 0);
 }
 .form-item {
   margin: 20px 0;
@@ -347,9 +347,9 @@ export default {
   left: -10%;
   top: 0;
   border-radius: 50%;
-  border: 1px solid #ddd;
+  border: 1px solid #b3d7f8;
   transition: all .5s;
-  box-shadow: 1px 1px 1px #eee inset;
+  box-shadow: 1px 1px 1px #afc3fa70 inset;
   background-color: rgba(238, 238, 238, 0.3);
 }
 .submit:hover::before {
@@ -364,9 +364,9 @@ export default {
   left: -10%;
   top: 0;
   border-radius: 50%;
-  border: 1px solid #ddd;
+  border: 1px solid #b3d7f8;
   transition: all .5s;
-  box-shadow: 1px 1px 1px #eee inset;
+  box-shadow: 1px 1px 1px #afc3fa70 inset;
   background-color: rgba(238, 238, 238, 0.3);
 }
 .submit:hover::after {
