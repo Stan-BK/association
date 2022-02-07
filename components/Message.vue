@@ -57,7 +57,7 @@ export default {
   width: 200px;
   top: 80px;
   left: calc(50% - 75px);
-  z-index: 9;
+  z-index: 9999;
 }
 .showUp {
   animation: scroll-in .2s 0s 1 forwards linear, scroll-out .5s 3.5s 1;
@@ -104,6 +104,8 @@ export default {
   color: rgba(238, 238, 238, 0.774);
   height: 100%;
   line-height: 40px;
+  text-shadow: 1px 1px 4px #ddd;
+  font-size: .8em;
 }
 .success {
   background-color: rgba(101, 217, 237, .6);
