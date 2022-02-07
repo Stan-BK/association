@@ -19,6 +19,7 @@
       </form>
       <div class="reset" @click="clearForm">重置</div>
     </div>
+    <nuxt-link class="back-home" to="/square">Way back home</nuxt-link>
   </div>
 </template>
 <script>
@@ -45,14 +46,21 @@ export default {
   },
   methods: {
     submitForm() {
-      this.$axios.post('/api/user/login', this.form).then(res => {
-        console.log(res)
-      }).catch(error => {
+      if (this.inputUsn === '' || this.inputPwd === '') {
         this.$message({
           type: 'error',
-          message: error.message
+          message: '用户名和密码不能为空'
         })
-      })
+      } else {
+        this.$axios.post('/api/user/login', this.form).then(res => {
+          console.log(res)
+        }).catch(error => {
+          this.$message({
+            type: 'error',
+            message: error.message
+          })
+        })
+      }
     },
     changeForm() {
       if (Date.now() - this.throttle > 1000) {
@@ -124,19 +132,15 @@ export default {
 .info h1{
   position: relative;
   text-align: center;
-  color: transparent;
-  background-color: #fff;
-  background-clip: text;
+  color: #fff;
   text-shadow: 1px 1px 5px #fff;
   letter-spacing: 4px;
   overflow: hidden;
   transform: scale(1.2, 1.2);
 }
 .info span {
-  background-color: #fff;
-  background-clip: text;
   text-shadow: 1px 1px 5px #fff;
-  color: transparent;
+  color: #fff;
   letter-spacing: 4px;
 }
 .i {
@@ -241,11 +245,13 @@ export default {
   line-height: 40px;
   text-align: center;
   color: rgb(61, 184, 241);
+  text-shadow: 1px 1px 3px rgb(61, 184, 241, .6);
   font-size: .8em;
   transition: all .4s;
 }
 .switch:hover {
   background-color: rgba(255, 255, 255, 0.8);
+  text-shadow: 1px 1px 1px transparent;
 }
 .reset {
   position: absolute;
@@ -259,12 +265,14 @@ export default {
   line-height: 30px;
   text-align: center;
   color: rgb(61, 184, 241);
+  text-shadow: 1px 1px 3px rgb(61, 184, 241, .8);
   font-size: .8em;
   cursor: pointer;
   transition: all .4s;
 }
 .reset:hover {
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.8);
+  text-shadow: 1px 1px 1px transparent;
 }
 .form input {
   width: 100%;
@@ -327,8 +335,9 @@ export default {
   border: 0;
   border-radius: 4px;
   box-shadow: 1px 1px 5px rgb(134, 230, 236);
-  background: linear-gradient(to right, #fff 20%, #eee);
+  background: linear-gradient(to right, #fff 40%, #eee);
   color: rgb(61, 184, 241);
+  text-shadow: 1px 1px 3px rgb(61, 184, 241, .8);
   overflow: hidden;
   transition: all .4s;
   cursor: pointer;
@@ -337,6 +346,7 @@ export default {
 .submit:hover {
   transform: scale(1.1, 1.1);
   opacity: 1;
+  text-shadow: 1px 1px 2px rgba(61, 184, 241, 0.418);
 }
 .submit::before {
   position: absolute;
@@ -423,5 +433,18 @@ export default {
     left: 100%;
     top: 0%;
   }
+}
+.back-home {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  text-shadow: 1px 1px 4px #fff;
+  font-size: 1.2em;
+  transition: all .4s;
+}
+.back-home:hover {
+  transform: translateX(-50%) scale(1.1, 1.1);
 }
 </style>
