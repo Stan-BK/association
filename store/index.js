@@ -1,6 +1,7 @@
 const state = () => {
   return {
-    fromHome: false, // 记录是否从首页跳转
+    lastRoute: '', // 记录上一页路由
+    fromHome: false, // 记录是否从首页跳转，以供Loading组件内部判断
     isBottom: false, // 记录当前加载内容是否足以填充视口到底部
     firstIn: false,
     noMore: false,
@@ -83,6 +84,9 @@ const mutations = {
   },
   SET_ROUTE_TYPE(state, value) {
     state.route_type = value
+  },
+  SET_LASTROUTE(state, value) {
+    state.lastRoute = value
   }
 }
 

@@ -52,8 +52,15 @@ export default {
           message: '用户名和密码不能为空'
         })
       } else {
-        this.$axios.post('/api/user/login', this.form).then(res => {
-          console.log(res)
+        this.$axios.$post('/api/user/login', this.form).then(res => {
+          localStorage.setItem('authorization', res)
+          this.$router.push({
+            path: this.$store.state.lastRoute
+          }, () => {
+            this.$store.commit('SET_fromHome')
+            this.$nuxt.$loading.start()
+            this.$nuxt.$loading.finish()
+          })
         }).catch(error => {
           this.$message({
             type: 'error',
