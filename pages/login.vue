@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <message></message>
+    <message :top="'40px'"></message>
     <div class="info">
       <h1>Sign <span :class="['i', formType === 'sign_in' ? 'i-apear' : '']">in</span><span :class="['u', formType === 'sign_up' ? 'u-apear' : '']">up</span></h1>
     </div>

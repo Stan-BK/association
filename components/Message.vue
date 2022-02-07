@@ -1,5 +1,5 @@
 <template>
-  <div :class="['message']">
+  <div class="message" :style="{ top: top, left: left }">
     <template v-for="item of arr">
       <div :class="['info', 'showUp', item.type]" :key="item">
         <svg v-if="item.type === 'success'" t="1642150464069" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2152" width="20" height="20"><path d="M510.107082 0C228.488568 0 0.191459 228.297109 0.191459 509.913817 0.191459 791.530527 228.488568 1019.827635 510.107082 1019.827635 791.725594 1019.827635 1020.017285 791.530527 1020.017285 509.913817 1020.017285 228.297109 791.725594 0 510.107082 0L510.107082 0ZM410.902284 770.518774 409.764366 769.377244 408.622835 770.518774 168.529307 530.430664 248.958453 449.997904 409.764366 610.798397 771.252096 249.310666 851.681244 329.739812 410.902284 770.518774 410.902284 770.518774Z" p-id="2153" fill="#4AC3F0"></path></svg>
@@ -14,6 +14,16 @@
 import Vue from 'vue'
 export default {
   name: 'message',
+  props: {
+    top: {
+      type: String,
+      default: '80px'
+    },
+    left: {
+      type: String,
+      default: 'calc(50% - 100px)'
+    }
+  },
   data() {
     return {
       isShow: false,
@@ -24,7 +34,9 @@ export default {
     Vue.prototype.$message = this.showUp.bind(this)
   },
   methods: {
-    showUp({ type, message}) {
+    showUp(content) {
+      let { type } = content
+      const { message } = content
       type = type || 'success'
       this.arr.push({
         message, 
