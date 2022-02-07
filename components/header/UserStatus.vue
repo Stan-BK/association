@@ -4,10 +4,21 @@
     <div class="sub-item">
       <div class="user" :title="$store.state.user.nickname">{{$store.state.user.nickname}}</div>
       <nuxt-link to="">设置</nuxt-link>
-      <nuxt-link to="">登出</nuxt-link>
+      <nuxt-link to="" @click.native="logOut">登出</nuxt-link>
     </div>
   </div>
 </template>
+<script>
+export default {
+  methods: {
+    logOut() {
+      localStorage.removeItem('authorization')
+      this.$store.commit('user/LOGOUT')
+      this.$router.push('/login')
+    }
+  }
+}
+</script>
 <style scoped>
 .user-status {
   height: 100%;

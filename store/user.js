@@ -1,8 +1,17 @@
+const inital = {
+  user_id: 0,
+  user_role: 1,
+  nickname: '',
+  avatar: null,
+  article_collect: null,
+  announcement_collect: null
+}
+
 const state = () => {
   return {
     user_id: 0,
     user_role: 1,
-    nickname: 'wbk',
+    nickname: '',
     avatar: null,
     article_collect: null,
     announcement_collect: null
@@ -14,7 +23,11 @@ const mutations = {
     for (const [key, value] of Object.entries(content)) {
       state[key] = value
     }
-    console.log(state)
+  },
+  LOGOUT(state) {
+    for (const [key, value] of Object.entries(inital)) {
+      state[key] = value
+    }
   }
 }
 
