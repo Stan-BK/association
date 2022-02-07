@@ -28,8 +28,8 @@ export default {
     }
   },
   beforeMount() {
-    this.$axios.get(`/api/article/${this.$route.params.id}`).then(res => {
-      this.article =  res.data.data[0]
+    this.$axios.$get(`/api/article/${this.$route.params.id}`).then(res => {
+      this.article = res[0]
     })
   }
 }
