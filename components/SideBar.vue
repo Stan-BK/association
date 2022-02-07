@@ -117,8 +117,7 @@ export default {
 }
 .info { 
   position: absolute;
-  width: 100%;
-  padding-right: 10px;
+  width: 90%;
   top: 50%;
   transform: translate3d(0, -50%, 0);
   transition: all 1s;
