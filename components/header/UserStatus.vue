@@ -47,66 +47,56 @@ export default {
   position: relative;
   width: 100px;
   height: 100%;
-  perspective: 200px;
+  perspective: 150px;
 }
-.register {
+.sign a {
   position: absolute;
   display: inline-block;
-  height: 50%;
-  width: 90px;
-  top: 0;
+  height: 50px;
+  width: 50px;
+  top: 5px;
   text-decoration: none;
-  line-height: 30px;
+  line-height: 50px;
   text-align: center;
   color: deepskyblue;
-  transform: rotate3d(1, 0, 0, 30deg);
-  border: 2px solid rgba(69, 190, 240, 0.1);
-  border-top-color: transparent;
-  box-shadow: 1px 1px 3px rgba(142, 227, 238, 0.3), -1px 1px 3px rgba(142, 227, 238, 0.3);
-  border-bottom-color: transparent;
+  border: 1px solid rgba(69, 190, 240, 0.1);
+  border-left-color: transparent;
+  border-right-color: transparent;
   transition: all .4s;
+}
+.register {
+  left: 0;
+  transform: rotate3d(0, 1, 0, -30deg);
+  box-shadow: 1px 1px 3px rgba(142, 227, 238, 0.4), 1px -1px 3px rgba(142, 227, 238, 0.4);
 }
 .register:hover {
   transform: rotate3d(0, 0, 0, 0deg);
-  height: 60px;
-  line-height: 60px;
-  border-width: 5px;
+  width: 100px;
   box-shadow: none;
   border: transparent;
   text-shadow: 1px 1px 3px rgba(0, 191, 255, 0.5);
+  box-shadow: 1px 1px 3px rgba(142, 227, 238, 0.4), -1px -1px 3px rgba(142, 227, 238, 0.4);
 }
 .register:hover+.login {
-  transform: rotate3d(1, 0, 0, -90deg);
+  transform: rotate3d(0, 1, 0, 90deg);
   opacity: 0;
 }
 .login {
-  position: absolute;
-  display: inline-block;
-  height: 50%;
-  width: 90px;
-  top: 30px;
-  text-decoration: none;
-  line-height: 30px;
-  text-align: center;
-  color: deepskyblue;
-  transform: rotate3d(1, 0, 0, -30deg);
-  border: 2px solid rgba(69, 190, 240, 0.1);
-  box-shadow: 1px -1px 3px rgba(142, 227, 238, 0.3), -1px -1px 3px rgba(142, 227, 238, 0.3);
-  border-bottom-color: transparent;
-  border-top-color: transparent;
-  transition: all .4s;
+  left: 50px;
+  transform: rotate3d(0, 1, 0, 30deg);
+  box-shadow: -1px 1px 3px rgba(142, 227, 238, 0.4), -1px -1px 3px rgba(142, 227, 238, 0.4);
 }
 .login:hover {
   transform: rotate3d(0, 0, 0, 0deg);
-  height: 60px;
-  line-height: 60px;
-  top: 0;
+  width: 100px;
+  left: 0;
   box-shadow: none;
   border: transparent;
   text-shadow: 1px 1px 3px rgba(0, 191, 255, 0.5);
+  box-shadow: 1px 1px 3px rgba(142, 227, 238, 0.4), -1px -1px 3px rgba(142, 227, 238, 0.4);
 }
 .login-hover {
-  transform: rotate3d(1, 0, 0, 90deg);
+  transform: rotate3d(0, 1, 0, -90deg);
   opacity: 0;
 }
 .user {
