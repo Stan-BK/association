@@ -5,13 +5,15 @@
     </ul>
     <div v-else class="login-bar" @mouseenter="toLoginForm" @mouseleave="fromLoginForm">
       <div class="info" :style="{
-          opacity: isToLogin ? 0 : 1
+          opacity: isToLogin ? 0 : 1,
+          zIndex: isToLogin ? 0 : 9
         }">
         <h3>更多功能</h3>
         <h3>登录体验</h3>
       </div>
       <div class="info login" :style="{
-          opacity: isToLogin ? 1 : 0
+          opacity: isToLogin ? 1 : 0,
+          zIndex: isToLogin ? 9 : 0
         }">
         <nuxt-link to="/login?role=admin"><h3>管理员登录</h3></nuxt-link>
         <nuxt-link to="/login?role=normal"><h3>用户登录</h3></nuxt-link>
@@ -120,7 +122,7 @@ export default {
   width: 90%;
   top: 50%;
   transform: translate3d(0, -50%, 0);
-  transition: all 1s;
+  transition: all 1s ease-in;
 }
 .info h3 {
   font-style: italic;
@@ -149,7 +151,7 @@ export default {
   left: 150%;
   width: 300%;
   height: 100%;
-  transition: all 1.2s;
+  transition: all 1.2s ease-in-out;
 }
 .transition p {
   position: absolute;

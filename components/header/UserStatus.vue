@@ -80,6 +80,7 @@ export default {
 .register:hover+.login {
   transform: rotate3d(0, 1, 0, 90deg);
   opacity: 0;
+  pointer-events: none;
 }
 .login {
   left: 50px;
@@ -98,6 +99,7 @@ export default {
 .login-hover {
   transform: rotate3d(0, 1, 0, -90deg);
   opacity: 0;
+  pointer-events: none;
 }
 .user {
   position: relative;
