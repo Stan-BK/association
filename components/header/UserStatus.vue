@@ -53,8 +53,8 @@ export default {
   position: absolute;
   display: inline-block;
   height: 50px;
+  margin: 5px 0;
   width: 50px;
-  top: 5px;
   text-decoration: none;
   line-height: 50px;
   text-align: center;
