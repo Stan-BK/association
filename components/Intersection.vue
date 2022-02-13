@@ -21,10 +21,11 @@ export default {
   computed: {
     routeName() {
       const routeArr = this.$route.name.split('-')
-      let route = routeArr[1]
-      route = routeArr.length === 2 
-                ? route
-                    ? route[0].toUpperCase() + route.slice(1) 
+      const routeType = this.$store.state.route_type
+      const routeCatalog = this.$store.state.route_catalog
+      const route = routeArr.length === 2
+                ? routeCatalog === 'square' || routeCatalog === 'subarea'
+                    ? routeType[0].toUpperCase() + routeType.slice(1) 
                     : ''
                 : ''
       return route
@@ -92,7 +93,8 @@ export default {
       this.observer.observe(element) // 观察对应元素
     },
     unobserveElement(element) {
-      this.observer.unobserve(element)
+      if (this.observer)
+        this.observer.unobserve(element)
     }
   }
 }

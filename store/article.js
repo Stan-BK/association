@@ -23,6 +23,7 @@ const mutations = {
 }
 
 const actions = {
+  // 获取所有文章
   getArticles({ state, commit }) {
     return new Promise((resolve, reject) => {
       if (!state.isRequest) {
@@ -45,6 +46,17 @@ const actions = {
           reject(error)
         })
       }
+    })
+  },
+  getCollectedArticles({ commit }) {
+    return new Promise((resolve, reject) => {
+      this.$axios.$get(`/api/article/collect`).then(res => {
+        const articles = res
+        commit('SET_ARTICLES', { articles })
+        resolve(articles.length)
+      }).catch(error => {
+        reject(error)
+      })
     })
   }
 }

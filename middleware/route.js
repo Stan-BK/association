@@ -1,6 +1,6 @@
 export default function({  store, route }) {
   const routeArr = route.name.split('-')
-  // 获取路由范围值：square或subarea
+  // 获取路由范围值：square或subarea或user
   if (routeArr[0]) {
     store.commit('SET_ROUTE_CATALOG', routeArr[0])
   }

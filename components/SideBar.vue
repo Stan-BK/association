@@ -1,7 +1,7 @@
 <template>
   <div class="side-bar">
     <ul v-if="!!$store.state.user.user_id" class="bar-list">
-      <li v-for="item of bar_item" :key="item">{{item}}</li>
+      <li v-for="item of bar_item" :key="item.path"><nuxt-link :to="item.path">{{item.name}}</nuxt-link></li>
     </ul>
     <div v-else class="login-bar" @mouseenter="toLoginForm" @mouseleave="fromLoginForm">
       <div class="info" :style="{
@@ -35,7 +35,23 @@
 export default {
   data() {
     return {
-      bar_item: ['特别关注', '消息', '收藏', '设置'],
+      bar_item: [
+        {
+          name: '特别关注',
+          path: ''
+        },
+        {
+          name: '消息',
+          path: ''
+        }, 
+        {
+          name: '收藏',
+          path: '/user/article/collect'
+        }, 
+        {
+          name: '设置',
+          path: ''
+        }],
       carousel_item: ['red', 'green', 'yellow', 'pink'],
       activeItem: 0,
       t: undefined,
@@ -45,6 +61,9 @@ export default {
   },
   mounted() {
     this.runCarousel()
+  },
+  beforeDestroy() {
+    this.stopCarousel()
   },
   methods: {
     runCarousel() {
@@ -88,17 +107,9 @@ export default {
 .bar-list li {
   position: relative;
   height: 30px;
-  padding: 10px;
+  padding: 0 10px;
   padding-left: 25px;
-  line-height: 10px;
   margin-bottom: 2px;
-  transition: all .2s;
-  cursor: pointer;
-  color: #666;
-}
-.bar-list li:hover {
-  font-size: 1.1em;
-  color: #7bccf1;
 }
 .bar-list li::after {
   position: absolute;
@@ -109,6 +120,20 @@ export default {
   left: 0;
   bottom: -2px;
   background: linear-gradient(to right, #fff, #7bccf1, #fff);
+}
+.bar-list li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  cursor: pointer;
+  color: #666;
+  transition: all .2s;
+  line-height: 30px;
+}
+.bar-list li a:hover {
+  font-size: 1.1em;
+  color: #7bccf1;
 }
 
 .login-bar {

@@ -46,6 +46,17 @@ const actions = {
         })
       }
     })
+  },
+  getCollectedAnnouncements({ commit }) {
+    return new Promise((resolve, reject) => {
+      this.$axios.$get(`/api/announcement/collect`).then(res => {
+        const announcements = res
+        commit('SET_ANNOUNCEMENTS', { announcements })
+        resolve(announcements.length)
+      }).catch(error => {
+        reject(error)
+      })
+    })
   }
 }
 
