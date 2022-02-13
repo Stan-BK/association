@@ -101,10 +101,10 @@ export default {
 }
 .info span {
   display: inline-block;
-  color: rgba(238, 238, 238, 0.774);
+  color: rgb(191, 191, 191);
   height: 100%;
   line-height: 40px;
-  text-shadow: 1px 1px 4px #ddd;
+  text-shadow: 1px 1px 4px #ccc;
   font-size: .8em;
 }
 .success {
