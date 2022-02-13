@@ -21,6 +21,11 @@ export default {
           message: '无收藏公告'
         })
       }
+    }).catch(error => {
+      this.$message({
+        type: 'error',
+        message: error.message
+      })
     })
   }
 }
