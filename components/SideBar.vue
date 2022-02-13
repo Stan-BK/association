@@ -1,7 +1,7 @@
 <template>
   <div class="side-bar">
     <ul v-if="!!$store.state.user.user_id" class="bar-list">
-      <li v-for="item of bar_item" :key="item.path"><nuxt-link :to="item.path">{{item.name}}</nuxt-link></li>
+      <li v-for="item of bar_item" :key="item.path"><nuxt-link :class="item.active ? 'active': ''" :to="item.path">{{item.name}}</nuxt-link></li>
     </ul>
     <div v-else class="login-bar" @mouseenter="toLoginForm" @mouseleave="fromLoginForm">
       <div class="info" :style="{
@@ -38,25 +38,47 @@ export default {
       bar_item: [
         {
           name: '特别关注',
-          path: ''
+          path: '1',
+          active: false
         },
         {
           name: '消息',
-          path: ''
+          path: '2',
+          active: false
         }, 
         {
           name: '收藏',
-          path: '/user/article/collect'
+          path: '/user/article/collect',
+          active: false
         }, 
         {
           name: '设置',
-          path: ''
+          path: '3',
+          active: false
         }],
       carousel_item: ['red', 'green', 'yellow', 'pink'],
       activeItem: 0,
       t: undefined,
       item: Array.from({ length: 15 }),
       isToLogin: false
+    }
+  },
+  watch: {
+    $route: {
+      handler() {
+        this.bar_item.forEach(item => {
+          if (item.path === '/user/article/collect' && this.$route.path.includes('/user/announcement/collect')) {
+            item.active = true
+            return
+          }
+          if (item.path === this.$route.path) {
+            item.active = true
+          } else {
+            item.active = false
+          }
+        })
+      },
+      immediate: true
     }
   },
   mounted() {
@@ -134,6 +156,10 @@ export default {
 .bar-list li a:hover {
   font-size: 1.1em;
   color: #7bccf1;
+}
+.active {
+  font-size: 1.1em;
+  color: #7bccf1 !important;
 }
 
 .login-bar {
