@@ -9,51 +9,14 @@ const state = () => {
     route_type: '',
     routes: [
       {
-      path: '/square/article',
-      name: '首页'
+        path: '/square/article',
+        name: '首页'
       },
       {
         name: '分区',
-        child: [
-          {
-            path: '/subarea/xiangqi',
-            name: '象棋社'
-          },
-          {
-            path: '/subarea/xinli',
-            name: '心理协会'
-          },
-          {
-            path: '/subarea/jisuanji',
-            name: '计算机协会'
-          },
-          {
-            path: '/subarea/shelian',
-            name: '社团联合会'
-          },
-          {
-            path: '/subarea/wushi',
-            name: '舞狮队'
-          },
-          {
-            path: '/subarea/wudao',
-            name: '舞蹈社'
-          },
-          {
-            path: '/subarea/dianjing',
-            name: '电竞社'
-          },
-          {
-            path: '/subarea/nvzi',
-            name: '女子协会'
-          },
-          {
-            path: '/subarea/yueyu',
-            name: '粤语协会'
-          }
-        ]
+        child: []
       }
-  ]
+    ]
   }
 }
 
@@ -87,10 +50,22 @@ const mutations = {
   },
   SET_LASTROUTE(state, value) {
     state.lastRoute = value
+  },
+  SET_routeList(state, value) {
+    state.routes[1].child.push(...value)
+  }
+}
+
+const actions = {
+  getRouteList({ commit }) {
+    this.$axios.$get('/api/association/list').then(res => {
+      commit('SET_routeList', res)
+    })
   }
 }
 
 export default {
   state,
-  mutations
+  mutations,
+  actions
 }
