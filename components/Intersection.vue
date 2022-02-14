@@ -34,13 +34,15 @@ export default {
   watch: {
     $route: {
       handler() {
-        if (this.routeName === '') {
-          this.intersectionShow = false
-          this.unobserveElement(this.$refs.bottom)
-        } else {
-          this.intersectionShow = true
-          this.observeElement(this.loadContent, this.$refs.bottom, null, this.$store)
-        }
+        this.$nextTick(() => { // 等待DOM渲染完成，将ref引用DOM元素传入Intersection API
+          if (this.routeName === '') {
+            this.intersectionShow = false
+            this.unobserveElement(this.$refs.bottom)
+          } else {
+            this.intersectionShow = true
+            this.observeElement(this.loadContent, this.$refs.bottom, null, this.$store)
+          }
+        })
       },
       immediate: true
     }
