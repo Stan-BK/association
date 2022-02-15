@@ -12,7 +12,7 @@
       </aside>
       <article>
         <nuxt />
-        <intersection :is-need-intersection="isNeedIntersection"></intersection>
+        <!-- <intersection :is-need-intersection="isNeedIntersection"></intersection> -->
       </article>
     </main>
     <nav v-if="isNeedIntersection">
@@ -26,7 +26,6 @@
 </template>
 <script>
 import { Route, Logo, UserStatus } from '@/components/header'
-import Intersection from '~/components/Intersection.vue'
 import ToTop from '~/components/ToTop.vue'
 import Message from '~/components/Message.vue'
 
@@ -35,7 +34,6 @@ export default {
     Route,
     Logo,
     UserStatus,
-    Intersection,
     ToTop,
     Message
   },
@@ -49,7 +47,7 @@ export default {
   },
   computed: {
     isNeedIntersection() { // 仅多文章页面需要触底加载功能
-      return this.$route.name.includes('square') || this.$route.name.includes('subarea')
+      return this.$route.name === ('square-article') || this.$route.name === 'square-announcement'
     },
     routeName() {
       let route = this.$route.name.split('-')[1]
