@@ -6,7 +6,7 @@
         <nuxt-link to="" class="has-sub-route">{{item.name}}</nuxt-link>
         <div class="sub-route">
           <div v-for="subitem of item.child" :key="subitem.path">
-            <nuxt-link :to="subitem.path">{{subitem.name}}</nuxt-link>
+            <nuxt-link :to="`/subarea/${subitem.path}`">{{subitem.name}}</nuxt-link>
           </div>
         </div>
       </template>
