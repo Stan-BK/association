@@ -150,6 +150,22 @@ article {
   padding-left: 60px;       
 }
 
+.controller {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  top: 60%;
+  right: 30px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 1px 1px 5px rgb(159, 221, 244);
+  transition: background-color .5s;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.controller:hover {
+  background-color: #eee;
+}
 @media screen and (max-width: 767px) {
   nav {
     right: 15px;
