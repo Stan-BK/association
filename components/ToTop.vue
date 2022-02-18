@@ -62,11 +62,6 @@ export default {
     transform: translate(0px);
   }
 }
-@media screen and (max-width: 767px) {
-  .to-top {
-    right: 15px;
-  }
-}
 
 .toTop-enter-active,
 .toTop-leave-active {

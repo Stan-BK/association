@@ -197,4 +197,10 @@ article {
     left: 0;
   }
 }
+
+@media screen and (max-width: 767px) {
+  .controller{
+    right: 15px;
+  }
+}
 </style>
