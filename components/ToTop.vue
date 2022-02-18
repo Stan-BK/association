@@ -1,7 +1,9 @@
 <template>
-  <div :class="['to-top', isToTop ? 'to-top-animation': '']" :style="{ 'display': hasScroll ? 'flex': 'none' }" title="回到顶部">
-    <i class="fa fa-rocket" style="color: rgb(61, 184, 240); transform: scale(1.4, 1.4);" aria-hidden="true"></i>
-  </div>
+  <transition name="toTop">
+    <div v-if="hasScroll" :class="['to-top', isToTop ? 'to-top-animation': '']"  title="回到顶部">
+      <i class="fa fa-rocket" style="color: rgb(61, 184, 240); transform: scale(1.4, 1.4);" aria-hidden="true"></i>
+    </div>
+  </transition>
 </template>
 <script>
 export default {
@@ -64,5 +66,14 @@ export default {
   .to-top {
     right: 15px;
   }
+}
+
+.toTop-enter-active,
+.toTop-leave-active {
+  transition: all .5s;
+}
+.toTop-enter,
+.toTop-leave-to {
+  opacity: 0;
 }
 </style>
