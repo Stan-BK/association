@@ -1,20 +1,20 @@
 <template>
   <div>
     <header>
-      <div class="head">
+      <div class="head" :style="{ backgroundColor: `rgba(236, 250, 253, ${opacity})` }">
         <logo></logo>
         <nav>
           <route></route>
         </nav>
         <user-status></user-status>
       </div>
-      <div class="background"></div>
     </header>
     <message></message>
     <aside>
       <side-bar></side-bar>
     </aside>
     <main ref="main" @scroll="ifScroll"> 
+      <div class="background"></div>
       <article>
         <nuxt />
         <!-- <intersection :is-need-intersection="isNeedIntersection"></intersection> -->
@@ -44,7 +44,8 @@ export default {
       isToTop: false, // 是否开启“回到顶部”按钮的动画
       hasScroll: false, // 是否有滚动距离
       scrollTime: undefined, // “回到顶部”按钮显隐计时器
-      oldRouteName: ''
+      oldRouteName: '',
+      opacity: 0
     }
   },
   computed: {
@@ -98,7 +99,8 @@ export default {
         this.isToTop = false
       }, 1000)
     },
-    ifScroll() { // 判断页面滚动距离，调整“回到顶部”按钮的显示
+    ifScroll(e) { 
+      // 判断页面滚动距离，调整“回到顶部”按钮的显示
       clearTimeout(this.scrollTime)
       if (this.$refs.main.scrollTop > 0) {
         this.hasScroll = true
@@ -107,6 +109,10 @@ export default {
           this.hasScroll = false
         }, 1000)
       }
+
+      // 根据滚动高度调整顶部导航栏透明度
+      const tar = e.target
+      this.opacity = (tar.scrollTop / 150).toFixed(2)
     }
   }
 }
@@ -122,14 +128,15 @@ export default {
   z-index: 99;
 }
 .background {
-  height: 100px;
+  position: sticky;
+  width: 100%;
+  height: 150px;
   background: linear-gradient(rgb(236, 250, 253), #fff0);
 }
 main {
   position: relative;
   width: 100%;
-  height: calc(100vh - 160px);
-  padding: 30px;
+  height: calc(100vh - 60px);
   overflow: auto;
   transition: all .5s;
 }
@@ -171,7 +178,7 @@ article {
   position: absolute;
   width: 100%;
   left: 0;
-  top: 30px;
+  top: 150px;
   padding-right: 30px;    
   padding-left: 60px;       
 }
@@ -191,11 +198,6 @@ article {
 }
 .controller:hover {
   background-color: #eee;
-}
-@media screen and (max-width: 767px) {
-  nav {
-    right: 15px;
-  }
 }
 
 @media screen and (max-width: 767px) {
