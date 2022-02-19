@@ -1,17 +1,20 @@
 <template>
   <div>
     <header>
-      <logo></logo>
-      <nav>
-        <route></route>
-      </nav>
-      <user-status></user-status>
+      <div class="head">
+        <logo></logo>
+        <nav>
+          <route></route>
+        </nav>
+        <user-status></user-status>
+      </div>
+      <div class="background"></div>
     </header>
     <message></message>
+    <aside>
+      <side-bar></side-bar>
+    </aside>
     <main ref="main" @scroll="ifScroll"> 
-      <aside>
-        <side-bar></side-bar>
-      </aside>
       <article>
         <nuxt />
         <!-- <intersection :is-need-intersection="isNeedIntersection"></intersection> -->
@@ -109,7 +112,7 @@ export default {
 }
 </script>
 <style scoped>
-header {
+.head {
   position: relative;
   width: 100%;
   height: 60px;
@@ -118,34 +121,57 @@ header {
   box-shadow: 0px 2px 10px #7bccf1;
   z-index: 99;
 }
+.background {
+  height: 100px;
+  background: linear-gradient(rgb(236, 250, 253), #fff0);
+}
 main {
   position: relative;
   width: 100%;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 160px);
   padding: 30px;
   overflow: auto;
   transition: all .5s;
 }
 
 aside {
-  position: sticky;
-  top: 0px;
+  position: absolute;
+  top: 20%;
   left: 0px;
   width: 200px;
-  height: 100%;
+  height: 70%;
   max-height: 600px;
   padding: 10px;
   background-color: rgb(236, 250, 253);
-  border-radius: 2px;
+  border-radius: 20px;
   box-shadow: 2px 2px 10px rgb(86, 204, 238);
   z-index: 99;
   transition: all .5s;
+  transform: translate3d(-180px, 0, 0);
+}
+aside::after {
+  content: "";
+  position: absolute;
+  height: 30px;
+  top: 50%;
+  transform: translate(-5px, -15px) scale(1.1, 1.1);
+  right: 0px;
+  border: 10px dotted rgb(61, 184, 240);
+  border-right: 0px;
+  transition: all .2s;
+}
+aside:hover {
+  border-radius: 0 10px 10px 0;
+  transform: translate3d(-10px, 0, 0);
+}
+aside:hover::after {
+  border-color: rgb(236, 250, 253);
 }
 article {
   position: absolute;
-  width: calc(100% - 260px);
+  width: 100%;
+  left: 0;
   top: 30px;
-  left: 230px;
   padding-right: 30px;    
   padding-left: 60px;       
 }
@@ -169,32 +195,6 @@ article {
 @media screen and (max-width: 767px) {
   nav {
     right: 15px;
-  }
-  aside {
-    border-radius: 20px;
-    transform: translate(-212px, 0);
-  }
-  aside::after {
-    content: "";
-    position: absolute;
-    height: 30px;
-    top: 50%;
-    transform: translate(-5px, -15px) scale(1.1, 1.1);
-    right: 0px;
-    border: 10px dotted rgb(61, 184, 240);
-    border-right: 0px;
-    transition: all .2s;
-  }
-  aside:hover {
-    border-radius: 0 10px 10px 0;
-    transform: translate(-30px, 0);
-  }
-  aside:hover::after {
-    border-color: rgb(236, 250, 253);
-  }
-  article {
-    width: 100%;
-    left: 0;
   }
 }
 
