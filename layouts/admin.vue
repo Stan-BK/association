@@ -3,7 +3,9 @@
     <header>
       <logo></logo>
       <route :admin-routes="routes"></route>
-      <button  @click="changeMode"></button>
+      <div class="toggle-wrap">
+        <toggle></toggle>
+      </div>
       <user-status></user-status>
     </header>
     <main>
@@ -51,8 +53,16 @@ export default {
 .dark {
   background-color: rgb(42,42,42);
 }
-.dark header{
+.dark header {
   background: linear-gradient(#000, rgba(42, 42, 42, 0.774), #000);
+}
+.toggle-wrap {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(.8, .8);
 }
 header {
   position: absolute;
