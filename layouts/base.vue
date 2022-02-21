@@ -1,20 +1,22 @@
 <template>
   <div>
-    <header>
-      <div class="head" :style="{ backgroundColor: `rgba(236, 250, 253, ${opacity})` }">
-        <logo></logo>
-        <nav>
-          <route></route>
-        </nav>
-        <user-status></user-status>
-      </div>
+    <header :style="{ backgroundColor: `rgba(236, 250, 253, ${opacity})`, boxShadow: `0px 2px 10px rgba(123, 204, 241, ${ opacity })` }">
+      <logo></logo>
+      <nav>
+        <route></route>
+      </nav>
+      <user-status></user-status>
     </header>
     <message></message>
     <aside>
       <side-bar></side-bar>
     </aside>
     <main ref="main" @scroll="ifScroll"> 
-      <div class="background"></div>
+      <div class="background shadow" :style="{ backgroundImage: `url(http://source.geminikspace.com/cat.jpg)` }">
+      </div>
+      <div class="background">
+        <img src="@/assets/cat.jpg" alt="">
+      </div>
       <article>
         <nuxt />
         <!-- <intersection :is-need-intersection="isNeedIntersection"></intersection> -->
@@ -118,25 +120,45 @@ export default {
 }
 </script>
 <style scoped>
-.head {
-  position: relative;
+header {
+  position: absolute;
   width: 100%;
   height: 60px;
   top: 0;
-  background-color: rgb(236, 250, 253);
-  box-shadow: 0px 2px 10px #7bccf1;
   z-index: 99;
+  transition: all .6s;
+}
+header:hover {
+  background-color: rgb(236, 250, 253) !important;
 }
 .background {
-  position: sticky;
-  width: 100%;
-  height: 150px;
-  background: linear-gradient(rgb(236, 250, 253), #fff0);
+  position: absolute;
+  width: 100vw;
+  height: 260px;
+  top: -60px;
+  overflow: hidden;
+  text-align: center;
+}
+.shadow {
+  filter: blur(10px);
+  background-repeat: no-repeat;
+  background-size: 200% 200%;
+  background-position: center;
+}
+.background img {
+  height: 100%;
+  filter: blur(1px);
+}
+@media screen and (max-width: 540px) {
+  .background {
+    
+    background-size: 100% 100%;
+  }
 }
 main {
   position: relative;
   width: 100%;
-  height: calc(100vh - 60px);
+  height: 100vh;
   overflow: auto;
   transition: all .5s;
 }
@@ -178,7 +200,7 @@ article {
   position: absolute;
   width: 100%;
   left: 0;
-  top: 150px;
+  top: 220px;
   padding-right: 30px;    
   padding-left: 60px;       
 }
