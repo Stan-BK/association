@@ -2,22 +2,18 @@
   <div class="admin-page" :class="isDarkMode ? 'dark' : ''">
     <header>
       <logo></logo>
-      <nav>
-        <route></route>
-      </nav>
+      <button  @click="changeMode"></button>
       <user-status></user-status>
     </header>
     <main>
-      <button @click="changeMode"></button>
       <nuxt></nuxt>
     </main>
   </div>
 </template>
 <script>
-import { Route, Logo, UserStatus } from '@/components/header'
+import { Logo, UserStatus } from '@/components/header'
 export default {
   components: {
-    Route,
     Logo,
     UserStatus,
   },
@@ -61,7 +57,8 @@ main {
   width: 100%;
   height: 100vh;
   overflow: auto;
-  padding-top: 60px;
+  padding: 30px;
+  padding-top: 120px;
   transition: all .5s;
 }
 </style>
