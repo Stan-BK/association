@@ -2,6 +2,7 @@
   <div class="admin-page" :class="isDarkMode ? 'dark' : ''">
     <header>
       <logo></logo>
+      <route :admin-routes="routes"></route>
       <button  @click="changeMode"></button>
       <user-status></user-status>
     </header>
@@ -11,15 +12,26 @@
   </div>
 </template>
 <script>
-import { Logo, UserStatus } from '@/components/header'
+import { Route, Logo, UserStatus } from '@/components/header'
 export default {
   components: {
+    Route,
     Logo,
     UserStatus,
   },
   data() {
     return {
-      isDarkMode: false
+      isDarkMode: false,
+      routes: [
+        {
+          name: '编辑',
+          path: './edit'
+        },
+        {
+          name: '文章',
+          path: './article'
+        }
+      ]
     }
   },
   methods: {

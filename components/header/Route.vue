@@ -1,6 +1,6 @@
 <template>
   <ul class="route-list">
-    <li v-for="item of $store.state.routes" :key="item.path">
+    <li v-for="item of routes" :key="item.path">
       <nuxt-link v-if="!item.child" :to="item.path">{{item.name}}</nuxt-link>
       <template v-else>
         <nuxt-link to="" class="has-sub-route">{{item.name}}</nuxt-link>
@@ -13,6 +13,25 @@
     </li>
   </ul>
 </template>
+<script>
+export default {
+  props: {
+    adminRoutes: {
+      type: Array,
+      default:()=>[]
+    }
+  },
+  data() {
+    return {
+      routes: []
+    }
+  },
+  beforeMount() {
+    // 判断是否传入了管理员开发页面路由
+    this.routes = this.adminRoutes.length ? this.adminRoutes : this.$store.state.routes
+  }
+}
+</script>
 <style scoped>
 .route-list {
   height: 100%;
