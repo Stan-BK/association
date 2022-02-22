@@ -16,20 +16,11 @@
 <script>
 export default {
   props: {
-    adminRoutes: {
+    routes: {
       type: Array,
       default:()=>[]
     }
   },
-  data() {
-    return {
-      routes: []
-    }
-  },
-  beforeMount() {
-    // 判断是否传入了管理员开发页面路由
-    this.routes = this.adminRoutes.length ? this.adminRoutes : this.$store.state.routes
-  }
 }
 </script>
 <style scoped>

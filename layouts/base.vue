@@ -3,7 +3,7 @@
     <header :style="{ backgroundColor: `rgba(236, 250, 253, ${opacity})`, boxShadow: `0px 2px 10px rgba(123, 204, 241, ${ opacity })` }">
       <logo></logo>
       <nav>
-        <route></route>
+        <route :routes="$store.state.routes"></route>
       </nav>
       <user-status></user-status>
     </header>
