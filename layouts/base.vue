@@ -135,6 +135,7 @@ header:hover {
   position: absolute;
   width: 100vw;
   height: 260px;
+  left: 0;
   top: -60px;
   overflow: hidden;
   text-align: center;
