@@ -2,9 +2,9 @@
   <div class="admin-page" :class="isDarkMode ? 'dark' : ''">
     <header>
       <logo></logo>
-      <route :admin-routes="routes"></route>
+      <route :routes="routes"></route>
       <div class="toggle-wrap">
-        <toggle></toggle>
+        <toggle @change-state="toggleDarkMode"></toggle>
       </div>
       <user-status></user-status>
     </header>
@@ -37,8 +37,9 @@ export default {
     }
   },
   methods: {
-    changeMode() { // 切换白天/夜间模式
-      this.isDarkMode = !this.isDarkMode
+    toggleDarkMode(isDarkMode) { // 切换白天/夜间模式
+    console.log(isDarkMode)
+      this.isDarkMode = isDarkMode
     }
   }
 }
@@ -62,6 +63,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  float: left;
   transform: scale(.8, .8);
 }
 header {
