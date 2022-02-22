@@ -7,16 +7,19 @@
          height: 500,
          menubar: false,
          plugins: [
-           'advlist autolink lists link image charmap print preview anchor',
-           'searchreplace visualblocks code fullscreen',
-           'insertdatetime media table paste code help wordcount'
+           'advlist autolink lists link image charmap print preview anchor emoticons',
+           'searchreplace fullscreen imagetools',
+           'insertdatetime media table paste help wordcount pagebreak tabfocus '
          ],
          toolbar:
-           `undo redo | formatselect | bold italic backcolor | \
+           `undo redo | formatselect | bold italic forecolor backcolor searchreplace table| \
            alignleft aligncenter alignright alignjustify | \
-           bullist numlist outdent indent | removeformat | help`,
+           bullist numlist outdent indent |  preview fullscreen  print  help`,
          language: 'zh_CN',
-         skin: 'oxide-dark'
+         skin: 'oxide',
+         menubar:['insert'],
+         image_uploadtab: true,
+         images_upload_url: ''
        }"
      />
   </div>
