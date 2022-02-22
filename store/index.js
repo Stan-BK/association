@@ -16,7 +16,8 @@ const state = () => {
         name: '分区',
         child: []
       }
-    ]
+    ],
+    isDarkMode: false
   }
 }
 
@@ -53,6 +54,9 @@ const mutations = {
   },
   SET_routeList(state, value) {
     state.routes[1].child.push(...value)
+  },
+  SET_darkMode(state) {
+    state.isDarkMode = !state.isDarkMode
   }
 }
 

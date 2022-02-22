@@ -1,5 +1,5 @@
 <template>
-  <div class="admin-page" :class="isDarkMode ? 'dark' : ''">
+  <div class="admin-page" :class="$store.state.isDarkMode ? 'dark' : ''">
     <header>
       <logo></logo>
       <route :routes="routes"></route>
@@ -23,33 +23,31 @@ export default {
   },
   data() {
     return {
-      isDarkMode: false,
       routes: [
         {
           name: '编辑',
-          path: './edit'
+          path: '/admin/edit'
         },
         {
-          name: '文章',
-          path: './article'
+          name: '资源',
+          path: '/admin/source'
         }
       ]
     }
   },
   methods: {
     toggleDarkMode(isDarkMode) { // 切换白天/夜间模式
-    console.log(isDarkMode)
-      this.isDarkMode = isDarkMode
+      this.$store.commit('SET_darkMode')
     }
   }
 }
 </script>
-<style>
+<style scoped>
 .admin-page {
   width: 100vw;
   height: 100vh;
   background-color: #fff;
-  transition: all .6s;
+  transition: background-color .6s;
 }
 .dark {
   background-color: rgb(42,42,42);
