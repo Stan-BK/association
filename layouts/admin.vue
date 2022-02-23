@@ -21,7 +21,7 @@ export default {
     Route,
     Logo,
     UserStatus
-},
+  },
   data() {
     return {
       routes: [
@@ -35,6 +35,23 @@ export default {
         }
       ]
     }
+  },
+  watch: {
+    '$store.state.user.user_role'(role) {
+      role !== 2 && this.$router.replace('/')
+    }
+  },
+  beforeMount() {
+    const role = this.$store.state.user.user_role
+    if (role) {
+      role === 1 && this.$router.replace('/')
+    } else if (localStorage.getItem('authorization')) {
+      this.$store.dispatch('user/getInfo').then(res => {
+        res.user_role === 1 && this.$router.replace('/')
+      })
+    } else {
+      this.$router.replace('/')
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
   },
   methods: {
     toggleDarkMode(isDarkMode) { // 切换白天/夜间模式

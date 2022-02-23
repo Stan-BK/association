@@ -1,6 +1,6 @@
 const inital = {
   user_id: 0,
-  user_role: 1,
+  user_role: 0,
   nickname: '',
   avatar: null,
   article_collect: null,
@@ -10,7 +10,7 @@ const inital = {
 const state = () => {
   return {
     user_id: 0,
-    user_role: 1,
+    user_role: 0,
     nickname: '',
     avatar: null,
     article_collect: null,
@@ -42,12 +42,16 @@ const actions = {
     })
   },
   getInfo({ commit }) {
-    this.$axios.$get('/api/user/info').then(res => {
-      commit('SET_USERSTATUS', res[0])
-    }).catch(error => {
-      this._vm.$message({
-        type: 'error',
-        message: error.data
+    return new Promise((resolve, reject) => {
+      this.$axios.$get('/api/user/info').then(res => {
+        commit('SET_USERSTATUS', res[0])
+        resolve(res)
+      }).catch(error => {
+        this._vm.$message({
+          type: 'error',
+          message: error.data
+        })
+        reject(error)
       })
     })
   }
