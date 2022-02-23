@@ -32,6 +32,10 @@ export default {
         {
           name: '资源',
           path: '/admin/source'
+        },
+        {
+          name: '前台',
+          path: '/square/article'
         }
       ]
     }

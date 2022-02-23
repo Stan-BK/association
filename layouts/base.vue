@@ -84,9 +84,12 @@ export default {
     }
   },
   mounted() {
+    this.$store.commit('SET_adminRoute')
     // 当渲染该布局组件时，根据用户token进行用户信息请求
     if (localStorage.getItem('authorization') && !this.$store.state.user.user_id) {
-      this.$store.dispatch('user/getInfo')
+      this.$store.dispatch('user/getInfo').then(() => {
+        this.$store.commit('SET_adminRoute')
+      })
     }
   },
   methods: {

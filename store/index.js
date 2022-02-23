@@ -57,6 +57,13 @@ const mutations = {
   },
   SET_darkMode(state) {
     state.isDarkMode = !state.isDarkMode
+  },
+  SET_adminRoute(state) {
+    if (state.user.user_role === 2) {
+      !state.routes[2] && state.routes.push({ path: '/admin', name: '后台'})
+    } else {
+      state.routes[2] && state.routes.pop()
+    }
   }
 }
 
