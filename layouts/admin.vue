@@ -86,6 +86,12 @@ export default {
   float: left;
   transform: scale(.8, .8);
 }
+@media screen and (max-width: 376px) {
+  .toggle-wrap {
+    width: 30px;
+    transform: scale(.6, .6);
+  }
+}
 header {
   position: absolute;
   width: 100%;
