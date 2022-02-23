@@ -8,6 +8,7 @@
       </div>
       <user-status></user-status>
     </header>
+    <message></message>
     <main>
       <nuxt></nuxt>
     </main>
@@ -19,8 +20,8 @@ export default {
   components: {
     Route,
     Logo,
-    UserStatus,
-  },
+    UserStatus
+},
   data() {
     return {
       routes: [
