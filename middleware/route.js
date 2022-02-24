@@ -10,6 +10,9 @@ export default function({  store, route }) {
   } else if (routeArr[0] === 'subarea' && routeArr[2]) {
     store.commit('SET_ROUTE_TYPE', routeArr[2])
   }
+  if (routeArr[0] !== 'admin') {
+    store.state.isDarkMode === true && store.commit('SET_darkMode')
+  }
   store.commit('SET_firstIn_true')
   store.commit('SET_noMore_false')
 }
