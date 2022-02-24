@@ -29,9 +29,14 @@
          skin: 'oxide',
          menubar:['insert'],
          image_uploadtab: true,
-         images_upload_url: ''
+         images_upload_handler:(blobInfo, success, failure) => {
+           const url = 'data:image/jpeg;base64,' + blobInfo.base64()
+           this.img.set(url, '')
+           success(url)
+         }
        }"
      />
+     <button @click="upload">上传</button>
   </div>
 </template>
 <script>
@@ -45,7 +50,8 @@ export default {
       defaultCss: 'https://cdn.tiny.cloud/1/ovy21qebfkvtexwkbqdru3wd4nbmkhtogs72x7fgyz8dn88j/tinymce/5.10.3-128/skins/content/default/content.min.css',
       darkCss: 'https://cdn.tiny.cloud/1/ovy21qebfkvtexwkbqdru3wd4nbmkhtogs72x7fgyz8dn88j/tinymce/5.10.3-128/skins/content/dark/content.min.css',
       initialized: false,
-      isLoadingFailed: false
+      isLoadingFailed: false,
+      img: undefined,
     }
   },
   watch: {
@@ -67,6 +73,17 @@ export default {
         this.isLoadingFailed = true
       }
     }, 2000)
+  },
+  methods: {
+    upload() {
+      const slice = (arg) => Array.prototype.slice.call(arg)
+      const editor = this.$refs.editor.editor
+      const imgArr = editor.getWin().document.getElementsByTagName('img')
+      const imgMap = slice(imgArr).map(item => {
+        return [item.src, '']
+      })
+      this.img = new Map(imgMap) // 将图片映射为map表
+    }
   }
 }
 </script>
