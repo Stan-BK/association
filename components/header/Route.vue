@@ -1,5 +1,5 @@
 <template>
-  <ul class="route-list">
+  <ul class="route-list" :class="$store.state.isDarkMode ? 'dark-route-list': ''">
     <li v-for="item of routes" :key="item.path">
       <nuxt-link v-if="!item.child" :to="item.path">{{item.name}}</nuxt-link>
       <template v-else>
@@ -27,6 +27,9 @@ export default {
 .route-list {
   height: 100%;
   float: left;
+}
+.dark-route-list.route-list li>a {
+  color: #fff;
 }
 .route-list li{
   position: relative;

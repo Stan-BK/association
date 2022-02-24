@@ -1,5 +1,5 @@
 <template>
-  <div class="user-status">
+  <div class="user-status" :class="$store.state.isDarkMode ? 'dark-user-status' : ''">
     <template v-if="!!$store.state.user.user_id">
       <avatar :src="$store.state.user.avatar" :width="'60px'"  :style="{ transform: 'scale(.8, .8)' }"></avatar>
       <div class="sub-item">
@@ -43,6 +43,19 @@ export default {
   height: 100%;
   float: right;
 }
+.dark-user-status .sub-item {
+  background-color: #000;
+}
+.dark-user-status .sub-item::before {
+  border-bottom-color: #000;
+}
+.dark-user-status .sub-item a {
+  color: #fff;
+}
+.dark-user-status .sub-item div {
+  color: #fff;
+}
+
 .sign {
   position: relative;
   width: 100px;
