@@ -2,7 +2,7 @@
   <div>
       <Announcement :announcement="announcement">
         <template #title>
-          {{announcement.title}}
+          {{announcement.name}}
         </template>
          {{announcement.content}}
         <template #comment>
@@ -13,15 +13,24 @@
 </template>
 <script>
 export default {
-  layout: 'base',
   data() {
     return {
       announcement: {
-        title: '公告',
-        content: '公告内容',
-        comment: '评论'
+        avatar: '',
+        title: '',
+        content: '',
+        comment: '',
+        association: {
+          avatar: '',
+          name: ''
+        }
       }
     }
+  },
+  beforeMount() {
+    this.$axios.$get(`/api/announcement/${this.$route.params.id}`).then(res => {
+      this.announcement = res[0]
+    })
   }
 }
 </script>

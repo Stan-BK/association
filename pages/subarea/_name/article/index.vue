@@ -1,7 +1,7 @@
 <template>
   <div>
     <template v-for="(item, index) of articles">
-      <nuxt-link :key="index"  :to="'article/' + item.id">
+      <nuxt-link :key="index"  :to="$route.path + '/' + item.article_id">
         <article-card :article="item"></article-card>
       </nuxt-link>
     </template>
@@ -9,15 +9,13 @@
 </template>
 <script>
 export default {
-  asyncData({ params }) {
-    console.log(params.name)
-  },
-  layout: 'base',
-  transition: 'test',
-  data() {
-    return {
-      articles: this.$store.state.article.articles
+  props: {
+    articles: {
+      type: Array,
+      default() {
+        return []
+      }
     }
-  },
+  }
 }
 </script>
