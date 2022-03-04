@@ -65,6 +65,7 @@ export default {
       isLoadingFailed: false,
       img: undefined,
       avatar: '',
+      avatarFile: undefined,
     }
   },
   watch: {
@@ -104,11 +105,16 @@ export default {
       input.setAttribute('accept', 'image/*') // 只允许选择图片
       document.body.appendChild(input)
       input.click()
-      input.onchange = () => {
+      input.onchange = (e) => {
+        const source = input.files[0]
         const fileReader = new FileReader()
         fileReader.readAsDataURL(input.files[0]) // 将选择图片资源读取为base64编码
         fileReader.onload = () => {
           this.avatar = fileReader.result
+          const formdata = new FormData()
+          formdata.append('source', source)
+          formdata.append('source_name', source.name)
+          this.$axios.$put('/api/source', formdata)
         }
       }
     }
