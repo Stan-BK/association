@@ -83,6 +83,11 @@ export default {
       sessionStorage.setItem('pageScrollTop', this.$refs.main.scrollTop)
     }
   },
+  destroyed() {
+    this.$store.commit('SET_fromHome')
+    this.$nuxt.$loading.start()
+    this.$nuxt.$loading.finish()
+  },
   mounted() {
     this.$store.commit('SET_adminRoute')
     // 当渲染该布局组件时，根据用户token进行用户信息请求
