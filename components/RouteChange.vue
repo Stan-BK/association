@@ -14,14 +14,14 @@ export default {
       return route.includes('article') ? 'Article' : 'Announcement'
     },
     toRouteName() {
-      const route = this.$route.path.split('/')
-      const routeType = route[2]
+      const route = this.$route.path
       const routeList = {
         'article': 'announcement',
         'announcement': 'article'
       }
-      route[2] = routeList[routeType] // 根据当前路由替换目标路由
-      return `${route.join('/')}`
+      return route.replace(/(article|announcement)/, function(node, key) {
+        return routeList[key]
+      })
     }
   }
 }
