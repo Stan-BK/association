@@ -94,6 +94,11 @@ export default {
     if (localStorage.getItem('authorization') && !this.$store.state.user.user_id) {
       this.$store.dispatch('user/getInfo').then(() => {
         this.$store.commit('SET_adminRoute')
+      }).catch(error => {
+        this.$message({
+          type: 'error',
+          message: error
+        })
       })
     }
   },

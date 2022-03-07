@@ -47,10 +47,6 @@ const actions = {
         commit('SET_USERSTATUS', res[0])
         resolve(res)
       }).catch(error => {
-        this._vm.$message({
-          type: 'error',
-          message: error.data
-        })
         reject(error)
       })
     })

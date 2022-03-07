@@ -7,11 +7,14 @@ export default function({ $axios, redirect }) {
       }
     }
   })
-  $axios.interceptors.response.use((res) => {
+  $axios.interceptors.response.use(function(res) {
     if (res.data.code === 200) {
       return Promise.resolve(res.data)
+    } else if (res.data.code === 403) {
+      // this.$store.commit('user/LOGOUT')
+      return Promise.reject(res.data.message)
     } else {
-      return Promise.reject(res.data)
+      return Promise.reject(res.data.message)
     }
   }, (error) => {
     if (error.response.status >= 500) {
