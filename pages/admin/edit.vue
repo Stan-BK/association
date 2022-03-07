@@ -11,7 +11,7 @@
     </transition>
     <div class="toolbar clearfix" :class="$store.state.isDarkMode ? 'dark-toolbar' : ''">
       <div class="title">
-        <label for="title">标题</label>
+        <label for="title">标题<span style="color: red;">*</span></label>
         <input id="title" v-model="title" type="text">
       </div>
       <div class="abstract">
@@ -164,6 +164,8 @@ export default {
       return new Promise((resolve, reject) => {
         this.$axios['$' + uploadType.toLowerCase()]('/api/' + contentType, formData).then(res => {
           resolve(res)
+        }).catch(e => {
+          reject(e)
         })
       })
     },
@@ -187,6 +189,8 @@ export default {
         formdata.append('source_name', sourceName || Math.floor(Math.random() * 1000000) + '.jpeg')
         this.$axios.$put('/api/source', formdata).then(res => {
           resolve(res)
+        }).catch(e => {
+          reject(e)
         })
       })
     }
