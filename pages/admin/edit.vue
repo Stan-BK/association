@@ -9,7 +9,15 @@
         </div>
       </div>
     </transition>
-    <div class="toolbar" :class="$store.state.isDarkMode ? 'dark-toolbar' : ''">
+    <div class="toolbar clearfix" :class="$store.state.isDarkMode ? 'dark-toolbar' : ''">
+      <div class="title">
+        <label for="title">标题</label>
+        <input id="title" v-model="title" type="text">
+      </div>
+      <div class="abstract">
+        <label for="abstract">简介</label>
+        <textarea id="abstract" v-model="abstract" name=""></textarea>
+      </div>
       <div class="photo" @click="chooseAvatar">
         <avatar :src="avatar" :is-need-radius="false" >
           <template v-if="!avatar">
@@ -19,36 +27,37 @@
         </avatar>
       </div>
       <div class="upload">
-        <button>保存</button>
+        <button @click="upload">保存</button>
       </div>
     </div>
-    <editor
-       ref="editor"
-       api-key="ovy21qebfkvtexwkbqdru3wd4nbmkhtogs72x7fgyz8dn88j"
-       :init="{
-         height: 500,
-         menubar: false,
-         plugins: [
-           'advlist autolink lists link image charmap print preview anchor emoticons',
-           'searchreplace fullscreen imagetools',
-           'insertdatetime media table paste help wordcount pagebreak tabfocus '
-         ],
-         toolbar:
-           `undo redo | formatselect | bold italic forecolor backcolor searchreplace table| \
-           alignleft aligncenter alignright alignjustify | \
-           bullist numlist outdent indent |  preview fullscreen  print  help`,
-         language: 'zh_CN',
-         content_css: $store.state.isDarkMode ? 'dark' : 'default',
-         skin: 'oxide',
-         menubar:['insert'],
-         image_uploadtab: true,
-         images_upload_handler:(blobInfo, success, failure) => {
-           const url = 'data:image/jpeg;base64,' + blobInfo.base64()
-           this.img.set(url, '')
-           success(url)
-         }
-       }"
-     />
+    <div style="display: block;">
+      <editor
+        ref="editor"
+        api-key="ovy21qebfkvtexwkbqdru3wd4nbmkhtogs72x7fgyz8dn88j"
+        :init="{
+          height: 500,
+          menubar: false,
+          plugins: [
+            'advlist autolink lists link image charmap print preview anchor emoticons',
+            'searchreplace fullscreen imagetools',
+            'insertdatetime media table paste help wordcount pagebreak tabfocus '
+          ],
+          toolbar:
+            `undo redo | formatselect | bold italic forecolor backcolor searchreplace table| \
+            alignleft aligncenter alignright alignjustify | \
+            bullist numlist outdent indent |  preview fullscreen  print  help`,
+          language: 'zh_CN',
+          content_css: $store.state.isDarkMode ? 'dark' : 'default',
+          skin: 'oxide',
+          menubar:['insert'],
+          image_uploadtab: true,
+          images_upload_handler:(blobInfo, success, failure) => {
+            const url = 'data:image/jpeg;base64,' + blobInfo.base64()
+            success(url)
+          }
+        }"
+      />
+    </div>
   </div>
 </template>
 <script>
@@ -65,7 +74,11 @@ export default {
       isLoadingFailed: false,
       img: undefined,
       avatar: '',
-      avatarFile: undefined,
+      abstract: '',
+      content: '',
+      contentType: 'article',
+      association_id: 1,
+      title: ''
     }
   },
   watch: {
@@ -89,44 +102,124 @@ export default {
     }, 2000)
   },
   methods: {
-    upload() {
+    async upload() {
       const slice = (arg) => Array.prototype.slice.call(arg)
       const editor = this.$refs.editor.editor
       const imgArr = editor.getWin().document.getElementsByTagName('img')
-      const imgMap = slice(imgArr).map(item => {
-        return [item.src, '']
+      const srcMap = new Map()
+      slice(imgArr).forEach(item => {
+        srcMap.set(item.src, '')
       })
-      this.img = new Map(imgMap) // 将图片映射为map表
+      try {
+        for (const key of srcMap.keys()) {
+          const src = await this.uploadSource(key)
+          srcMap.set(key, src)
+        }
+        slice(imgArr).forEach(item => {
+          item.src = srcMap.get(item.src)
+          item.setAttribute('data-mce-src', item.src)
+        })
+        const content = editor.getWin().document.body.innerHTML
+        const uploadType = 'put'
+        const formData = new FormData()
+        formData.append('association_id', this.association_id)
+        formData.append('name',  this.title)
+        formData.append('avatar', this.avatar)
+        formData.append('abstract', this.abstract)
+        formData.append('content', content)
+        await this.uploadContent(this.contentType, uploadType, formData)
+        this.$message({
+          type: 'success',
+          message: '提交成功'
+        })
+      } catch(e) {
+        this.$message({
+          type: 'error',
+          message: e.message
+        })
+      }
     },
     chooseAvatar() {
-      const input = document.createElement('input')
+      let input = document.createElement('input')
       input.type = 'file'
       input.style.display = 'none'
       input.setAttribute('accept', 'image/*') // 只允许选择图片
       document.body.appendChild(input)
       input.click()
-      input.onchange = (e) => {
+      input.onchange = () => {
         const source = input.files[0]
         const fileReader = new FileReader()
         fileReader.readAsDataURL(input.files[0]) // 将选择图片资源读取为base64编码
         fileReader.onload = () => {
           this.avatar = fileReader.result
-          const formdata = new FormData()
-          formdata.append('source', source)
-          formdata.append('source_name', source.name)
-          this.$axios.$put('/api/source', formdata)
+          this.uploadSource(source, source.name).then(res => {
+            this.avatar = res
+          })
         }
+        document.body.removeChild(input)
+        input = null
       }
+    },
+    uploadContent(contentType, uploadType, formData) {
+      return new Promise((resolve, reject) => {
+        this.$axios['$' + uploadType.toLowerCase()]('/api/' + contentType, formData).then(res => {
+          resolve(res)
+        })
+      })
+    },
+    uploadSource(source, sourceName) {
+      function base64ToBlob(b64) {
+        const base64 = b64.replace('data:image/jpeg;base64,', '')
+        const source = atob(base64)
+        const len = source.length
+        const unitArr = new Uint8Array(len)
+        for (let i = 0; i < len; i++) {
+          unitArr[i] = source.charCodeAt(i)
+        }
+        return new Blob([unitArr], {
+          type: 'image/jpeg'
+        })
+      }
+
+      return new Promise((resolve, reject) => {
+        const formdata = new FormData()
+        formdata.append('source', source instanceof Blob ? source : base64ToBlob(source))
+        formdata.append('source_name', sourceName || Math.floor(Math.random() * 1000000) + '.jpeg')
+        this.$axios.$put('/api/source', formdata).then(res => {
+          resolve(res)
+        })
+      })
     }
   }
 }
 </script>
 <style scoped>
 .toolbar {
+  max-width: 800px;
   width: 100%;
-  height: 100px;
   padding-left: 50px;
   margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.title {
+  width: 140px;
+  height: 100px;
+}
+.title input{
+  width: 100%;
+  height: 50px;
+  font-size: 1.4em;
+}
+.abstract {
+  min-width: 140px;
+  height: 100px;
+}
+.abstract textarea{
+  width: 100%;
+  height: 80px;
+  resize: none;
 }
 .photo {
   position: relative;
@@ -135,7 +228,6 @@ export default {
   padding: 2px;
   max-width: 200px;
   max-height: 200px;
-  float: left;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -149,6 +241,13 @@ export default {
   position: absolute;
   content: "封面";
   top: -26px;
+  left: 0;
+}
+.dark-toolbar .title>label {
+  color: #fff;
+}
+.dark-toolbar .abstract>label {
+  color: #fff;
 }
 .dark-toolbar .photo:hover{
   border-color: rgb(255, 255, 255);
@@ -174,8 +273,7 @@ export default {
 }
 .upload {
   width: 60px;
-  height: 100%;
-  float: left;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
