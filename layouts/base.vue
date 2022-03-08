@@ -11,15 +11,15 @@
     <aside>
       <side-bar></side-bar>
     </aside>
-    <main ref="main" @scroll="ifScroll"> 
+    <main ref="main" @scroll="ifScroll">
       <div class="background shadow" :style="{ backgroundImage: `url(http://source.geminikspace.com/cat.jpg)` }">
       </div>
       <div class="background">
         <img src="@/assets/cat.jpg" alt="">
       </div>
+      <banner></banner>
       <article>
         <nuxt />
-        <!-- <intersection :is-need-intersection="isNeedIntersection"></intersection> -->
       </article>
     </main>
     <div class="controller">
