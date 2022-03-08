@@ -173,7 +173,7 @@ main {
   position: relative;
   width: 100%;
   height: 100vh;
-  overflow: auto;
+  overflow-x: hidden;
   transition: all .5s;
 }
 
