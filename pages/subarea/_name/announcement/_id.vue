@@ -1,14 +1,6 @@
 <template>
   <div>
-      <Announcement :announcement="announcement">
-        <template #title>
-          {{announcement.name}}
-        </template>
-         {{announcement.content}}
-        <template #comment>
-          {{announcement.comment}}
-        </template>
-      </Announcement>
+      <Announcement :announcement="announcement"></Announcement>
   </div>
 </template>
 <script>

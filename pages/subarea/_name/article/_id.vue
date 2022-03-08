@@ -1,14 +1,6 @@
 <template>
   <div>
-      <Article :article="article">
-        <template #title>
-          {{article.name}}
-        </template>
-         {{article.content}}
-        <template #comment>
-          {{article.comment}}
-        </template>
-      </Article>
+      <Article :article="article"></Article>
   </div>
 </template>
 <script>
