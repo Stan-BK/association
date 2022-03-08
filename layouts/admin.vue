@@ -51,7 +51,23 @@ export default {
       role === 1 && this.$router.replace('/')
     } else if (localStorage.getItem('authorization')) {
       this.$store.dispatch('user/getInfo').then(res => {
-        res.user_role === 1 && this.$router.replace('/')
+        if (res.user_role !== 2 ) {
+          this.$message({
+            type: 'error',
+            message: '权限错误'
+          })
+          setTimeout(() => {
+            this.$router.replace('/')
+          }, 1000)
+        }
+      }).catch(error => {
+        this.$message({
+          type: 'error',
+          message: error
+        })
+        setTimeout(() => {
+          this.$router.replace('/')
+        }, 1000)
       })
     } else {
       this.$router.replace('/')
