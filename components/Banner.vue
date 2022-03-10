@@ -1,7 +1,7 @@
 <template>
   <transition name="pop">
     <div class="info" v-show="isShow">
-      <avatar :src="info.avatar" ></avatar>
+      <avatar :src="info.avatar" style="transform: scale(1.4, 1.4);"></avatar>
       <span>{{info.name}}</span>
     </div>
   </transition>
@@ -33,6 +33,9 @@ export default {
           this.isShow = true
         } else {
           this.isShow = false
+          for (const i of Object.keys(this.info)) {
+            this.info[i] = ''
+          }
         }
       },
       immediate: true
@@ -60,7 +63,7 @@ export default {
 }
 .pop-enter-active,
 .pop-leave-active {
-  transition: all .8s;
+  transition: all .4s;
 }
 .pop-enter {
   top: 200px;
