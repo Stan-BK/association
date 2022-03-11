@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="source">
     <my-table :data="info" :prop="['age', 'name', ]">
       <template #default="slotscope">
         <button @click="con(slotscope)"></button>
@@ -32,3 +32,9 @@ export default {
   }
 }
 </script>
+<style scoped>
+.source {
+  height: calc(100vh - 150px);
+  overflow: hidden;
+}
+</style>

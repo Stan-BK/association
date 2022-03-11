@@ -53,8 +53,10 @@ export default {
 <style scoped>
 .table {
   padding: 20px;
+  height: 100%;
   border: 1px solid #eee;
   border-radius: 2px;
+  overflow-y: scroll;
 }
 .tb {
   width: 100%;
