@@ -2,7 +2,8 @@
   <div class="source">
     <my-table :data="info" :prop="['age', 'name', ]">
       <template #default="slotscope">
-        <button @click="con(slotscope)"></button>
+        <my-button style="background: #5ca9f7" @click="editSource(slotscope)">编辑</my-button>
+        <my-button style="background: #F56C6C" @click="deleteSource(slotscope)">删除</my-button>
       </template>
     </my-table>
   </div>
@@ -26,8 +27,11 @@ export default {
     })
   },
   methods: {
-    con(data) {
+    editSource(data) {
       console.log(data)
+    },
+    deleteSource(data) {
+
     }
   }
 }
