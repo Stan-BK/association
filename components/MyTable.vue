@@ -78,5 +78,6 @@ td {
   width: auto;
   padding: 20px 20px;
   text-align: center;
+  vertical-align: baseline;
 }
 </style>
