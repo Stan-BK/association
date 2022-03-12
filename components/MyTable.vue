@@ -11,7 +11,7 @@
       <tbody>
         <tr v-for="(item, index) of tableData" :key="index">
           <td v-for="(value, key) in item" :key="key">{{ value }}</td>
-          <slot v-bind="item"></slot>
+          <td><slot v-bind="item"></slot></td>
         </tr>
       </tbody>
     </table>
