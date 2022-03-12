@@ -47,7 +47,7 @@ export default {
       hasScroll: false, // 是否有滚动距离
       scrollTime: undefined, // “回到顶部”按钮显隐计时器
       oldRouteName: '',
-      opacity: 0
+      opacity: 1
     }
   },
   computed: {

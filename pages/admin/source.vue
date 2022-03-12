@@ -1,6 +1,6 @@
 <template>
   <div class="source">
-    <my-table :data="info" :prop="['age', 'name', ]">
+    <my-table :data="info" :prop="['name', 'abstract']">
       <template #default="slotscope">
         <my-button style="background: #5ca9f7" @click="editSource(slotscope)">编辑</my-button>
         <my-button style="background: #F56C6C" @click="deleteSource(slotscope)">删除</my-button>
