@@ -44,7 +44,7 @@ const actions = {
   getInfo({ commit }) {
     return new Promise((resolve, reject) => {
       this.$axios.$get('/api/user/info').then(res => {
-        commit('SET_USERSTATUS', res[0])
+        commit('SET_USERSTATUS', res)
         resolve(res)
       }).catch(error => {
         reject(error)
