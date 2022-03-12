@@ -1,5 +1,10 @@
 <template>
   <div class="source">
+    <my-message-box v-if="messageShow" @cancel="messageShow = false">
+      <template #footer>
+        <my-button>hh</my-button>
+      </template>
+    </my-message-box>
     <my-table :data="info" :prop="['name', 'abstract']">
       <template #default="slotscope">
         <my-button style="background: #5ca9f7" @click="editSource(slotscope)">编辑</my-button>
@@ -9,9 +14,12 @@
   </div>
 </template>
 <script>
+import MyButton from '~/components/MyButton.vue'
 export default {
+  components: { MyButton },
   data() {
     return {
+      messageShow: true,
       info: [{
         name: 'wbk',
         age: 21
@@ -28,6 +36,7 @@ export default {
   },
   methods: {
     editSource(data) {
+      this.messageShow = !this.messageShow
       console.log(data)
     },
     deleteSource(data) {
