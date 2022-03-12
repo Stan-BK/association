@@ -10,7 +10,7 @@
     </header>
     <message></message>
     <main>
-      <nuxt></nuxt>
+      <nuxt style="height: 100%;"></nuxt>
     </main>
   </div>
 </template>

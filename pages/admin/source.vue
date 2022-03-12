@@ -2,15 +2,21 @@
   <div class="source">
     <my-message-box v-if="messageShow" @cancel="messageShow = false">
       <template #footer>
-        <my-button>hh</my-button>
+        <my-button style="background: #5ca9f7">确定</my-button>
+        <my-button style="background: #aaa" @click="messageShow = false">取消</my-button>
       </template>
     </my-message-box>
-    <my-table :data="info" :prop="['name', 'abstract']">
-      <template #default="slotscope">
-        <my-button style="background: #5ca9f7" @click="editSource(slotscope)">编辑</my-button>
-        <my-button style="background: #F56C6C" @click="deleteSource(slotscope)">删除</my-button>
-      </template>
-    </my-table>
+    <div class="toolbar">
+
+    </div>
+    <div class="content">
+      <my-table :data="info" :prop="['name', 'abstract']">
+        <template #default="slotscope">
+          <my-button style="background: #5ca9f7" @click="editSource(slotscope)">编辑</my-button>
+          <my-button style="background: #F56C6C" @click="deleteSource(slotscope)">删除</my-button>
+        </template>
+      </my-table>
+    </div>
   </div>
 </template>
 <script>
@@ -46,8 +52,15 @@ export default {
 }
 </script>
 <style scoped>
+.toolbar {
+  width: 100%;
+  height: 100px;
+}
 .source {
-  height: calc(100vh - 150px);
+  height: 100%;
   overflow: hidden;
+}
+.content {
+  height: calc(100% - 100px);
 }
 </style>
