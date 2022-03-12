@@ -1,6 +1,11 @@
 <template>
-  <button><slot></slot></button>
+  <button @click="$emit('click')"><slot></slot></button>
 </template>
+<script>
+export default{
+  inheritAttrs: false
+}
+</script>
 <style scoped>
 button {
   border-radius: 2px;
