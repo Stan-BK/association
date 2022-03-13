@@ -1,8 +1,8 @@
 <template>
   <div class="source">
-    <my-message-box v-if="messageShow" @cancel="messageShow = false">
+    <my-message-box :header="mboxHeader" :message="mboxMessage" v-if="messageShow" @cancel="messageShow = false">
       <template #footer>
-        <my-button style="background: #5ca9f7">确定</my-button>
+        <my-button style="background: #5ca9f7" @click="confirmDeleteSource">确定</my-button>
         <my-button style="background: #aaa" @click="messageShow = false">取消</my-button>
       </template>
     </my-message-box>
@@ -29,7 +29,7 @@ export default {
   components: { MyButton, MyButtonGroup },
   data() {
     return {
-      messageShow: true,
+      messageShow: false,
       info: [{
         name: 'wbk',
         age: 21
@@ -37,7 +37,17 @@ export default {
         name: 'cxk',
         age: 22
       }],
-      isArticle: true
+      isArticle: true,
+      deleteForm: {
+        id: undefined
+      },
+      mboxHeader: '警告',
+      mboxMessage: '确定删除？'
+    }
+  },
+  computed: {
+    sourceType() {
+      return this.isArticle ? 'article' : 'announcement'
     }
   },
   watch: {
@@ -57,14 +67,30 @@ export default {
   },
   methods: {
     editSource(data) {
-      this.messageShow = !this.messageShow
     },
     deleteSource(data) {
-
+      this.messageShow = true
+      this.deleteForm.id = data[this.sourceType + '_id']
+    },
+    confirmDeleteSource() {
+      const id = this.deleteForm.id
+      this.$axios.$delete(`/api/article?id=${id}`).then(() => {
+        this.$message({
+          type: 'success',
+          message: '删除成功'
+        })
+        this.info = this.info.filter(item => item[this.sourceType + '_id'] !== id)
+      }).catch(() => {
+        this.$message({
+          type: 'error',
+          message: '删除失败'
+        })
+      })
+      this.messageShow = false
     },
     generateType(data) {
       return data.map(item => {
-        item.type = this.isArticle ? 'article' : 'announcement'
+        item.type = this.sourceType
         return item
       })
     }
