@@ -11,7 +11,7 @@
       <tbody>
         <tr v-for="(item, index) of tableData" :key="index">
           <td v-for="(value, key) in item" :key="key">{{ value }}</td>
-          <td><slot v-bind="item"></slot></td>
+          <td><slot v-bind="dataMap.get(item)"></slot></td>
         </tr>
       </tbody>
     </table>
@@ -33,6 +33,11 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      dataMap: new Map()
+    }
+  },
   computed: {
     tableData() {
       return this.data.map(item => {
@@ -44,6 +49,7 @@ export default {
             obj[key] = undefined
           }
         })
+        this.dataMap.set(obj, item)
         return obj
       })
     }
