@@ -3,17 +3,11 @@
     <slot></slot>
   </div>
 </template>
-<script>
-export default {
-  props: {
-
-  }
-}
-</script>
 <style scoped>
 .buttongroup {
+  width: auto;
+  height: 35px;
   display: inline-block;
-  box-shadow: 1px 1px 1px #eee;
 }
 button {
   margin: 0;
