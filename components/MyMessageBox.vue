@@ -35,7 +35,6 @@ export default {
   },
   computed: {
     darkMode() {
-      console.log(this.$store.state)
       return this.$store.state.isDarkMode
     }
   }
