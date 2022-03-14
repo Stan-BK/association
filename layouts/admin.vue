@@ -65,6 +65,7 @@ export default {
           type: 'error',
           message: error
         })
+        this.$store.commit('user/LOGOUT')
         setTimeout(() => {
           this.$router.replace('/')
         }, 1000)
