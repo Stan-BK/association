@@ -12,22 +12,29 @@
     <div class="toolbar clearfix" :class="$store.state.isDarkMode ? 'dark-toolbar' : ''">
       <div class="title">
         <label for="title">标题<span style="color: red;">*</span></label>
-        <input id="title" v-model="title" type="text">
+        <input id="title" v-model="form.name" type="text">
+      </div>
+      <div class="contentType">
+        <label for="contentType">类型</label>
+        <select id="contentType" v-model="form.contentType">
+          <option value="article">文章</option>
+          <option value="announcement">公告</option>
+        </select>
       </div>
       <div class="abstract">
         <label for="abstract">简介</label>
-        <textarea id="abstract" v-model="abstract" name=""></textarea>
+        <textarea id="abstract" v-model="form.abstract" name=""></textarea>
       </div>
       <div class="photo" @click="chooseAvatar">
-        <avatar :src="avatar" :is-need-radius="false" >
-          <template v-if="!avatar">
+        <avatar :src="form.avatar" :is-need-radius="false" >
+          <template v-if="!form.avatar">
             <svg v-show="!$store.state.isDarkMode" t="1645682867722" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2246" width="48" height="48"><path d="M856.32 428.064c-94.816 0-144.928 90.656-185.184 163.52-25.824 46.688-52.512 94.944-78.72 97.568-28.544-5.664-48.096-23.2-70.656-43.36-31.744-28.448-67.488-60.288-130.464-57.952-76.8 3.328-146.24 57.696-206.4 161.696a32 32 0 0 0 55.392 32.064c48.48-83.84 100.224-127.488 153.728-129.824 36.928-1.44 56.96 16.576 84.992 41.664 26.88 24.096 57.344 51.36 105.888 59.392a31.584 31.584 0 0 0 5.216 0.448c64.704 0 101.44-66.464 136.96-130.72 28.352-51.328 57.504-104 97.184-123.072v369.984H128V231.68h488.16a32 32 0 1 0 0-64H96a32 32 0 0 0-32 32v701.824a32 32 0 0 0 32 32h760.32a32 32 0 0 0 32-32V460.064a32 32 0 0 0-32-32z" p-id="2247"></path><path d="M180.96 424.32c0 57.952 47.168 105.12 105.12 105.12s105.12-47.168 105.12-105.12-47.168-105.088-105.12-105.088-105.12 47.136-105.12 105.088z m146.24 0a41.152 41.152 0 0 1-82.24 0 41.152 41.152 0 0 1 82.24 0zM960 174.656h-61.376V113.28a32 32 0 1 0-64 0v61.344H752.64a32 32 0 1 0 0 64h81.984v81.984a32 32 0 1 0 64 0V238.656H960a32 32 0 1 0 0-64z" p-id="2248"></path></svg>
             <svg v-show="$store.state.isDarkMode" t="1645709754838" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2227" width="48" height="48"><path d="M856.32 428.064c-94.816 0-144.928 90.656-185.184 163.52-25.824 46.688-52.512 94.944-78.72 97.568-28.544-5.664-48.096-23.2-70.656-43.36-31.744-28.448-67.488-60.288-130.464-57.952-76.8 3.328-146.24 57.696-206.4 161.696a32 32 0 0 0 55.392 32.064c48.48-83.84 100.224-127.488 153.728-129.824 36.928-1.44 56.96 16.576 84.992 41.664 26.88 24.096 57.344 51.36 105.888 59.392a31.584 31.584 0 0 0 5.216 0.448c64.704 0 101.44-66.464 136.96-130.72 28.352-51.328 57.504-104 97.184-123.072v369.984H128V231.68h488.16a32 32 0 1 0 0-64H96a32 32 0 0 0-32 32v701.824a32 32 0 0 0 32 32h760.32a32 32 0 0 0 32-32V460.064a32 32 0 0 0-32-32z" p-id="2228" fill="#ffffff"></path><path d="M180.96 424.32c0 57.952 47.168 105.12 105.12 105.12s105.12-47.168 105.12-105.12-47.168-105.088-105.12-105.088-105.12 47.136-105.12 105.088z m146.24 0a41.152 41.152 0 0 1-82.24 0 41.152 41.152 0 0 1 82.24 0zM960 174.656h-61.376V113.28a32 32 0 1 0-64 0v61.344H752.64a32 32 0 1 0 0 64h81.984v81.984a32 32 0 1 0 64 0V238.656H960a32 32 0 1 0 0-64z" p-id="2229" fill="#ffffff"></path></svg>
           </template>
         </avatar>
       </div>
       <div class="upload">
-        <button @click="upload">保存</button>
+        <my-button style="background: #5ca9f7" @click="upload">保存</my-button>
       </div>
     </div>
     <div style="display: block;">
@@ -73,12 +80,12 @@ export default {
       initialized: false,
       isLoadingFailed: false,
       img: undefined,
-      avatar: '',
-      abstract: '',
-      content: '',
-      contentType: 'article',
-      association_id: 1,
-      title: ''
+      form: {
+        avatar: '',
+        abstract: '',
+        contentType: 'article',
+        name: '',
+      }
     }
   },
   watch: {
@@ -107,31 +114,38 @@ export default {
       const editor = this.$refs.editor.editor
       const imgArr = editor.getWin().document.getElementsByTagName('img')
       const srcMap = new Map()
-      slice(imgArr).forEach(item => {
-        srcMap.set(item.src, '')
-      })
       try {
-        for (const key of srcMap.keys()) {
-          const src = await this.uploadSource(key)
-          srcMap.set(key, src)
+        if (imgArr) {
+          slice(imgArr).forEach(item => {
+            srcMap.set(item.src, '')
+          })
+          for (const key of srcMap.keys()) {
+            const src = await this.uploadSource(key)
+            srcMap.set(key, src)
+          }
+          slice(imgArr).forEach(item => {
+            item.src = srcMap.get(item.src)
+            item.setAttribute('data-mce-src', item.src)
+          })
         }
-        slice(imgArr).forEach(item => {
-          item.src = srcMap.get(item.src)
-          item.setAttribute('data-mce-src', item.src)
-        })
-        const content = editor.getWin().document.body.innerHTML
+        const content = editor.getWin().document.body.innerHTML // 表单中的内容字段通过操作dom直接获取
         const uploadType = 'put'
         const formData = new FormData()
-        formData.append('association_id', this.association_id)
-        formData.append('name',  this.title)
-        formData.append('avatar', this.avatar)
-        formData.append('abstract', this.abstract)
+        const form = this.form
+        if (form.name.trim() === '') {
+          throw new Error('标题不能为空')
+        }
+        formData.append('association_id', this.$store.state.user.associationAssociationId)
+        formData.append('name',  form.name)
+        formData.append('avatar', form.avatar)
+        formData.append('abstract', form.abstract)
         formData.append('content', content)
-        await this.uploadContent(this.contentType, uploadType, formData)
+        await this.uploadContent(form.contentType, uploadType, formData)
         this.$message({
           type: 'success',
           message: '提交成功'
         })
+        this.$router.push('/admin/source')
       } catch(e) {
         this.$message({
           type: 'error',
@@ -141,6 +155,7 @@ export default {
     },
     chooseAvatar() {
       let input = document.createElement('input')
+      const form = this.form
       input.type = 'file'
       input.style.display = 'none'
       input.setAttribute('accept', 'image/*') // 只允许选择图片
@@ -151,9 +166,9 @@ export default {
         const fileReader = new FileReader()
         fileReader.readAsDataURL(input.files[0]) // 将选择图片资源读取为base64编码
         fileReader.onload = () => {
-          this.avatar = fileReader.result
+          form.avatar = fileReader.result
           this.uploadSource(source, source.name).then(res => {
-            this.avatar = res
+            form.avatar = res
           })
         }
         document.body.removeChild(input)
@@ -170,8 +185,12 @@ export default {
       })
     },
     uploadSource(source, sourceName) {
+      const reg = 'data:image/jpeg;base64,'
+      if (!(source instanceof Blob) && !source.match(reg)) { // 资源已经是url形式
+        return source
+      }
       function base64ToBlob(b64) {
-        const base64 = b64.replace('data:image/jpeg;base64,', '')
+        const base64 = b64.replace(reg, '')
         const source = atob(base64)
         const len = source.length
         const unitArr = new Uint8Array(len)
@@ -199,7 +218,6 @@ export default {
 </script>
 <style scoped>
 .toolbar {
-  max-width: 800px;
   width: 100%;
   padding-left: 50px;
   margin-bottom: 20px;
@@ -207,50 +225,14 @@ export default {
   flex-wrap: wrap;
   justify-content: space-around;
 }
-.title {
-  width: 140px;
-  height: 100px;
-}
-.title input{
-  width: 100%;
-  height: 50px;
-  font-size: 1.4em;
-}
-.abstract {
-  min-width: 140px;
-  height: 100px;
-}
-.abstract textarea{
-  width: 100%;
-  height: 80px;
-  resize: none;
-}
-.photo {
-  position: relative;
-  width: 100px;
-  height: 100px;
-  padding: 2px;
-  max-width: 200px;
-  max-height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 70px;
-  border: 2px dashed rgba(128, 128, 128, .4);
-  border-radius: 2px;
-  cursor: pointer;
-  transition: border-color .4s;
-}
-.photo::before {
-  position: absolute;
-  content: "封面";
-  top: -26px;
-  left: 0;
-}
+
 .dark-toolbar .title>label {
   color: #fff;
 }
 .dark-toolbar .abstract>label {
+  color: #fff;
+}
+.dark-toolbar .contentType>label {
   color: #fff;
 }
 .dark-toolbar .photo:hover{
@@ -261,6 +243,53 @@ export default {
 }
 .dark-toolbar .upload button {
   color: #fff;
+}
+
+.title {
+  width: 140px;
+  height: 100px;
+}
+.title input{
+  width: 100%;
+  height: 50px;
+  font-size: 1.4em;
+  outline: none;
+  border-radius: 4px;
+}
+
+.abstract {
+  min-width: 140px;
+  height: 100px;
+}
+.abstract textarea{
+  width: 100%;
+  height: 80px;
+  resize: none;
+  outline: none;
+  border-radius: 4px;
+}
+
+.photo {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  padding: 2px;
+  max-width: 200px;
+  max-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed rgba(128, 128, 128, .4);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: border-color .4s;
+}
+.photo::before {
+  position: absolute;
+  content: "封面";
+  top: -26px;
+  left: 0;
+  pointer-events: none;
 }
 .photo .avatar {
   margin: 0;
@@ -275,23 +304,24 @@ export default {
 .photo:hover .icon {
   opacity: 1;
 }
+
+.contentType {
+  width: 80px;
+  height: 40px;
+}
+.contentType select{
+  width: 100%;
+  height: 40px;
+  outline: none;
+  border-radius: 4px;
+}
+
 .upload {
   width: 60px;
   height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.upload button {
-  width: 100%;
-  height: 30px;
-  background-color: rgba(0, 191, 255, 0.685);
-  color: #424242b7;
-  border: none;
-  border-radius: 2px;
-  box-shadow: 1px 1px 2px rgba(0, 191, 255, 0.425);
-  transition: background-color .4s;
-  cursor: pointer;
 }
 .upload button:hover {
   background-color: rgb(0, 191, 255);
