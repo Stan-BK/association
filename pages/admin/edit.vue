@@ -85,7 +85,8 @@ export default {
         abstract: '',
         contentType: 'article',
         name: '',
-      }
+      },
+      timer: undefined
     }
   },
   watch: {
@@ -98,15 +99,30 @@ export default {
   },
   mounted() {
     let i = 0
-    const timer = setInterval(() => {
+    this.timer = setInterval(() => {
       if (this.$refs.editor?.editor.initialized) {
         this.initialized = true
-        clearInterval(timer)
+        clearInterval(this.timer)
+        const { source, sourceType } = this.$route.params
+        if (source) {
+          this.$axios.$get(`/api/${ sourceType }/${ source }`).then(res => {
+            const form = this.form
+            for (const i in res) {
+              if (Object.prototype.hasOwnProperty.call(form, i)) {
+                form[i] = res[i]
+              }
+            }
+            this.$refs.editor.editor.getWin().document.body.innerHTML = res.content
+          })
+        }
       } else if (i++ > 5) {
-        clearInterval(timer)
+        clearInterval(this.timer)
         this.isLoadingFailed = true
       }
     }, 2000)
+  },
+  beforeDestroy() {
+    clearInterval(this.timer)
   },
   methods: {
     async upload() {

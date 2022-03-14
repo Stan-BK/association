@@ -4,7 +4,8 @@ const inital = {
   nickname: '',
   avatar: null,
   article_collect: null,
-  announcement_collect: null
+  announcement_collect: null,
+  association: {}
 }
 
 const state = () => {
@@ -14,7 +15,8 @@ const state = () => {
     nickname: '',
     avatar: null,
     article_collect: null,
-    announcement_collect: null
+    announcement_collect: null,
+    association: {}
   }
 }
 

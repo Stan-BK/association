@@ -13,7 +13,7 @@
       </my-button-group>
     </div>
     <div class="content">
-      <my-table :data="info" :prop="['name', 'abstract', 'type']">
+      <my-table :data="info" :prop="['name', 'abstract', 'type', 'association']">
         <template #default="slotscope">
           <my-button style="background: #5ca9f7" @click="editSource(slotscope)">编辑</my-button>
           <my-button style="background: #F56C6C" @click="deleteSource(slotscope)">删除</my-button>
@@ -42,31 +42,45 @@ export default {
         id: undefined
       },
       mboxHeader: '警告',
-      mboxMessage: '确定删除？'
+      mboxMessage: '确定删除？',
+      timer: undefined
     }
   },
   computed: {
     sourceType() {
       return this.isArticle ? 'article' : 'announcement'
+    },
+    association() {
+      return this.$store.state.user.association
     }
   },
   watch: {
     isArticle: {
       handler(newValue) {
         this.$axios.$get(`/api/${ newValue ? 'article' : 'announcement' }`).then(res => {
-          this.info = this.generateType(res)
+          this.timer = setInterval(() => {
+            if (this.association.name) {
+              this.info = this.generateData(res)
+              clearInterval(this.timer)
+            }
+          }, 200)
         })
       },
       immediate: true
     }
   },
-  mounted() {
-    this.$axios.$get('/api/article').then(res => {
-      this.info = this.generateType(res)
-    })
+  beforeDestroy() {
+    clearInterval(this.timer)
   },
   methods: {
     editSource(data) {
+      this.$router.push({
+        name: 'admin-edit',
+        params: {
+          source: data[this.sourceType + '_id'],
+          sourceType: this.sourceType
+        }
+      })
     },
     deleteSource(data) {
       this.messageShow = true
@@ -88,11 +102,15 @@ export default {
       })
       this.messageShow = false
     },
-    generateType(data) {
-      return data.map(item => {
-        item.type = this.sourceType
-        return item
-      })
+    generateData(data) {
+      return data.reduce((arr, item) => {
+        if (item.associationAssociationId === this.association.association_id) {
+          item.type = this.sourceType
+          item.association = this.association.name
+          arr.push(item)
+        }
+        return arr
+      }, [])
     }
   }
 }
