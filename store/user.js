@@ -28,7 +28,6 @@ const mutations = {
     for (const [key, value] of Object.entries(inital)) {
       state[key] = value
     }
-    localStorage.removeItem('authorization')
   }
 }
 
