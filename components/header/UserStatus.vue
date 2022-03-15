@@ -10,7 +10,7 @@
     </template>
     <template v-else>
         <div class="sign">
-        <nuxt-link :class="['register', isHover ? 'login-hover' : '']" to="/login">注册</nuxt-link>
+        <nuxt-link :class="['register', isHover ? 'login-hover' : '']" :to="{ name: 'login', params: { type: 'sign_up' } }">注册</nuxt-link>
         <nuxt-link class="login" to="/login" @mouseenter.native="loginHover" @mouseleave.native="loginBlur">登录</nuxt-link>
       </div>
     </template>

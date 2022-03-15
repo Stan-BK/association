@@ -15,8 +15,8 @@
           opacity: isToLogin ? 1 : 0,
           zIndex: isToLogin ? 9 : 0
         }">
-        <nuxt-link to="/login?role=admin"><h3>管理员登录</h3></nuxt-link>
-        <nuxt-link to="/login?role=normal"><h3>用户登录</h3></nuxt-link>
+        <nuxt-link to="/login?role=admin"><h3>用户登录</h3></nuxt-link>
+        <nuxt-link :to="{ name: 'login', params: { type: 'sign_up' } }"><h3>用户注册</h3></nuxt-link>
       </div>
       <div class="transition">
         <p v-for="(item, index) of item" :key="index" :style="{
