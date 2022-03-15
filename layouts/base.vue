@@ -46,8 +46,9 @@ export default {
       isToTop: false, // 是否开启“回到顶部”按钮的动画
       hasScroll: false, // 是否有滚动距离
       scrollTime: undefined, // “回到顶部”按钮显隐计时器
+      opacityTimer: undefined, // 设置“导航栏”透明计时器
       oldRouteName: '',
-      opacity: 1
+      opacity: 1,
     }
   },
   computed: {
@@ -90,6 +91,9 @@ export default {
   },
   mounted() {
     this.$store.commit('SET_adminRoute')
+    this.opacityTimer = setTimeout(() => { // 一秒后将导航栏设置为透明以显示完整背景
+      this.opacity = 0
+    }, 2000)
     // 当渲染该布局组件时，根据用户token进行用户信息请求
     if (localStorage.getItem('authorization') && !this.$store.state.user.user_id) {
       this.$store.dispatch('user/getInfo').then(() => {
@@ -116,6 +120,7 @@ export default {
       }, 1000)
     },
     ifScroll(e) { 
+      clearTimeout(this.opacityTimer)
       // 判断页面滚动距离，调整“回到顶部”按钮的显示
       clearTimeout(this.scrollTime)
       if (this.$refs.main.scrollTop > 0) {
