@@ -4,7 +4,7 @@
     <div class="info">
       <h1>Sign <span :class="['i', formType === 'sign_in' ? 'i-apear' : '']">in</span><span :class="['u', formType === 'sign_up' ? 'u-apear' : '']">up</span></h1>
     </div>
-    <div :class="['login', isSwitch ? 'form-switch' : '']">
+    <div :class="['login', isSwitch ? 'form-switch' : '', formType]">
       <div class="switch" @click="changeForm"><span>前往<span v-if="formType === 'sign_up'">登录</span><span v-else>注册</span></span></div>
       <form class="form">
         <input id="username" v-model="form.username" class="form-item" type="text">
@@ -14,6 +14,10 @@
         <input id="password" v-model="form.password" class="form-item" type="password">
         <div :class="['password-shadow', inputPwd ? 'password-focus' : '']">
           <svg t="1644127733271" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5448" width="20" height="20"><path d="M785.066667 892.586667H238.933333c-37.546667 0-68.266667-32.426667-68.266666-71.68V450.56c0-39.253333 30.72-71.68 68.266666-71.68h546.133334c37.546667 0 68.266667 32.426667 68.266666 71.68v370.346667c0 39.253333-30.72 71.68-68.266666 71.68zM238.933333 447.146667v373.76c0 1.706667 1.706667 3.413333 1.706667 3.413333H785.066667V450.56c0-1.706667-1.706667-3.413333-1.706667-3.413333H238.933333z" fill="#3db8f1" p-id="5449"></path><path d="M682.666667 448.853333H341.333333v-145.066666c0-93.866667 76.8-170.666667 170.666667-170.666667 44.373333 0 87.04 17.066667 121.173333 47.786667C665.6 213.333333 682.666667 256 682.666667 303.786667v145.066666z m-273.066667-68.266666h204.8v-76.8c0-29.013333-10.24-54.613333-29.013333-73.386667-20.48-18.773333-46.08-29.013333-73.386667-29.013333-56.32 0-102.4 46.08-102.4 102.4v76.8z" fill="#3db8f1" p-id="5450"></path><path d="M512 713.386667c-18.773333 0-34.133333-15.36-34.133333-34.133334v-136.533333c0-18.773333 15.36-34.133333 34.133333-34.133333s34.133333 15.36 34.133333 34.133333v136.533333c0 18.773333-15.36 34.133333-34.133333 34.133334z" fill="#3db8f1" p-id="5451"></path><path d="M512 696.32m-68.266667 0a68.266667 68.266667 0 1 0 136.533334 0 68.266667 68.266667 0 1 0-136.533334 0Z" fill="#3db8f1" p-id="5452"></path></svg>
+        </div>
+        <input v-show="formType === 'sign_up'" id="confirmpwd" v-model="form.confirmpwd" class="form-item" type="password">
+        <div v-show="formType === 'sign_up'" :class="['confirmpwd-shadow', inputConfirmpwd ? 'confirmpwd-focus' : '']">
+          <svg t="1647320104972" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1650" width="20" height="20"><path d="M837.6832 460.8h-69.632V233.472A130.56 130.56 0 0 0 638.5152 102.4h-252.928a130.56 130.56 0 0 0-129.536 131.072V460.8h-69.632a32.768 32.768 0 0 0-32.768 34.816v393.216c0 18.0736 14.6944 32.768 32.768 32.768h651.264a32.768 32.768 0 0 0 32.768-32.768V495.616a32.768 32.768 0 0 0-32.768-34.816z m-508.928-227.328a57.344 57.344 0 0 1 56.832-57.344h252.928a57.344 57.344 0 0 1 56.832 57.344V460.8h-366.592V233.472z m468.48 614.4H226.8672v-311.296h570.368v311.296z" p-id="1651" fill="#3db8f1"></path><path d="M475.6992 783.872a24.064 24.064 0 0 1-17.92-7.68l-66.048-66.048a25.344 25.344 0 0 1 35.84-35.84l48.128 47.616 102.4-99.84a25.344 25.344 0 1 1 35.84 35.84l-120.32 118.272a24.064 24.064 0 0 1-17.92 7.68z" p-id="1652" fill="#3db8f1"></path></svg>
         </div>
         <button class="submit" @click.prevent="submitForm"><span v-if="formType === 'sign_in'">登录</span><span v-else>注册</span></button>
       </form>
@@ -28,7 +32,8 @@ export default {
     return {
       form: {
         username: '',
-        password: ''
+        password: '',
+        confirmpwd: ''
       },
       isSwitch: false,
       timer: undefined,
@@ -42,7 +47,13 @@ export default {
     },
     inputPwd() {
       return this.form.password
+    },
+    inputConfirmpwd() {
+      return this.form.confirmpwd
     }
+  },
+  mounted() {
+    this.formType = this.$route.params.type || 'sign_in'
   },
   methods: {
     submitForm() {
@@ -52,7 +63,18 @@ export default {
           message: '用户名和密码不能为空'
         })
       } else {
-        this.$axios.$post('/api/user/login', this.form).then(res => {
+        const type = {
+          'sign_in': 'login',
+          'sign_up': 'register'
+        }[this.formType]
+        if (type === 'register' && this.inputConfirmpwd !== this.inputPwd) {
+          this.$message({
+            type: 'error',
+            message: '两次输入密码不一致'
+          })
+          return
+        }
+        this.$axios.$post(`/api/user/${ type }`, this.form).then(res => {
           localStorage.setItem('authorization', res)
           this.$router.push({
             path: this.$store.state.lastRoute
@@ -64,7 +86,7 @@ export default {
         }).catch(error => {
           this.$message({
             type: 'error',
-            message: error.message
+            message: error
           })
         })
       }
@@ -84,7 +106,8 @@ export default {
     clearForm() {
       this.form = {
         username: '',
-        password: ''
+        password: '',
+        confirmpwd: ''
       }
     }
   }
@@ -238,6 +261,9 @@ export default {
   margin: 20px 0;
   opacity: .9;
 }
+.sign_up .form-item {
+  margin: 10px 0;
+}
 
 .switch {
   position: absolute;
@@ -308,6 +334,9 @@ export default {
   pointer-events: none;
   transition: all .4s;
 }
+.sign_up .username-shadow {
+  top: 10px;
+}
 #username:focus+.username-shadow {
   width: 40px;
 }
@@ -327,10 +356,35 @@ export default {
   pointer-events: none;
   transition: all .4s;
 }
+.sign_up .password-shadow {
+  top: 65px;
+}
 #password:focus+.password-shadow {
   width: 40px;
 }
 .password-focus {
+  width: 40px;
+}
+.confirmpwd-shadow {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top:  170px;
+  width: 100%;
+  height: 35px;
+  background-color: transparent;
+  z-index: 9;
+  pointer-events: none;
+  transition: all .4s;
+}
+.sign_up .confirmpwd-shadow {
+  top: 120px;
+}
+#confirmpwd:focus+.confirmpwd-shadow {
+  width: 40px;
+}
+.confirmpwd-focus {
   width: 40px;
 }
 
