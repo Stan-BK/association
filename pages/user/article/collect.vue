@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nuxt-child :articles="$store.state.article.articles"></nuxt-child>
+    <nuxt-child :articles="articles"></nuxt-child>
   </div>
 </template>
 <script>
@@ -12,21 +12,26 @@ export default {
     }
   },
   beforeMount() {
-    this.$store.commit('article/SET_ARTICLES', { isReset: true })
-    this.$store.dispatch('article/getCollectedArticles').then(res => {
-      this.articles = this.$store.state.article.articles
-      if (res) {
+    this.getCollectedArticles()
+  },
+  methods: {
+    getCollectedArticles() {
+      this.$axios.$get(`/api/article/collect`).then(res => {
+        if (res.length === 0) {
+          this.$message({
+            type: 'info',
+            message: '当前无收藏文章'
+          })
+        } else {
+          this.articles = res
+        }
+      }).catch(error => {
         this.$message({
-          type: 'info',
-          message: '无收藏文章'
+          type: 'error',
+          message: error
         })
-      }
-    }).catch(error => {
-      this.$message({
-        type: 'error',
-        message: error.message
       })
-    })
+    }
   }
 }
 </script>

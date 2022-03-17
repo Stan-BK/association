@@ -47,17 +47,6 @@ const actions = {
         })
       }
     })
-  },
-  getCollectedArticles({ commit }) {
-    return new Promise((resolve, reject) => {
-      this.$axios.$get(`/api/article/collect`).then(res => {
-        const articles = res
-        commit('SET_ARTICLES', { articles })
-        resolve(articles.length)
-      }).catch(error => {
-        reject(error)
-      })
-    })
   }
 }
 
