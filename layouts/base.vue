@@ -12,13 +12,15 @@
       <side-bar></side-bar>
     </aside>
     <main ref="main" @scroll="ifScroll">
-      <div class="background shadow" :style="{ backgroundImage: `url(http://source.geminikspace.com/cat.jpg)` }">
-      </div>
-      <div class="background">
-        <img src="@/assets/cat.jpg" alt="">
-      </div>
+      <template v-if="hasBackground">
+        <div class="background shadow" :style="{ backgroundImage: `url(http://source.geminikspace.com/cat.jpg)` }">
+        </div>
+        <div class="background">
+          <img src="@/assets/cat.jpg" alt="">
+        </div>
+      </template>
       <banner></banner>
-      <article>
+      <article :style="{ top: hasBackground ? '220px' : '100px' }">
         <nuxt />
       </article>
     </main>
@@ -62,11 +64,11 @@ export default {
       }
       return false
     },
-    routeName() {
-      let route = this.$route.name.split('-')[1]
-      route = route ? route[0].toUpperCase() + route.slice(1) : ''
-      return route
-    }
+    hasBackground() {
+      return this.$route.name.includes('square') ? 'square' 
+                                          : this.$route.name.includes('subarea') ? 'subarea'
+                                                                                 : false
+    },
   },
   watch: {
     $route(newRoute, oldRoute) {
@@ -82,6 +84,20 @@ export default {
       }
       this.oldRouteName = oldRoute.name
       sessionStorage.setItem('pageScrollTop', this.$refs.main.scrollTop)
+    },
+    hasBackground: {
+      handler(newValue) {
+        if (newValue) {
+          this.opacity = 1
+          this.opacityTimer = setTimeout(() => { // 两秒后将导航栏设置为透明以显示完整背景
+            this.opacity = 0
+          }, 2000)
+        } else {
+          clearTimeout(this.opacityTimer)
+          this.opacity = 1
+        }
+      },
+      immediate: true
     }
   },
   destroyed() {
@@ -91,9 +107,6 @@ export default {
   },
   mounted() {
     this.$store.commit('SET_adminRoute')
-    this.opacityTimer = setTimeout(() => { // 一秒后将导航栏设置为透明以显示完整背景
-      this.opacity = 0
-    }, 2000)
     // 当渲染该布局组件时，根据用户token进行用户信息请求
     if (localStorage.getItem('authorization') && !this.$store.state.user.user_id) {
       this.$store.dispatch('user/getInfo').then(() => {
@@ -131,9 +144,11 @@ export default {
         }, 1000)
       }
 
-      // 根据滚动高度调整顶部导航栏透明度
-      const tar = e.target
-      this.opacity = (tar.scrollTop / 150).toFixed(2)
+      if (this.hasBackground) {
+        // 根据滚动高度调整顶部导航栏透明度
+        const tar = e.target
+        this.opacity = (tar.scrollTop / 150).toFixed(2)
+      }
     }
   }
 }
