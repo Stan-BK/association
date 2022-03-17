@@ -1,14 +1,6 @@
 <template>
   <div>
-      <Article :article="article">
-        <template #title>
-          {{article.name}}
-        </template>
-         {{article.content}}
-        <template #comment>
-          {{article.comment}}
-        </template>
-      </Article>
+    <Article :article="article"></Article>
   </div>
 </template>
 <script>
@@ -29,7 +21,7 @@ export default {
   },
   beforeMount() {
     this.$axios.$get(`/api/article/${this.$route.params.id}`).then(res => {
-      this.article = res[0]
+      this.article = res
     })
   }
 }

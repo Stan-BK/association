@@ -21,7 +21,7 @@ export default {
   },
   beforeMount() {
     this.$axios.$get(`/api/announcement/${this.$route.params.id}`).then(res => {
-      this.announcement = res[0]
+      this.announcement = res
     })
   }
 }
