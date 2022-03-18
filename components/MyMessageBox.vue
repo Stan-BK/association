@@ -26,7 +26,7 @@ export default {
   props: {
     header: {
       type: String,
-      default: '提示框'
+      default: '提示'
     },
     message: {
       type: String,
