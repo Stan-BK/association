@@ -1,12 +1,17 @@
 <template>
   <div class="article">
+    <my-message-box v-show="isToLogin" @cancel="isToLogin = false" :message="'登录即可收藏，是否前往登录？'">
+      <template #footer>
+        <my-button style="background-color: deepskyblue;" @click="$router.push('/login')">确认</my-button>
+      </template>
+    </my-message-box>
     <div class="exit" @click="returnRoute">
       <svg t="1641711405491" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2296" width="16" height="16"><path d="M768.43584 896a64 64 0 1 1 0 128H192.30784c-84.608 0-143.04-31.104-171.52-93.76-18.816-41.472-21.44-75.328-20.672-165.76L0.30784 736v-448c0-8 0-14.72-0.192-28.48-0.768-90.432 1.856-124.288 20.672-165.76C49.26784 31.104 107.69984 0 192.30784 0h576.128a64 64 0 1 1 0 128H192.30784c-37.952 0-49.216 6.016-55.04 18.688-7.808 17.28-9.728 42.752-9.152 111.68L128.30784 288v448c0 8.512 0 15.424-0.192 29.632-0.64 68.928 1.344 94.4 9.216 111.68 5.76 12.672 17.024 18.688 54.976 18.688h576.128z" p-id="2297" fill="#8a8a8a"></path><path d="M761.65184 268.8a52.48 52.48 0 0 1 36.352 14.848L991.02784 476.16c9.728 9.728 15.36 23.04 15.36 36.352a51.2 51.2 0 0 1-15.36 36.352l-193.536 190.976a51.2 51.2 0 0 1-72.704-0.512 51.2 51.2 0 0 1 0.512-72.704l156.672-154.112-156.672-155.648a51.2 51.2 0 0 1 0-72.704 49.92 49.92 0 0 1 36.352-15.36z" p-id="2298" fill="#8a8a8a"></path><path d="M435.50784 460.8h487.936c28.672 0 51.2 23.04 51.2 51.2 0 28.16-23.04 51.2-51.2 51.2H435.50784c-28.672 0-51.2-23.04-51.2-51.2 0-28.16 22.528-51.2 51.2-51.2z" p-id="2299" fill="#8a8a8a"></path></svg>
     </div>
     <div class="article-header">
       <h1 class="title"><span>{{article.name}}</span></h1>
       <div class="article-author">
-        <div :class="['collect', isCollected ? 'collected': '' ]" @click="collectArticle">书签</div>
+        <div :class="['collect', isCollected ? 'collected': '' ]" @click="collectArticle">收藏</div>
         <avatar :src="article.association.avatar" :width="'30px'"></avatar>
         {{article.association.name}}
       </div>
@@ -49,7 +54,13 @@ export default {
   },
   data() {
     return {
-      isCollected: false
+      isToLogin: false,
+      collectDebounce: false
+    }
+  },
+  computed: {
+    isCollected() {
+      return this.$store.state.user.article_collect?.split(',').includes(String(this.article.article_id))
     }
   },
   methods: {
@@ -72,7 +83,29 @@ export default {
       }
     },
     collectArticle() {
-      this.isCollected = !this.isCollected
+      if (this.$store.state.user.user_id) {
+        if (!this.collectDebounce) {
+          this.collectDebounce = true
+          this.$axios[`$${ this.isCollected ? 'delete' : 'put' }`]
+            (`/api/article/collect?article_id=${ this.article.article_id }`)
+            .then(res => {
+              this.$message({
+                type: this.isCollected ? 'info' : 'success',
+                message: this.isCollected ? '取消收藏' : '收藏成功'
+              })
+              this.$store.commit("user/SET_article_collect", res)
+              this.collectDebounce = false
+            }).catch(() => {
+              this.$message({
+                type: 'error',
+                message: '收藏失败'
+              })
+              this.collectDebounce = false
+            })
+        }
+      } else {
+        this.isToLogin = true
+      }
     },
     returnRoute() {
       this.$router.back()

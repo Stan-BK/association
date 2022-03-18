@@ -30,6 +30,12 @@ const mutations = {
     for (const [key, value] of Object.entries(inital)) {
       state[key] = value
     }
+  },
+  SET_article_collect (state, collect) {
+    state.article_collect = collect
+  },
+  SET_announcement_collect (state, collect) {
+    state.announcement_collect = collect
   }
 }
 
