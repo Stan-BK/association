@@ -1,6 +1,6 @@
 <template>
   <div class="announcement">
-    <my-message-box v-show="isToLogin" @cancel="isToLogin = false" :message="'登录即可收藏，是否前往登录？'">
+    <my-message-box v-show="isToLogin" :message="'登录即可收藏，是否前往登录？'" @cancel="isToLogin = false">
       <template #footer>
         <my-button style="background-color: deepskyblue;" @click="$router.push('/login')">确认</my-button>
       </template>
@@ -21,17 +21,11 @@
     </div>
     <div class="announcement-footer">
       <div class="input-wrap">
-        <my-input placeholder="请输入内容" btn="'has'"></my-input>
-      </div>
-      <div class="utils-wrap">      
-        <i class="fa fa-thumbs-up" aria-hidden="true" @click="thumb"></i>
-        <i class="fa fa-star fa-star-o" aria-hidden="true" @click="star"></i>
+        <my-input placeholder="抒发您的意见~" btn="评论"></my-input>
       </div>
     </div>
     <div class="announcement-comment">
-      <div class="comment">
-        <slot name="comment"><h3 style="text-align: center;">当前无评论</h3></slot>
-      </div>
+      <comment topic-type="announcement" :topic-id="announcement.announcement_id"></comment>
     </div>
   </div>
 </template>
@@ -64,24 +58,6 @@ export default {
     }
   },
   methods: {
-    thumb(e) {
-      const tar = e.target
-      const index = tar.className.indexOf('fa-thumbs-o-up')
-      if (index === -1) {
-        tar.className += ' fa-thumbs-o-up'
-      } else {
-        tar.className = tar.className.slice(0, index - 1)
-      }
-    },
-    star(e) {
-      const tar = e.target
-      const index = tar.className.indexOf('fa-star-o')
-      if (index === -1) {
-        tar.className += ' fa-star-o'
-      } else {
-        tar.className = tar.className.slice(0, index - 1)
-      }
-    },
     collectAnnouncement() {
       if (this.$store.state.user.user_id) {
         if (!this.collectDebounce) {
@@ -274,16 +250,10 @@ export default {
   align-items: center;
   justify-content: center;
   user-select: none;
-  margin-bottom: 20px;
 }
 .input-wrap {
   float: left;
   width: calc(60%);
-}
-.utils-wrap {
-  float: left;
-  width: 40px;
-  margin-left: 10px;
 }
 .fa {
   cursor: pointer;
