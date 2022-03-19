@@ -1,8 +1,17 @@
 <template>
   <div class="no-data">
-    <span><slot>没有内容</slot></span>
+    <span :style="{ color }"><slot>没有内容</slot></span>
   </div>
 </template>
+<script>
+export default {
+  props: {
+    color: {
+      type: String,
+      default: 'rgba(61, 183, 240, 0.363);'
+    }
+  }
+}</script>
 <style>
 .no-data {
   width: 100%;
