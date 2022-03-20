@@ -19,11 +19,6 @@
     <div class="announcement-content">
       <iframe :srcdoc="announcement.content" frameborder="0" width="100%"></iframe>
     </div>
-    <div class="announcement-footer">
-      <div class="input-wrap">
-        <my-input placeholder="抒发您的意见~" btn="评论"></my-input>
-      </div>
-    </div>
     <div class="announcement-comment">
       <comment topic-type="announcement" :topic-id="announcement.announcement_id"></comment>
     </div>
@@ -243,14 +238,6 @@ export default {
   margin-bottom: 20px;
 }
 
-.announcement-footer {
-  display: flex;
-  width: 100%;
-  padding: 10px;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
-}
 .input-wrap {
   float: left;
   width: calc(60%);

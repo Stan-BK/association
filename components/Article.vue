@@ -19,11 +19,6 @@
     <div class="article-content">
       <iframe :srcdoc="article.content" frameborder="0" width="100%"></iframe>
     </div>
-    <div class="article-footer">
-      <div class="input-wrap">
-        <my-input placeholder="抒发您的意见~" btn="评论"></my-input>
-      </div>
-    </div>
     <div class="article-comment">
       <comment topic-type="article" :topic-id="article.article_id"></comment>
     </div>
@@ -243,15 +238,6 @@ export default {
   margin-bottom: 20px;
 }
 
-.article-footer {
-  display: flex;
-  width: 100%;
-  padding: 10px;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
-  margin-bottom: 20px;
-}
 .input-wrap {
   float: left;
   width: calc(60%);

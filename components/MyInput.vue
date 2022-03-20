@@ -1,12 +1,16 @@
 <template>
   <div class="my-input-wrap">
-    <input v-model="content" :placeholder="placeholder" :type="type" :class="['my-input', btn ? 'has-btn' : '']" @input="edit">
+    <input :value="value" :placeholder="placeholder" :type="type" :class="['my-input', btn ? 'has-btn' : '']" @input="edit">
     <button v-if="btn" class="btn" @click="submit">{{ btn }}</button>
   </div>
 </template>
 <script>
 export default {
   props: {
+    value: {
+      type: String,
+      default: ''
+    },
     placeholder: {
       type: String,
       default: ''
@@ -24,14 +28,10 @@ export default {
       default: 'rgb(236, 250, 253)'
     }
   },
-  data() {
-    return {
-      content: ''
-    }
-  },
   methods: {
-    edit() {
-      this.$emit('input', this.content)
+    edit(event) {
+      const target = event.target
+      this.$emit('input', target.value)
     },
     submit() {
       this.$emit('click')

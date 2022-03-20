@@ -1,5 +1,13 @@
 <template>
   <div class="comment">
+    <my-message-box v-show="isToLogin" :message="'登录即可评论，是否前往登录？'" @cancel="isToLogin = false">
+      <template #footer>
+        <my-button style="background-color: deepskyblue;" @click="$router.push('/login')">确认</my-button>
+      </template>
+    </my-message-box>
+    <div class="comment-content">
+      <my-input placeholder="抒发您的意见~" btn="评论" :value="commentContent" @click="submitComment" @input="editComment"></my-input>
+    </div>
     <no-data v-if="commentLen === 0" style="transform: scale(.6, .6);opacity: .4;" color="#424242">--没有评论--</no-data>
     <template v-else>
       <div class="comment-total">共{{commentLen}}条评论</div>
@@ -16,12 +24,12 @@
           <span @click="replyFormShow(item, $event)">回复</span>
         </div>
         <template v-if="item.children">
-          <div v-for="child of item.children" class="comment-item sub-comment-item" :key="child.comment_id">
+          <div v-for="child of item.children" :key="child.comment_id" class="comment-item sub-comment-item">
             <div style="float: left">
               <avatar style="vertical-align: middle; margin:0 5px;" :src="child.user.avatar" width="40px" height="40px"></avatar>
             </div>
             <div style="margin: 5px 0px 0px 40px; min-height: 40px; line-height:30px;">
-              <span>{{ child.user.nickname }}:</span> 
+              <span>{{ child.user.nickname }}{{ getReplyTo(child) }}:</span> 
               <span>{{ child.content }}</span>
               <span style="margin: 4px; float: right;">{{ getTime(child.createdAt) }}</span>
             </div>
@@ -33,7 +41,7 @@
       </div>
     </template>
     <div v-show="isReply" ref="replyForm" class="reply-form">
-      <my-input :placeholder="'回复 ' + replyTo.user.nickname" btn="回复" @click="reply" @input="editReply"></my-input>
+      <my-input :placeholder="'回复 ' + replyTo.user.nickname" btn="回复" :value="replyContent" @click="reply" @input="editReply"></my-input>
     </div>
   </div>
 </template>
@@ -54,13 +62,16 @@ export default {
   data() {
     return {
       comment: {},
+      rawComment: {},
       isReply: false,
+      isToLogin: false,
       replyTo: {  // 初始化回复对象信息
         user: {
           nickname: ''
         }
       },
-      replyContent: ''
+      replyContent: '',
+      commentContent: ''
     }
   },
   computed: {
@@ -79,6 +90,7 @@ export default {
         const comment = {}
         res.forEach(item => {
           comment[item.comment_id] = item
+          this.rawComment[item.comment_id] = item
         })
         for (const item of Object.keys(comment)) {
           const parent = comment[item].parent_id
@@ -111,23 +123,75 @@ export default {
       target.parentNode.appendChild(replyForm) // 将评论框移动到相应评论下
     },
     reply() {
-      const parentId = this.replyTo.parent_id
+      if (!this.$store.state.user.user_id) {
+        this.isToLogin = true
+        return
+      }
+      if (!this.validate(this.replyContent)) {
+        return
+      }
+      const parentId = this.replyTo.parent_id || this.replyTo.comment_id
       const form = {
         topic_type: this.topicType,
         topic_id: this.topicId,
         parent_id: parentId,
+        reply_to:  this.replyTo.parent_id ? this.replyTo.comment_id : -1,
         content: this.replyContent
+      }
+      this.$axios.$put('/api/comment', form).then(res => {
+        this.$message({
+          type: 'success',
+          message: '回复成功'
+        })
+        this.replyContent = ''
+        this.isReply = false
+        this.getComment()
+      })
+    },
+    editReply(content) {
+      this.replyContent = content
+    },
+    submitComment() {
+      if (!this.$store.state.user.user_id) {
+        this.isToLogin = true
+        return
+      }
+      if (!this.validate(this.commentContent)) {
+        return
+      }
+      const form = {
+        topic_type: this.topicType,
+        topic_id: this.topicId,
+        parent_id: null,
+        reply_to:  -1,
+        content: this.commentContent
       }
       this.$axios.$put('/api/comment', form).then(res => {
         this.$message({
           type: 'success',
           message: '评论成功'
         })
+        this.commentContent = ''
         this.getComment()
       })
     },
-    editReply(content) {
-      this.replyContent = content
+    editComment(content) {
+      this.commentContent = content
+    },
+    getReplyTo(comment) {
+      if (comment.reply_to > 0) {
+        return ' 回复 ' + this.rawComment[comment.reply_to].user.nickname
+      }
+    },
+    validate(content) {
+      if (content.length > 100) {
+        this.$message({
+          type: 'info',
+          message: '评论不能超过100字'
+        })
+        return false
+      }
+      return true
     }
   }
 }
@@ -148,6 +212,10 @@ span {
   border-bottom: 1px solid #eee;
   padding-top: 4px;
   padding-bottom: 10px;
+}
+.comment-content {
+  margin-top: 20px;
+  margin-bottom: 40px;
 }
 .comment-item:last-child {
   border-bottom: none;
