@@ -136,6 +136,7 @@ export default {
         topic_id: this.topicId,
         parent_id: parentId,
         reply_to:  this.replyTo.parent_id ? this.replyTo.comment_id : -1,
+        notice_to: this.replyTo.user.user_id,
         content: this.replyContent
       }
       this.$axios.$put('/api/comment', form).then(res => {
