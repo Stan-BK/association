@@ -36,6 +36,9 @@ const mutations = {
   },
   SET_announcement_collect (state, collect) {
     state.announcement_collect = collect
+  },
+  SET_has_new_notice (state, hasNewNotice) {
+    state.hasNewNotice = hasNewNotice
   }
 }
 

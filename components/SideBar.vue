@@ -1,7 +1,10 @@
 <template>
   <div class="side-bar">
     <ul v-if="!!$store.state.user.user_id" class="bar-list">
-      <li v-for="item of bar_item" :key="item.path"><nuxt-link :class="item.active ? 'active': ''" :to="item.path">{{item.name}}</nuxt-link></li>
+      <li v-for="item of bar_item" :key="item.path">
+        <nuxt-link :class="item.active ? 'active': ''" :to="item.path">{{item.name}}</nuxt-link>
+        <div v-if="item.name === '消息通知' && $store.state.user.hasNewNotice" class="new-notice">new</div>
+      </li>
     </ul>
     <div v-else class="login-bar" @mouseenter="toLoginForm" @mouseleave="fromLoginForm">
       <div class="info" :style="{
@@ -42,8 +45,8 @@ export default {
           active: false
         },
         {
-          name: '消息',
-          path: '2',
+          name: '消息通知',
+          path: '/user/notice',
           active: false
         }, 
         {
@@ -253,5 +256,19 @@ export default {
   100% {
     opacity: 1;
   }
+}
+.new-notice {
+  position: absolute;
+  width: 44px;
+  height: 18px;
+  background-color: red;
+  right: 0;
+  top: 6px;
+  color: white;
+  font-size: .7em;
+  line-height: 15px;
+  text-align: center;
+  border-radius: 15px;
+  transition: all .2s;
 }
 </style>
