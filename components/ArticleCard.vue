@@ -1,5 +1,6 @@
 <template>
   <div class="article-card">
+    <slot></slot>
     <div class="photo">
       <div class="shadow"></div>
       <div v-if="!imgLoad" class="no-photo">No photo</div>
@@ -50,7 +51,7 @@ export default {
   width: 30%;
   height: 300px;
   min-width: 200px;
-  max-width: 225px;
+  max-width: 300px;
   margin: 0 10px 10px;
   cursor: pointer;
   box-shadow: 2px 2px 10px rgb(86, 204, 238);

@@ -1,11 +1,7 @@
 <template>
   <div>
     <no-data v-if="announcements.length === 0">空空如也~快去逛逛吧</no-data>
-    <template v-else v-for="(item, index) of announcements">
-      <nuxt-link :key="index"  :to="'collect/' + item.announcement_id">
-        <announcement-card :announcement="item"></announcement-card>
-      </nuxt-link>
-    </template>
+    <item-display v-else item-type="announcement" :item-set="announcements" href="collect/"></item-display>
   </div>
 </template>
 <script>

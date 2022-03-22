@@ -48,7 +48,7 @@ export default {
   width: 30%;
   height: 300px;
   min-width: 200px;
-  max-width: 225px;
+  max-width: 300px;
   margin: 10px 10px;
   cursor: pointer;
   box-shadow: 2px 2px 10px rgb(86, 204, 238);

@@ -1,11 +1,7 @@
 <template>
-  <div>
+  <div class="flex">
     <no-data v-if="articles.length === 0">--广场内还没有文章喔--</no-data>
-    <template v-else v-for="(item, index) of articles">
-      <nuxt-link :key="index"  :to="'article/' + item.article_id">
-        <article-card :article="item"></article-card>
-      </nuxt-link>
-    </template>
+    <item-display v-else item-type="article" :item-set="articles" href="article/"></item-display>
   </div>
 </template>
 <script>
@@ -20,3 +16,20 @@ export default {
   }
 }
 </script>
+<style scoped>
+
+.flex {
+  display: flex;
+  /* justify-content: space-around; */
+  gap: 20px;
+  flex-wrap: wrap;
+}
+a {
+  width: 100%; 
+  height: 100%;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+</style>
