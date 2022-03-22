@@ -13,10 +13,10 @@
     </aside>
     <main ref="main" @scroll="ifScroll">
       <template v-if="hasBackground">
-        <div class="background shadow" :style="{ backgroundImage: `url(http://source.geminikspace.com/cat.jpg)` }">
-        </div>
+        <img class="background shadow" :src="$store.state.background" @error="loadBackground">
         <div class="background">
-          <img src="@/assets/cat.jpg" alt="">
+          <img :src="$store.state.background" alt=""  @error="loadBackground">
+          <h1 v-if="$route.path.includes('square')">社团广场</h1>
         </div>
       </template>
       <banner></banner>
@@ -149,6 +149,9 @@ export default {
         const tar = e.target
         this.opacity = (tar.scrollTop / 150).toFixed(2)
       }
+    },
+    loadBackground() {
+      this.$store.commit('SET_reset_background')
     }
   }
 }
@@ -173,6 +176,16 @@ header:hover {
   top: -60px;
   overflow: hidden;
   text-align: center;
+  user-select: none;
+}
+.background h1 {
+  position: absolute;
+  color: rgb(255, 255, 255);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 0);
+  text-shadow: 2px 2px 4px white, -2px -2px 4px white;
+  letter-spacing: 5px;
 }
 .shadow {
   filter: blur(10px);
@@ -183,12 +196,6 @@ header:hover {
 .background img {
   height: 100%;
   filter: blur(1px);
-}
-@media screen and (max-width: 540px) {
-  .background {
-    
-    background-size: 100% 100%;
-  }
 }
 main {
   position: relative;

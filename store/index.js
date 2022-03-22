@@ -17,7 +17,8 @@ const state = () => {
         child: []
       }
     ],
-    isDarkMode: false
+    isDarkMode: false,
+    background: 'http://source.geminikspace.com/background.jpg'
   }
 }
 
@@ -64,6 +65,9 @@ const mutations = {
     } else {
       state.routes[2] && state.routes.pop()
     }
+  },
+  SET_reset_background(state) {
+    state.background = 'http://source.geminikspace.com/background.jpg'
   }
 }
 
