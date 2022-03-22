@@ -13,9 +13,9 @@
     </aside>
     <main ref="main" @scroll="ifScroll">
       <template v-if="hasBackground">
-        <img class="background shadow" :src="$store.state.background" @error="loadBackground">
+        <img class="background shadow" src="http://source.geminikspace.com/background.jpg" @error="loadBackground" ref="shadow">
         <div class="background">
-          <img :src="$store.state.background" alt=""  @error="loadBackground">
+          <img src="http://source.geminikspace.com/background.jpg" alt=""  @error="loadBackground" ref="background">
           <h1 v-if="$route.path.includes('square')">社团广场</h1>
         </div>
       </template>
@@ -98,6 +98,12 @@ export default {
         }
       },
       immediate: true
+    },
+    '$store.state.background': {
+      handler(newValue) {// 重载src以保证加载失败时触发img标签的onerror事件
+        this.$refs.shadow.src = newValue
+        this.$refs.background.src = newValue
+      }
     }
   },
   destroyed() {

@@ -66,6 +66,9 @@ const mutations = {
       state.routes[2] && state.routes.pop()
     }
   },
+  SET_background(state, background) {
+    state.background = background
+  },
   SET_reset_background(state) {
     state.background = 'http://source.geminikspace.com/background.jpg'
   }

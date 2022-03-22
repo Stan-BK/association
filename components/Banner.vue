@@ -28,6 +28,7 @@ export default {
               for (const i of Object.keys(data)) {
                 this.info[i] = data[i]
               }
+              this.$store.commit('SET_background', data.avatar)
             })
           }
           this.isShow = true
