@@ -202,6 +202,7 @@ span {
   color: #424242;
 }
 .comment-total {
+  width: fit-content;
   color: #424242;
   transform: scale(.9, .9);
   border-bottom: 1px solid #eee;

@@ -52,7 +52,7 @@ export default {
   border-radius: 2px;
   padding-left: 10px;
   padding-right: 10px;
-  transition: all .5s;
+  transition: all .3s;
   box-shadow: 1px 1px 1px transparent;  
 }
 .my-input:focus {
@@ -69,9 +69,9 @@ export default {
   height: 20px;
   right: 5px;
   top: 5px;
-  color: #424242;
+  color: #424242bd;
   background-color: rgb(236, 250, 253);
-  transition: all .5s;
+  transition: all .2s;
   cursor: pointer;
   border: none;
   border-radius: 1px;

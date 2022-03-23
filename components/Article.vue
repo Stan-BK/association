@@ -19,6 +19,7 @@
     <div class="article-content">
       <iframe :srcdoc="article.content" frameborder="0" width="100%"></iframe>
     </div>
+    <hr style="width: 100%; height: 4px; background: linear-gradient(to right, #fff, rgba(170, 170, 170, .1), #fff); border: none">
     <div class="article-comment">
       <comment topic-type="article" :topic-id="article.article_id"></comment>
     </div>
@@ -88,7 +89,7 @@ export default {
 .article {
   position: relative;
   width: 100%;
-  background-color: rgb(236, 250, 253);
+  background-color: #fff;
   margin-bottom: 20px;
   border-radius: 2px;
   box-shadow: 2px 2px 10px rgb(86, 204, 238);

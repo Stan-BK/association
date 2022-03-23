@@ -19,6 +19,7 @@
     <div class="announcement-content">
       <iframe :srcdoc="announcement.content" frameborder="0" width="100%"></iframe>
     </div>
+    <hr style="width: 100%; height: 4px; background: linear-gradient(to right, #fff, rgba(170, 170, 170, .1), #fff); border: none">
     <div class="announcement-comment">
       <comment topic-type="announcement" :topic-id="announcement.announcement_id"></comment>
     </div>
