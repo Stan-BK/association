@@ -20,7 +20,7 @@
         </div>
       </template>
       <banner></banner>
-      <article :style="{ top: hasBackground ? '220px' : '100px' }">
+      <article :style="{ top: hasBackground ? '250px' : '100px' }">
         <nuxt />
       </article>
     </main>
@@ -183,6 +183,8 @@ header:hover {
   overflow: hidden;
   text-align: center;
   user-select: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.747);
+  box-shadow: 1px 1px 10px #fff;
 }
 .background h1 {
   position: absolute;
