@@ -138,10 +138,11 @@ export default {
         this.isToTop = false
       }, 1000)
     },
-    ifScroll(e) { 
+    ifScroll(e) {
       clearTimeout(this.opacityTimer)
       // 判断页面滚动距离，调整“回到顶部”按钮的显示
       clearTimeout(this.scrollTime)
+      if (this._isDestroyed) return
       if (this.$refs.main.scrollTop > 0) {
         this.hasScroll = true
       } else {
