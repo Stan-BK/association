@@ -130,6 +130,7 @@ export default {
       const editor = this.$refs.editor.editor
       const imgArr = editor.getWin().document.getElementsByTagName('img')
       const srcMap = new Map()
+      const source = this.$route.params
       try {
         if (imgArr) {
           slice(imgArr).forEach(item => {
@@ -145,11 +146,14 @@ export default {
           })
         }
         const content = editor.getWin().document.body.innerHTML // 表单中的内容字段通过操作dom直接获取
-        const uploadType = 'put'
+        const uploadType = source.source ? 'post' : 'put'
         const formData = new FormData()
         const form = this.form
         if (form.name.trim() === '') {
           throw new Error('标题不能为空')
+        }
+        if (source.source) {
+          formData.append(source.sourceType + '_id', source.source)
         }
         formData.append('association_id', this.$store.state.user.associationAssociationId)
         formData.append('name',  form.name)
