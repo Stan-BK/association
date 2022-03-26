@@ -13,14 +13,15 @@
     </aside>
     <main ref="main" @scroll="ifScroll">
       <template v-if="hasBackground">
-        <img class="background shadow" src="http://source.geminikspace.com/background.jpg" @error="loadBackground" ref="shadow">
+        <img ref="shadow" class="background shadow" src="http://source.geminikspace.com/background.jpg" @error="loadBackground">
         <div class="background">
-          <img src="http://source.geminikspace.com/background.jpg" alt=""  @error="loadBackground" ref="background">
+          <img ref="background" src="http://source.geminikspace.com/background.jpg"  alt="" @error="loadBackground">
           <h1 v-if="$route.path.includes('square')">社团广场</h1>
         </div>
       </template>
       <banner></banner>
-      <article :style="{ top: hasBackground ? '250px' : '100px' }">
+      <search v-show="hasBackground" style="top: 220px; left: 50%; transform: translate(-50%, 0)"></search>
+      <article :style="{ top: hasBackground ? '270px' : '100px' }">
         <nuxt />
       </article>
     </main>
@@ -34,6 +35,7 @@
 import { Route, Logo, UserStatus } from '@/components/header'
 import ToTop from '~/components/ToTop.vue'
 import Message from '~/components/Message.vue'
+import Search from '~/components/Search.vue'
 
 export default {
   components: {
@@ -41,8 +43,9 @@ export default {
     Logo,
     UserStatus,
     ToTop,
-    Message
-  },
+    Message,
+    Search
+},
   data() {
     return {
       isToTop: false, // 是否开启“回到顶部”按钮的动画
