@@ -53,7 +53,7 @@ export default {
         }, 
         {
           name: '设置',
-          path: '3',
+          path: '/user/setting',
           active: false
         }],
       carousel_item: [
