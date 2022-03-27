@@ -72,7 +72,7 @@ input {
   border-radius: 25px;
   border: none;
   transition: all .4s;
-  box-shadow: 1px 1px 1px #42424242, -1px -1px 1px #42424242;
+  box-shadow: 1px 1px 1px #eee, -1px -1px 1px #eee;
   z-index: 9;
 }
 input:focus {
