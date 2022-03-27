@@ -1,5 +1,6 @@
 <template>
   <div class="announcement-card">
+    <slot></slot>
     <div class="photo">
       <i class="fa fa-bell-o fa-5x bell" aria-hidden="true"></i>
     </div>
