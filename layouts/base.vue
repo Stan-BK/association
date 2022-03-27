@@ -20,8 +20,7 @@
         </div>
       </template>
       <banner></banner>
-      <search v-show="hasBackground" style="top: 220px; left: 50%; transform: translate(-50%, 0)"></search>
-      <article :style="{ top: hasBackground ? '270px' : '100px' }">
+      <article :style="{ top: hasBackground ? '220px' : '100px' }">
         <nuxt />
       </article>
     </main>
@@ -35,7 +34,6 @@
 import { Route, Logo, UserStatus } from '@/components/header'
 import ToTop from '~/components/ToTop.vue'
 import Message from '~/components/Message.vue'
-import Search from '~/components/Search.vue'
 
 export default {
   components: {
@@ -43,8 +41,7 @@ export default {
     Logo,
     UserStatus,
     ToTop,
-    Message,
-    Search
+    Message
 },
   data() {
     return {
