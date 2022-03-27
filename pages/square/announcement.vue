@@ -1,6 +1,8 @@
 <template>
   <div>
-    <search type="announcement" placeholder="搜索公告" style="left: 50%; transform: translate(-50%, 0);margin-bottom: 20px;" @search="isSearch = true"></search>
+    <transition name="fade">
+      <search v-show="$route.name === 'square-announcement'"  type="announcement" placeholder="搜索公告" style="left: 50%; transform: translate(-50%, 0);margin-bottom: 20px;" @search="isSearch = true"></search>
+    </transition>
     <nuxt-child :announcements="$store.state.announcement.announcements"></nuxt-child>
     <Intersection :is-need-intersection="isNeedIntersection" :type="'announcement'"></Intersection>
   </div>
@@ -24,3 +26,13 @@ export default {
   }
 }
 </script>
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
