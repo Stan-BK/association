@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="article-content">
-      <iframe :srcdoc="article.content" frameborder="0" width="100%"></iframe>
+      <iframe ref="content" :srcdoc="article.content" frameborder="0" width="100%" @load="initIframeHeight"></iframe>
     </div>
     <hr style="width: 100%; height: 4px; background: linear-gradient(to right, #fff, rgba(170, 170, 170, .1), #fff); border: none">
     <div class="article-comment">
@@ -81,6 +81,11 @@ export default {
     },
     returnRoute() {
       this.$router.back()
+    },
+    initIframeHeight() {
+      const iframe = this.$refs.content
+      iframe.contentWindow.document.body.style.overflow = 'hidden'
+      iframe.style.height = iframe.contentWindow.document.body.offsetHeight + 'px'
     }
   }
 }
@@ -100,7 +105,6 @@ export default {
   position: relative;
   width: 100%;
   padding: 20px 50px 10px;
-  margin-bottom: 20px;
   z-index: 9;
 }
 .article-header::before {
@@ -204,10 +208,11 @@ export default {
 .collected {
   color: transparent;
   height: 128px;
-  background-color: brown;
+  background-color: rgb(86, 204, 238);
 }
 .collected::after {
-  border-bottom-color: rgb(236, 250, 253) !important;
+  border-bottom-color: #fff !important;
+  transition: all .6s;
 }
 .collect::after {
   position: absolute;
@@ -218,6 +223,7 @@ export default {
   bottom: 0;
   border: 10px solid transparent;
   border-bottom-color: #fff;
+  transition: all .6s;
 }
 .avatar {
   display: inline-block;

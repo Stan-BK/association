@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="announcement-content">
-      <iframe :srcdoc="announcement.content" frameborder="0" width="100%"></iframe>
+      <iframe ref="content" :srcdoc="announcement.content" frameborder="0" width="100%"></iframe>
     </div>
     <hr style="width: 100%; height: 4px; background: linear-gradient(to right, #fff, rgba(170, 170, 170, .1), #fff); border: none">
     <div class="announcement-comment">
@@ -81,6 +81,11 @@ export default {
     },
     returnRoute() {
       this.$router.back()
+    },
+    initIframeHeight() {
+      const iframe = this.$refs.content
+      iframe.contentWindow.document.body.style.overflow = 'hidden'
+      iframe.style.height = iframe.contentWindow.document.body.offsetHeight + 'px'
     }
   }
 }
@@ -89,7 +94,7 @@ export default {
 .announcement {
   position: relative;
   width: 100%;
-  background-color: rgb(236, 250, 253);
+  background-color: #fff;
   margin-bottom: 20px;
   border-radius: 2px;
   box-shadow: 2px 2px 10px rgb(86, 204, 238);
@@ -100,7 +105,6 @@ export default {
   position: relative;
   width: 100%;
   padding: 20px 50px 10px;
-  margin-bottom: 20px;
   z-index: 9;
 }
 .announcement-header::before {
@@ -204,10 +208,10 @@ export default {
 .collected {
   color: transparent;
   height: 128px;
-  background-color: brown;
+  background-color: rgb(86, 204, 238);
 }
 .collected::after {
-  border-bottom-color: rgb(236, 250, 253) !important;
+  border-bottom-color: #fff !important;
 }
 .collect::after {
   position: absolute;
