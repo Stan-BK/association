@@ -30,7 +30,9 @@
       
     </div>
     <div class="carousel" @mouseenter="stopCarousel" @mouseleave="runCarousel">
-      <div v-for="(item, index) of carousel_item" :key="item" class="carousel-item" :style="{ backgroundColor: item }" :class="{ 'active-class': activeItem === index }">{{item}}</div>
+      <div v-for="(item, index) of carousel_item" :key="item" class="carousel-item" :class="{ 'active-class': activeItem === index }">
+        <img :src="item" alt="" style="width: 100%;height: 100%">
+      </div>
     </div>
   </div>
 </template>
@@ -39,11 +41,6 @@ export default {
   data() {
     return {
       bar_item: [
-        {
-          name: '特别关注',
-          path: '1',
-          active: false
-        },
         {
           name: '消息通知',
           path: '/user/notice',
@@ -59,7 +56,11 @@ export default {
           path: '3',
           active: false
         }],
-      carousel_item: ['red', 'green', 'yellow', 'pink'],
+      carousel_item: [
+        'https://img2.baidu.com/it/u=3952326976,269295288&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400',
+        'https://img1.baidu.com/it/u=2740011985,4004257858&fm=253&fmt=auto&app=138&f=JPEG?w=463&h=1000',
+        'https://img1.baidu.com/it/u=3380785869,2350013050&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=580',
+         ],
       activeItem: 0,
       t: undefined,
       item: Array.from({ length: 15 }),
@@ -221,7 +222,7 @@ export default {
   position: relative;
   width: 100%;
   padding: 10px;
-  height: calc(100% - 147px);
+  height: calc(100% - 117px);
   margin-top: 20px;
 }
 .carousel-item {
@@ -233,7 +234,8 @@ export default {
   left: 10px;
   text-align: center;
   cursor: pointer;
-  border-radius: 2px;
+  border-radius: 4px;
+  overflow: hidden;
 }
 .active-class {
   display: block;
