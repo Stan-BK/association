@@ -3,8 +3,8 @@
     <no-data v-if="notice.length === 0" color="#66666610">没有新的消息通知</no-data>
     <template v-else>
       <div v-for="item of notice" :key="item.notice_id" @click="toNoticePlace(item)" class="notice-item">
-        <div style="float: left">
-          <avatar style="vertical-align: middle; margin:0 5px;" :src="item.from.user.avatar" width="50px" height="50px"></avatar>
+        <div style="float: left; height: 60px;">
+          <avatar style="vertical-align: middle; margin:5px 5px;" :src="item.from.user.avatar" width="50px" height="50px"></avatar>
         </div>
         <div class="notice-content">
           <span>{{ item.from.user.nickname }}  回复了你:</span> 
@@ -84,7 +84,7 @@ export default {
 .notice-item {
   position: relative;
   width: 100%;
-  height: 52px;
+  height: 62px;
   border: 1px solid rgba(128, 128, 128, 0.582);
   border-radius: 4px;
   overflow: hidden;
@@ -97,7 +97,7 @@ export default {
 .delete-btn {
   float: right;
   width: 0px;
-  height: 50px;
+  height: 60px;
   color: rgba(255, 0, 0, 0.616);
   background-color: #f56c6c70;
   border: #f56c6c70;
@@ -120,8 +120,8 @@ export default {
   position: relative;
   float: left;
   width: calc(100% - 120px);
-  height: 50px;
-  line-height: 50px;
+  height: 60px;
+  line-height: 60px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -130,8 +130,8 @@ export default {
 .notice-operate {
   float: right; 
   min-width: 60px;
-  height: 50px;
-  line-height: 50px;
+  height: 60px;
+  line-height: 60px;
 }
 .not-read {
   position: absolute;

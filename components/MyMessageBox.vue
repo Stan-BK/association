@@ -51,7 +51,7 @@ export default {
   z-index: 99999;
   border: 1px solid #ccc;
   box-shadow: 1px 1px 2px #ccc;
-  background-color: #fff;
+  background-color: rgb(236, 250, 253);
   border-radius: 4px;
 }
 .dark-message-box {
