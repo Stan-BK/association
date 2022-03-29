@@ -51,7 +51,7 @@ export default {
   z-index: 99999;
   border: 1px solid #ccc;
   box-shadow: 1px 1px 2px #ccc;
-  background-color: rgb(236, 250, 253);
+  background-color: #fff;
   border-radius: 4px;
 }
 .dark-message-box {
@@ -68,9 +68,6 @@ export default {
   float: right;
   cursor: pointer;
 }
-.exit:hover {
-  
-}
 .icon {
   margin-right: 5px;
 }
@@ -79,6 +76,9 @@ export default {
   padding: 20px;
 }
 .message-footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
   height: 60px;
 }
 .message-footer>div{

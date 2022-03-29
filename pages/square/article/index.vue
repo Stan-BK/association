@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <no-data v-if="articles.length === 0">--广场内还没有文章喔--</no-data>
+    <no-data v-if="articles.length === 0">--广场内还没有文章--</no-data>
     <item-display v-else item-type="article" :item-set="articles" href="article/"></item-display>
   </div>
 </template>

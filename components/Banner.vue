@@ -1,13 +1,19 @@
 <template>
-  <transition name="pop">
-    <div class="info" v-show="isShow">
-      <avatar :src="info.avatar" style="transform: scale(1.4, 1.4);"></avatar>
+  <transition name="opacity">
+    <div class="info" v-show="isShow" @click="$emit('click', $event)">
+      <avatar :src="info.avatar" style="width: 50px; height: 50px; margin-top: 4px;"></avatar>
       <span>{{info.name}}</span>
     </div>
   </transition>
 </template>
 <script>
 export default {
+  props: {
+    associationInfo: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data() {
     return {
       isShow: false,
@@ -28,7 +34,7 @@ export default {
               for (const i of Object.keys(data)) {
                 this.info[i] = data[i]
               }
-              this.$store.commit('SET_background', data.avatar)
+              this.$store.commit('association/SET_background', data.background)
             })
           }
           this.isShow = true
@@ -39,6 +45,16 @@ export default {
           }
         }
       },
+      immediate: true
+    },
+    associationInfo: {
+      handler(newValue) {
+        if (newValue.name) {
+          this.info = newValue
+          this.isShow = true
+        }
+      },
+      deep: true,
       immediate: true
     }
   },
@@ -54,36 +70,23 @@ export default {
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 60px;
-  top: 140px;
+  height: 80px;
+  top: 180px;
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
-  background-color: rgba(255, 255, 255, 0.794);
+  background-color: rgba(255, 255, 255, 0.671);
   box-shadow: 2px 0px 10px #eee;
+  color: #424242;
   overflow: hidden;
 }
-.pop-enter-active,
-.pop-leave-active {
-  transition: all .4s;
+.opacity-enter-active,
+.opacity-leave-active {
+  transition: opacity .4s;
 }
-.pop-enter {
-  top: 200px;
-  height: 0;
+.opacity-enter {
   opacity: 0;
 }
-.pop-enter-to {
-  top: 140px;
-  height: 60px;
-  opacity: 1;
-}
-.pop-leave {
-  top: 140px;
-  height: 60px;
-  opacity: 1;
-}
-.pop-leave-to {
-  top: 200px;
-  height: 0;
+.opacity-leave-to {
   opacity: 0;
 }
 </style>

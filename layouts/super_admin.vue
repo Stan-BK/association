@@ -3,9 +3,6 @@
     <header>
       <logo></logo>
       <route :routes="routes"></route>
-      <div class="toggle-wrap">
-        <toggle @change-state="toggleDarkMode"></toggle>
-      </div>
       <user-status></user-status>
     </header>
     <message></message>
@@ -26,16 +23,16 @@ export default {
     return {
       routes: [
         {
-          name: '管理',
-          path: '/admin'
+          name: '社团',
+          path: '/super_admin/association'
         },
         {
-          name: '编辑',
-          path: '/admin/edit'
+          name: '用户',
+          path: '/super_admin/edit'
         },
         {
           name: '资源',
-          path: '/admin/source'
+          path: '/super_admin /source'
         }
       ]
     }
@@ -46,12 +43,12 @@ export default {
     }
   },
   beforeMount() {
-    const user = this.$store.state.user
-    if (user.user_role) {
-      if (user.user_role === 1 || user.user_id === 1) this.$router.replace('/')
+    const user = this.$store.state.user.user_id
+    if (user) {
+      user !== 1 && this.$router.replace('/')
     } else if (localStorage.getItem('authorization')) {
       this.$store.dispatch('user/getInfo').then(res => {
-        if (res.user_role !== 2 || res.user_id === 1) {
+        if (res.user_id !== 1) {
           this.$message({
             type: 'error',
             message: '权限错误'
@@ -74,11 +71,6 @@ export default {
       this.$router.replace('/')
     }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
   },
-  methods: {
-    toggleDarkMode(isDarkMode) { // 切换白天/夜间模式
-      this.$store.commit('SET_darkMode')
-    }
-  }
 }
 </script>
 <style scoped>
@@ -93,21 +85,6 @@ export default {
 }
 .dark header {
   background: linear-gradient(#000, rgba(42, 42, 42, 0.774), #000);
-}
-.toggle-wrap {
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  float: left;
-  transform: scale(.8, .8);
-}
-@media screen and (max-width: 376px) {
-  .toggle-wrap {
-    width: 30px;
-    transform: scale(.6, .6);
-  }
 }
 header {
   position: absolute;

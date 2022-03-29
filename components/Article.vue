@@ -12,7 +12,7 @@
       <h1 class="title"><span>{{article.name}}</span></h1>
       <div class="article-author">
         <div :class="['collect', isCollected ? 'collected': '' ]" @click="collectArticle">收藏</div>
-        <avatar :src="article.association.avatar" :width="'30px'"></avatar>
+        <avatar :src="article.association.avatar"  width="30px" height="30px"></avatar>
         {{article.association.name}}
       </div>
     </div>
@@ -84,8 +84,16 @@ export default {
     },
     initIframeHeight() {
       const iframe = this.$refs.content
-      iframe.contentWindow.document.body.style.overflow = 'hidden'
-      iframe.style.height = iframe.contentWindow.document.body.offsetHeight + 'px'
+      const style = document.createElement('style')
+      style.innerHTML = `
+      *{
+        margin: 0;
+        padding: 0;
+        }
+      `
+      iframe.contentWindow.document.head.appendChild(style)
+      iframe.contentWindow.document.body.style = "overflow: hidden;margin: 0;"
+      iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px'
     }
   }
 }

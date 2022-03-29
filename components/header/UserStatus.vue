@@ -4,7 +4,7 @@
       <avatar :src="$store.state.user.avatar" :width="'60px'"  :style="{ transform: 'scale(.8, .8)' }"></avatar>
       <div class="sub-item">
         <div class="user" :title="$store.state.user.nickname">{{$store.state.user.nickname}}</div>
-        <nuxt-link to="">设置</nuxt-link>
+        <nuxt-link to="/user/setting">设置</nuxt-link>
         <nuxt-link to="" @click.native="logOut">登出</nuxt-link>
       </div>
     </template>

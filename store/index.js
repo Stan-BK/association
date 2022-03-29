@@ -61,17 +61,13 @@ const mutations = {
   },
   SET_adminRoute(state) {
     if (state.user.user_role === 2) {
-      !state.routes[2] && state.routes.push({ path: '/admin', name: '后台'})
+      !state.routes[2] && state.routes.push({ 
+        path: state.user.user_id === 1 ? '/super_admin' : '/admin',
+        name: '后台'})
     } else {
       state.routes[2] && state.routes.pop()
     }
   },
-  SET_background(state, background) {
-    state.background = background
-  },
-  SET_reset_background(state) {
-    state.background = 'http://source.geminikspace.com/background.jpg'
-  }
 }
 
 const actions = {

@@ -21,7 +21,7 @@
       </button>
     </div>
     <div class="password form-item">
-      <label for="nickname">密码</label>
+      <label for="password">密码</label>
       <div class="password-wrap">
         <input id="password" v-model="password" type="password" :disabled="!editPassword">
         <input id="confirmPwd" v-model="confirmPwd" type="password" :placeholder="editPassword ? '再次确认密码' : ''" :disabled="!editPassword" :style="{ top: editPassword ? '50px' : '0px' }">
@@ -45,6 +45,9 @@ export default {
       confirmShow: false,
       avatar: ''
     }
+  },
+  mounted() {
+    this.nickname = this.$store.state.user.nickname
   },
   methods: {
     chooseAvatar() {

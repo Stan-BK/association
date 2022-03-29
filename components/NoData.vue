@@ -11,7 +11,8 @@ export default {
       default: 'rgba(61, 183, 240, 0.363);'
     }
   }
-}</script>
+}
+</script>
 <style>
 .no-data {
   width: 100%;

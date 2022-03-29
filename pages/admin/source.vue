@@ -30,13 +30,7 @@ export default {
   data() {
     return {
       messageShow: false,
-      info: [{
-        name: 'wbk',
-        age: 21
-      }, {
-        name: 'cxk',
-        age: 22
-      }],
+      info: [],
       isArticle: true,
       deleteForm: {
         id: undefined

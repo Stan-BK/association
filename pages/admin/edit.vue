@@ -287,6 +287,7 @@ export default {
   resize: none;
   outline: none;
   border-radius: 4px;
+  padding: 4px;
 }
 
 .photo {

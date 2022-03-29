@@ -13,14 +13,14 @@
     </aside>
     <main ref="main" @scroll="ifScroll">
       <template v-if="hasBackground">
-        <img ref="shadow" class="background shadow" src="http://source.geminikspace.com/background.jpg" @error="loadBackground">
+        <img ref="shadow" class="background shadow" :src="$store.state.association.background" @error="loadBackground">
         <div class="background">
-          <img ref="background" src="http://source.geminikspace.com/background.jpg"  alt="" @error="loadBackground">
+          <img ref="background" :src="$store.state.association.background"  alt="" @error="loadBackground">
           <h1 v-if="$route.path.includes('square')">社团广场</h1>
         </div>
       </template>
       <banner></banner>
-      <article :style="{ top: hasBackground ? '220px' : '100px' }">
+      <article :style="{ top: hasBackground ? '280px' : '100px' }">
         <nuxt />
       </article>
     </main>
@@ -84,6 +84,9 @@ export default {
       }
       this.oldRouteName = oldRoute.name
       sessionStorage.setItem('pageScrollTop', this.$refs.main.scrollTop)
+      if (newRoute.name.includes('square')) {
+        this.$store.commit('association/SET_reset_background')
+      }
     },
     hasBackground: {
       handler(newValue) {
@@ -158,7 +161,8 @@ export default {
       }
     },
     loadBackground() {
-      this.$store.commit('SET_reset_background')
+      this.$store.commit('association/SET_reset_background')
+      console.log(1)
     }
   }
 }
@@ -178,7 +182,7 @@ header:hover {
 .background {
   position: absolute;
   width: 100vw;
-  height: 260px;
+  height: 320px;
   left: 0;
   top: -60px;
   overflow: hidden;
